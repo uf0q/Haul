@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم | إدارة موقع Haul</title>
+    <!-- استدعاء Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- استدعاء خط Tajawal -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <!-- أيقونات Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- استدعاء Firebase SDK (Compat) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sky: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                        },
+                        dark: {
+                            DEFAULT: '#0f172a',
+                            900: '#09090b',
+                            800: '#18181b',
+                        }
+                    },
+                    fontFamily: {
+                        tajawal: ['Tajawal', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f1f5f9;
+            color: #09090b;
+        }
+
+        .tab-btn.active {
+            background-color: #38bdf8;
+            color: #09090b;
+            font-weight: 800;
+            box-shadow: 0 4px 14px 0 rgba(56, 189, 248, 0.35);
+        }
+
+        .tab-panel {
+            display: none;
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* تنسيق حقول الإدخال */
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.875rem;
+            border: 1px solid #cbd5e1;
+            background-color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.875rem;
+            border: 1px solid #cbd5e1;
+            background-color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            outline: none;
+            resize: vertical;
+        }
+
+        .form-textarea:focus {
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- إشعار التنبيه (Toast Alert) -->
+    <div id="admin-toast" class="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-dark-900 text-white px-6 py-3.5 rounded-2xl shadow-2xl border border-sky-400/40 flex items-center gap-3 transition-all duration-300 opacity-0 pointer-events-none -translate-y-6 max-w-md w-[90%]">
+        <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <div class="flex-grow">
+            <p id="admin-toast-text" class="text-sm font-bold">تم حفظ التغييرات بنجاح!</p>
+        </div>
+    </div>
+
+    <!-- الهيدر العلوي للوحة التحكم -->
+    <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- شعار لوحة التحكم -->
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-2xl bg-dark-900 text-sky-400 flex items-center justify-center text-xl shadow-md">
+                        <i class="fa-solid fa-sliders"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-black text-xl text-dark-900">Haul</span>
+                            <span class="text-xs bg-sky-100 text-sky-600 font-bold px-2 py-0.5 rounded-full">لوحة الإدارة</span>
+                        </div>
+                        <p class="text-xs text-slate-500 font-medium">تعديل محتوى وأسعار الموقع بسهولة</p>
+                    </div>
+
+                    <!-- شارة حالة الاتصال بقاعدة بيانات Firebase -->
+                    <div id="firebase-cloud-badge" class="hidden sm:flex items-center gap-2 bg-amber-50 text-amber-700 border border-amber-200/80 px-3 py-1.5 rounded-xl text-xs font-bold mr-3">
+                        <span id="firebase-status-dot" class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                        <span id="firebase-status-text">جاري الاتصال بـ Firebase...</span>
+                    </div>
+                </div>
+
+                <!-- أزرار الإجراءات السريعة في الهيدر -->
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <a href="index.html" target="_blank" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-dark-900 text-xs sm:text-sm font-bold flex items-center gap-2 transition-all">
+                        <i class="fa-solid fa-arrow-up-right-from-square text-sky-500"></i>
+                        <span class="hidden sm:inline">معاينة الموقع</span>
+                        <span class="sm:hidden">الموقع</span>
+                    </a>
+                    <button onclick="saveAllSettings()" class="px-5 py-2.5 rounded-xl bg-dark-900 hover:bg-sky-400 hover:text-dark-900 text-white text-xs sm:text-sm font-extrabold flex items-center gap-2 transition-all shadow-md active:scale-95">
+                        <i class="fa-solid fa-cloud-arrow-up text-sky-400 group-hover:text-dark-900"></i>
+                        <span>حفظ التعديلات</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6">
+
+        <!-- شريط التعليمات والإرشادات السريعة -->
+        <div class="bg-gradient-to-r from-sky-50 to-white border border-sky-200 p-4 sm:p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3.5">
+                <div class="w-10 h-10 rounded-xl bg-sky-400 text-dark-900 flex items-center justify-center text-lg shrink-0">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-extrabold text-dark-900">تحكم كامل وفوري بموقعك</h3>
+                    <p class="text-xs text-slate-600 mt-0.5">عدل أي نص أو رقم هاتف أو سعر ثم اضغط "حفظ التعديلات"، وستتحدث صفحة الموقع مباشرة!</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 w-full sm:w-auto">
+                <button onclick="resetToDefaults()" class="w-full sm:w-auto px-3.5 py-2 rounded-xl bg-white border border-slate-200 hover:border-red-300 hover:text-red-600 text-slate-600 text-xs font-bold transition-colors flex items-center justify-center gap-1.5">
+                    <i class="fa-solid fa-rotate-left text-xs"></i>
+                    <span>استعادة الافتراضي</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- أزرار التبويبات (Tabs) -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+            <button onclick="switchTab('contact')" id="tab-btn-contact" class="tab-btn active px-5 py-3 rounded-2xl font-bold text-sm bg-white text-slate-600 hover:text-dark-900 transition-all shrink-0 flex items-center gap-2 border border-slate-200/80">
+                <i class="fa-solid fa-phone"></i>
+                <span>الاتصال والمواعيد</span>
+            </button>
+            <button onclick="switchTab('hero')" id="tab-btn-hero" class="tab-btn px-5 py-3 rounded-2xl font-bold text-sm bg-white text-slate-600 hover:text-dark-900 transition-all shrink-0 flex items-center gap-2 border border-slate-200/80">
+                <i class="fa-solid fa-house"></i>
+                <span>الرئيسية والخدمات</span>
+            </button>
+            <button onclick="switchTab('prices')" id="tab-btn-prices" class="tab-btn px-5 py-3 rounded-2xl font-bold text-sm bg-white text-slate-600 hover:text-dark-900 transition-all shrink-0 flex items-center gap-2 border border-slate-200/80">
+                <i class="fa-solid fa-tag"></i>
+                <span>الأسعار والباقات</span>
+            </button>
+            <button onclick="switchTab('about')" id="tab-btn-about" class="tab-btn px-5 py-3 rounded-2xl font-bold text-sm bg-white text-slate-600 hover:text-dark-900 transition-all shrink-0 flex items-center gap-2 border border-slate-200/80">
+                <i class="fa-solid fa-circle-user"></i>
+                <span>نبذة عني</span>
+            </button>
+        </div>
+
+        <!-- ==================== التبويب 1: الاتصال والمواعيد ==================== -->
+        <section id="tab-contact" class="tab-panel active space-y-6">
+            
+            <!-- كرت أرقام التواصل -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6">
+                <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+                    <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-address-book"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-black text-dark-900">أرقام التواصل والطلبات</h2>
+                        <p class="text-xs text-slate-500">هذه الأرقام تظهر في كامل الموقع (الهيدر، قسم الاتصال، القائمة، والتذييل)</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- رقم الهاتف الظاهر -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700">رقم الهاتف الظاهر للعملاء</label>
+                        <div class="relative">
+                            <input type="text" id="cfg-phone" class="form-input pl-10" placeholder="+968 9000 0000" dir="ltr">
+                            <i class="fa-solid fa-phone absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                        </div>
+                        <p class="text-[11px] text-slate-400">النص الذي يظهر في بطاقة الاتصال بالموقع</p>
+                    </div>
+
+                    <!-- رقم الاتصال والواتساب الفعلي (بدون مسافات) -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700">الرقم الفعلي للاتصال والواتساب (مع كود الدولة)</label>
+                        <div class="relative">
+                            <input type="text" id="cfg-phoneClean" class="form-input pl-10" placeholder="+96890000000" dir="ltr">
+                            <i class="fa-brands fa-whatsapp absolute left-3.5 top-1/2 -translate-y-1/2 text-emerald-500 text-base"></i>
+                        </div>
+                        <p class="text-[11px] text-slate-400">يستخدم لتوجيه زر الاتصال ورابط محادثة واتساب المباشرة</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- كرت ساعات العمل -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6">
+                <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+                    <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center text-lg">
+                        <i class="fa-regular fa-clock"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-black text-dark-900">ساعات وأيام العمل</h2>
+                        <p class="text-xs text-slate-500">تظهر في بطاقة ساعات العمل في صفحة نبذة عني</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700">أوقات العمل (السبت - الخميس)</label>
+                        <input type="text" id="cfg-hoursWeekdays" class="form-input" placeholder="8:00 ص - 11:30 م">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700">أوقات العمل (يوم الجمعة)</label>
+                        <input type="text" id="cfg-hoursFriday" class="form-input" placeholder="2:00 م - 12:00 ص">
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ==================== التبويب 2: الرئيسية والخدمات ==================== -->
+        <section id="tab-hero" class="tab-panel space-y-6">
+            
+            <!-- كرت البانر الترحيبي -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6">
+                <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+                    <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-bullhorn"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-black text-dark-900">الواجهة والبانر الترحيبي الرئيسي</h2>
+                        <p class="text-xs text-slate-500">العناوين والنصوص التي تظهر في أول الصفحة الرئيسية</p>
+                    </div>
+                </div>
+
+                <div class="space-y-5">
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700">الشارة الصغيرة أعلى العنوان</label>
+                        <input type="text" id="cfg-heroBadge" class="form-input" placeholder="خدمة توصيل سريعة وموثوقة">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700">العنوان الرئيسي الكبير</label>
+                        <input type="text" id="cfg-heroTitle" class="form-input" placeholder="نوصل طلباتك بكل عناية وسرعة مع Haul">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700">الوصف التعريفي للخدمة</label>
+                        <textarea id="cfg-heroDesc" rows="3" class="form-textarea" placeholder="سواء كنت تحتاج لتوصيل طلبات مطاعم، مشتريات منزلية، أو طرود خاصة، نحن هنا لخدمتك بأفضل الأسعار وأسرع وقت."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- كرت شارة التوصيل الفوري للهاتف -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6">
+                <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+                    <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-mobile-screen"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-black text-dark-900">مستطيل التوصيل الفوري (أعلى الهيدر للهواتف)</h2>
+                        <p class="text-xs text-slate-500">النصوص الموجودة بجانب أنميشن الشاحنة المتحركة في الهواتف</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700">العنوان</label>
+                        <input type="text" id="cfg-truckBadgeTitle" class="form-input" placeholder="توصيل فوري">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700">شارة الأمان</label>
+                        <input type="text" id="cfg-truckBadgeTag" class="form-input" placeholder="100% أمان">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700">الوصف الصغير</label>
+                        <input type="text" id="cfg-truckBadgeSub" class="form-input" placeholder="سريع • من الباب للباب">
+                    </div>
+                </div>
+            </div>
+
+            <!-- كروت الخدمات الثلاث -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6">
+                <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+                    <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-cubes"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-black text-dark-900">بطاقات الخدمات الثلاث</h2>
+                        <p class="text-xs text-slate-500">البطاقات المعروضة في منتصف الصفحة الرئيسية</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- خدمة 1 -->
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/70 space-y-3">
+                        <div class="flex items-center gap-2 text-sky-600 font-bold text-sm">
+                            <i class="fa-solid fa-utensils"></i>
+                            <span>الخدمة الأولى</span>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-600">عنوان الخدمة</label>
+                            <input type="text" id="cfg-serv0-title" class="form-input bg-white" placeholder="طلبات المطاعم والمقاهي">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-600">وصف الخدمة</label>
+                            <textarea id="cfg-serv0-desc" rows="3" class="form-textarea bg-white" placeholder="نستلم وجبتك المفضلة ونوصلها إليك ساخنة وبأسرع وقت ممكن."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- خدمة 2 -->
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/70 space-y-3">
+                        <div class="flex items-center gap-2 text-sky-600 font-bold text-sm">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                            <span>الخدمة الثانية</span>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-600">عنوان الخدمة</label>
+                            <input type="text" id="cfg-serv1-title" class="form-input bg-white" placeholder="مشتريات السوبرماركت">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-600">وصف الخدمة</label>
+                            <textarea id="cfg-serv1-desc" rows="3" class="form-textarea bg-white" placeholder="توصيل المقاضي والمستلزمات اليومية من المحلات التجارية إلى باب منزلك."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- خدمة 3 -->
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/70 space-y-3">
+                        <div class="flex items-center gap-2 text-sky-600 font-bold text-sm">
+                            <i class="fa-solid fa-box"></i>
+                            <span>الخدمة الثالثة</span>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-600">عنوان الخدمة</label>
+                            <input type="text" id="cfg-serv2-title" class="form-input bg-white" placeholder="الطرود والأمانات الخاصة">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-600">وصف الخدمة</label>
+                            <textarea id="cfg-serv2-desc" rows="3" class="form-textarea bg-white" placeholder="نقل الأغراض الشخصية والطرود بين الأحياء والمناطق بأمان تام."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ==================== التبويب 3: الأسعار والباقات ==================== -->
+        <section id="tab-prices" class="tab-panel space-y-6">
+            
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6">
+                <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+                    <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-money-bill-wave"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-black text-dark-900">باقات وأسعار التوصيل</h2>
+                        <p class="text-xs text-slate-500">عدل الأسعار والتفاصيل لكل فئة من باقات التوصيل</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                    <!-- باقة 1 -->
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/80 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="font-black text-sm text-dark-900">الباقة 1 (داخل المنطقة)</span>
+                            <span class="text-xs bg-slate-200 text-slate-700 px-2.5 py-0.5 rounded-full font-bold">باقة 1</span>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-600">اسم الباقة</label>
+                            <input type="text" id="cfg-price0-title" class="form-input bg-white" placeholder="داخل المنطقة">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-600">السعر</label>
+                            <input type="text" id="cfg-price0-val" class="form-input bg-white" placeholder="1.000">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-600">الوصف المختصر</label>
+                            <input type="text" id="cfg-price0-desc" class="form-input bg-white" placeholder="للمسافات القريبة أقل من 5 كم">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-600">المميزات (ميزة في كل سطر)</label>
+                            <textarea id="cfg-price0-features" rows="3" class="form-textarea bg-white text-xs"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- باقة 2 -->
+                    <div class="bg-sky-50/70 p-5 rounded-2xl border-2 border-sky-300 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="font-black text-sm text-dark-900">الباقة 2 (الأحياء المجاورة)</span>
+                            <span class="text-xs bg-sky-400 text-dark-900 px-2.5 py-0.5 rounded-full font-black">الأكثر طلباً</span>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-600">اسم الباقة</label>
+                            <input type="text" id="cfg-price1-title" class="form-input bg-white" placeholder="الأحياء المجاورة">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-600">السعر</label>
+                            <input type="text" id="cfg-price1-val" class="form-input bg-white" placeholder="1.500 - 2.000">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-600">الوصف المختصر</label>
+                            <input type="text" id="cfg-price1-desc" class="form-input bg-white" placeholder="للمسافات المتوسطة من 5 إلى 15 كم">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-600">المميزات (ميزة في كل سطر)</label>
+                            <textarea id="cfg-price1-features" rows="3" class="form-textarea bg-white text-xs"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- باقة 3 -->
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/80 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="font-black text-sm text-dark-900">الباقة 3 (مشوار خاص)</span>
+                            <span class="text-xs bg-slate-200 text-slate-700 px-2.5 py-0.5 rounded-full font-bold">باقة 3</span>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-600">اسم الباقة</label>
+                            <input type="text" id="cfg-price2-title" class="form-input bg-white" placeholder="مشوار خاص / بعيد">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-600">السعر</label>
+                            <input type="text" id="cfg-price2-val" class="form-input bg-white" placeholder="3.000+">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-600">الوصف المختصر</label>
+                            <input type="text" id="cfg-price2-desc" class="form-input bg-white" placeholder="للمناطق البعيدة والمشاوير الخاصة">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-600">المميزات (ميزة في كل سطر)</label>
+                            <textarea id="cfg-price2-features" rows="3" class="form-textarea bg-white text-xs"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ملاحظة النقاط الإضافية -->
+                <div class="pt-4 border-t border-slate-100">
+                    <label class="block text-xs font-bold text-slate-700 mb-2">ملاحظة نقطة الاستلام الإضافية</label>
+                    <input type="text" id="cfg-extraStopNote" class="form-input" placeholder="في حال رغبتك بالمرور على أكثر من محل في نفس الطلب، تضاف 0.500 ر.ع فقط لكل نقطة إضافية.">
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ==================== التبويب 4: نبذة عني ==================== -->
+        <section id="tab-about" class="tab-panel space-y-6">
+            
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6">
+                <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+                    <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-address-card"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-black text-dark-900">صفحة نبذة عني (من نحن)</h2>
+                        <p class="text-xs text-slate-500">التعريف بالخدمة وركائز العمل ومميزاتها</p>
+                    </div>
+                </div>
+
+                <div class="space-y-5">
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700">عنوان القسم</label>
+                        <input type="text" id="cfg-aboutTitle" class="form-input" placeholder="نبذة عن خدمة Haul للتوصيل">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700">النص التعريفي الكامل</label>
+                        <textarea id="cfg-aboutDesc" rows="4" class="form-textarea" placeholder="أهلاً بك! Haul هي خدمة توصيل سريعة..."></textarea>
+                    </div>
+                </div>
+
+                <!-- ركائز العمل الثلاث -->
+                <div class="pt-4 border-t border-slate-100 space-y-4">
+                    <h3 class="font-extrabold text-sm text-dark-900">الركائز والمميزات الثلاث</h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/60 space-y-2">
+                            <label class="block text-xs font-bold text-slate-600">الركيزة 1 (العنوان)</label>
+                            <input type="text" id="cfg-pillar0-title" class="form-input bg-white text-xs" placeholder="الالتزام بالوقت">
+                            <label class="block text-xs font-bold text-slate-600">الوصف المختصر</label>
+                            <input type="text" id="cfg-pillar0-desc" class="form-input bg-white text-xs" placeholder="توصيل سريع دون تأخير">
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/60 space-y-2">
+                            <label class="block text-xs font-bold text-slate-600">الركيزة 2 (العنوان)</label>
+                            <input type="text" id="cfg-pillar1-title" class="form-input bg-white text-xs" placeholder="أمانة وموثوقية">
+                            <label class="block text-xs font-bold text-slate-600">الوصف المختصر</label>
+                            <input type="text" id="cfg-pillar1-desc" class="form-input bg-white text-xs" placeholder="حفظ الطرود بعناية تامة">
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/60 space-y-2">
+                            <label class="block text-xs font-bold text-slate-600">الركيزة 3 (العنوان)</label>
+                            <input type="text" id="cfg-pillar2-title" class="form-input bg-white text-xs" placeholder="أسعار مدروسة">
+                            <label class="block text-xs font-bold text-slate-600">الوصف المختصر</label>
+                            <input type="text" id="cfg-pillar2-desc" class="form-input bg-white text-xs" placeholder="تكلفة واضحة قبل الطلب">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+    <!-- شريط الحفظ العائم في الأسفل للهواتف والكمبيوتر -->
+    <div class="sticky bottom-0 z-20 bg-white/95 backdrop-blur-md border-t border-slate-200 py-3.5 px-4 sm:px-6">
+        <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="text-xs font-bold text-slate-600">لوحة التحكم نشطة وجاهزة</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="haul-6.html" target="_blank" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-dark-900 text-xs sm:text-sm font-bold transition-all">
+                    عرض الموقع
+                </a>
+                <button onclick="saveAllSettings()" class="px-6 py-2.5 rounded-xl bg-sky-400 hover:bg-sky-500 text-dark-900 font-black text-xs sm:text-sm shadow-md transition-all active:scale-95 flex items-center gap-2">
+                    <i class="fa-solid fa-check"></i>
+                    <span>حفظ التعديلات الآن</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- تذييل الصفحة -->
+    <footer class="bg-white border-t border-slate-200/60 py-4 text-center text-xs text-slate-400">
+        لوحة تحكم موقع Haul للتوصيل السريع — مصممة لتكون بسيطة وسريعة وسهلة الاستخدام
+    </footer>
+
+    <!-- البرمجة التفاعلية للوحة التحكم مع Firebase -->
+    <script>
+        // إعدادات قاعدة بيانات Firebase من المستخدم
+        const firebaseConfig = {
+            apiKey: "AIzaSyD-AQxfVNQc5zjDZ8vbcySdHiHS8Uih2Is",
+            authDomain: "haul-a6b49.firebaseapp.com",
+            projectId: "haul-a6b49",
+            storageBucket: "haul-a6b49.firebasestorage.app",
+            messagingSenderId: "1009734061052",
+            appId: "1:1009734061052:web:d3af3b1382e839c9330079",
+            measurementId: "G-K1DMKS1PJQ"
+        };
+
+        // تهيئة Firebase و Firestore
+        let db = null;
+        let analytics = null;
+        try {
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+            db = firebase.firestore();
+            if (firebase.analytics) analytics = firebase.analytics();
+        } catch (err) {
+            console.warn("Firebase Init Error:", err);
+        }
+
+        // تحديث شارة حالة الاتصال بـ Firebase
+        function updateFirebaseBadge(status, text) {
+            const badge = document.getElementById('firebase-cloud-badge');
+            const dot = document.getElementById('firebase-status-dot');
+            const label = document.getElementById('firebase-status-text');
+            if (!badge || !dot || !label) return;
+
+            if (status === 'connected') {
+                badge.className = "hidden sm:flex items-center gap-2 bg-emerald-50 text-emerald-700 border border-emerald-200/80 px-3 py-1.5 rounded-xl text-xs font-bold mr-3";
+                dot.className = "w-2 h-2 rounded-full bg-emerald-500";
+            } else if (status === 'loading') {
+                badge.className = "hidden sm:flex items-center gap-2 bg-amber-50 text-amber-700 border border-amber-200/80 px-3 py-1.5 rounded-xl text-xs font-bold mr-3";
+                dot.className = "w-2 h-2 rounded-full bg-amber-500 animate-pulse";
+            } else {
+                badge.className = "hidden sm:flex items-center gap-2 bg-rose-50 text-rose-700 border border-rose-200/80 px-3 py-1.5 rounded-xl text-xs font-bold mr-3";
+                dot.className = "w-2 h-2 rounded-full bg-rose-500";
+            }
+            label.textContent = text;
+        }
+
+        // البيانات الافتراضية للموقع
+        const defaultSiteData = {
+            phone: "+968 9000 0000",
+            phoneClean: "+96890000000",
+            hoursWeekdays: "8:00 ص - 11:30 م",
+            hoursFriday: "2:00 م - 12:00 ص",
+
+            heroBadge: "خدمة توصيل سريعة وموثوقة",
+            heroTitle: "نوصل طلباتك بكل عناية وسرعة مع Haul",
+            heroDesc: "سواء كنت تحتاج لتوصيل طلبات مطاعم، مشتريات منزلية، أو طرود خاصة، نحن هنا لخدمتك بأفضل الأسعار وأسرع وقت.",
+
+            truckBadgeTitle: "توصيل فوري",
+            truckBadgeTag: "100% أمان",
+            truckBadgeSub: "سريع • من الباب للباب",
+
+            services: [
+                {
+                    title: "طلبات المطاعم والمقاهي",
+                    desc: "نستلم وجبتك المفضلة ونوصلها إليك ساخنة وبأسرع وقت ممكن."
+                },
+                {
+                    title: "مشتريات السوبرماركت",
+                    desc: "توصيل المقاضي والمستلزمات اليومية من المحلات التجارية إلى باب منزلك."
+                },
+                {
+                    title: "الطرود والأمانات الخاصة",
+                    desc: "نقل الأغراض الشخصية والطرود بين الأحياء والمناطق بأمان تام."
+                }
+            ],
+
+            prices: [
+                {
+                    title: "داخل المنطقة",
+                    val: "1.000",
+                    desc: "للمسافات القريبة أقل من 5 كم",
+                    features: "توصيل المطاعم والمحلات القريبة\nمدة التوصيل 15 - 25 دقيقة\nتسليم فوري لباب المنزل"
+                },
+                {
+                    title: "الأحياء المجاورة",
+                    val: "1.500 - 2.000",
+                    desc: "للمسافات المتوسطة من 5 إلى 15 كم",
+                    features: "توصيل بين القرى والأحياء المجاورة\nيشمل الطلبات والطرود الشخصية\nمتابعة مستمرة حتى التسليم"
+                },
+                {
+                    title: "مشوار خاص / بعيد",
+                    val: "3.000+",
+                    desc: "للمناطق البعيدة والمشاوير الخاصة",
+                    features: "توصيل للمناطق البعيدة\nاستلام وتخليص أكثر من طلب\nالاتفاق المسبق على السعر النهائي"
+                }
+            ],
+            extraStopNote: "في حال رغبتك بالمرور على أكثر من محل في نفس الطلب، تضاف 0.500 ر.ع فقط لكل نقطة إضافية.",
+
+            aboutTitle: "نبذة عن خدمة Haul للتوصيل",
+            aboutDesc: "أهلاً بك! Haul هي خدمة توصيل سريعة صُممت لتسهيل حياتك اليومية وتوفير وقتك وجهدك. نحرص دائماً على التعامل الراقي، الدقة في المواعيد، والمحافظة على خصوصية وسلامة جميع الطلبات والطرود حتى وصولها إلى يدك، مع تقديم أسعار واضحة ومناسبة للجميع.",
+            pillars: [
+                { title: "الالتزام بالوقت", desc: "توصيل سريع دون تأخير" },
+                { title: "أمانة وموثوقية", desc: "حفظ الطرود بعناية تامة" },
+                { title: "أسعار مدروسة", desc: "تكلفة واضحة قبل الطلب" }
+            ]
+        };
+
+        // التبديل بين التبويبات
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+            const panel = document.getElementById('tab-' + tabId);
+            const btn = document.getElementById('tab-btn-' + tabId);
+
+            if (panel) panel.classList.add('active');
+            if (btn) btn.classList.add('active');
+        }
+
+        // ملء حقول النموذج بالبيانات
+        function populateForm(data) {
+            document.getElementById('cfg-phone').value = data.phone || '';
+            document.getElementById('cfg-phoneClean').value = data.phoneClean || '';
+            document.getElementById('cfg-hoursWeekdays').value = data.hoursWeekdays || '';
+            document.getElementById('cfg-hoursFriday').value = data.hoursFriday || '';
+
+            document.getElementById('cfg-heroBadge').value = data.heroBadge || '';
+            document.getElementById('cfg-heroTitle').value = data.heroTitle || '';
+            document.getElementById('cfg-heroDesc').value = data.heroDesc || '';
+
+            document.getElementById('cfg-truckBadgeTitle').value = data.truckBadgeTitle || '';
+            document.getElementById('cfg-truckBadgeTag').value = data.truckBadgeTag || '';
+            document.getElementById('cfg-truckBadgeSub').value = data.truckBadgeSub || '';
+
+            if (data.services) {
+                for (let i = 0; i < 3; i++) {
+                    const s = data.services[i] || {};
+                    const titleEl = document.getElementById('cfg-serv' + i + '-title');
+                    const descEl = document.getElementById('cfg-serv' + i + '-desc');
+                    if (titleEl) titleEl.value = s.title || '';
+                    if (descEl) descEl.value = s.desc || '';
+                }
+            }
+
+            if (data.prices) {
+                for (let i = 0; i < 3; i++) {
+                    const p = data.prices[i] || {};
+                    const titleEl = document.getElementById('cfg-price' + i + '-title');
+                    const valEl = document.getElementById('cfg-price' + i + '-val');
+                    const descEl = document.getElementById('cfg-price' + i + '-desc');
+                    const featEl = document.getElementById('cfg-price' + i + '-features');
+
+                    if (titleEl) titleEl.value = p.title || '';
+                    if (valEl) valEl.value = p.val || '';
+                    if (descEl) descEl.value = p.desc || '';
+                    if (featEl) featEl.value = Array.isArray(p.features) ? p.features.join('\n') : (p.features || '');
+                }
+            }
+            document.getElementById('cfg-extraStopNote').value = data.extraStopNote || '';
+
+            document.getElementById('cfg-aboutTitle').value = data.aboutTitle || '';
+            document.getElementById('cfg-aboutDesc').value = data.aboutDesc || '';
+
+            if (data.pillars) {
+                for (let i = 0; i < 3; i++) {
+                    const pl = data.pillars[i] || {};
+                    const titleEl = document.getElementById('cfg-pillar' + i + '-title');
+                    const descEl = document.getElementById('cfg-pillar' + i + '-desc');
+                    if (titleEl) titleEl.value = pl.title || '';
+                    if (descEl) descEl.value = pl.desc || '';
+                }
+            }
+        }
+
+        // قراءة البيانات من الكاش المحلي ثم جلب النسخة السحابية من Firebase
+        async function loadCurrentData() {
+            // 1. ملء فوري من الكاش المحلي (بدون أي تأخير)
+            let current = defaultSiteData;
+            try {
+                const stored = localStorage.getItem('haul_site_data');
+                if (stored) {
+                    current = Object.assign({}, defaultSiteData, JSON.parse(stored));
+                }
+            } catch (e) {
+                console.warn("Local storage parse error:", e);
+            }
+            populateForm(current);
+
+            // 2. فحص سحابة Firebase Firestore
+            if (db) {
+                updateFirebaseBadge('loading', 'جاري الاتصال بـ Firebase...');
+                try {
+                    const docSnap = await db.collection('haul_data').doc('settings').get();
+                    if (docSnap.exists) {
+                        const cloudData = Object.assign({}, defaultSiteData, docSnap.data());
+                        localStorage.setItem('haul_site_data', JSON.stringify(cloudData));
+                        populateForm(cloudData);
+                        updateFirebaseBadge('connected', 'متصل بسحابة Firebase (محدث)');
+                    } else {
+                        updateFirebaseBadge('connected', 'متصل بـ Firebase (جاهز لحفظ أول نسخة)');
+                    }
+                } catch (err) {
+                    console.warn("Firestore fetch error:", err);
+                    if (err.message && (err.message.includes('has not been used') || err.message.includes('disabled'))) {
+                        updateFirebaseBadge('error', 'يلزم تفعيل Firestore في Firebase (اضغط هنا)');
+                        const b = document.getElementById('firebase-cloud-badge');
+                        if (b) {
+                            b.classList.add('cursor-pointer', 'hover:opacity-80');
+                            b.title = 'اضغط لفتح صفحة تفعيل Firestore في Firebase Console';
+                            b.onclick = () => window.open('https://console.firebase.google.com/project/haul-a6b49/firestore', '_blank');
+                        }
+                    } else if (err.code === 'permission-denied') {
+                        updateFirebaseBadge('error', 'أذونات القراءة مقفلة في Firebase (تحقق من Rules)');
+                    } else {
+                        updateFirebaseBadge('error', 'وضع محلي (تأكد من قواعد Firebase)');
+                    }
+                }
+            } else {
+                updateFirebaseBadge('error', 'وضع التخزين المحلي فقط');
+            }
+        }
+
+        // جمع البيانات من الحقول
+        function collectDataFromForm() {
+            return {
+                phone: document.getElementById('cfg-phone').value.trim(),
+                phoneClean: document.getElementById('cfg-phoneClean').value.trim(),
+                hoursWeekdays: document.getElementById('cfg-hoursWeekdays').value.trim(),
+                hoursFriday: document.getElementById('cfg-hoursFriday').value.trim(),
+
+                heroBadge: document.getElementById('cfg-heroBadge').value.trim(),
+                heroTitle: document.getElementById('cfg-heroTitle').value.trim(),
+                heroDesc: document.getElementById('cfg-heroDesc').value.trim(),
+
+                truckBadgeTitle: document.getElementById('cfg-truckBadgeTitle').value.trim(),
+                truckBadgeTag: document.getElementById('cfg-truckBadgeTag').value.trim(),
+                truckBadgeSub: document.getElementById('cfg-truckBadgeSub').value.trim(),
+
+                services: [
+                    {
+                        title: document.getElementById('cfg-serv0-title').value.trim(),
+                        desc: document.getElementById('cfg-serv0-desc').value.trim()
+                    },
+                    {
+                        title: document.getElementById('cfg-serv1-title').value.trim(),
+                        desc: document.getElementById('cfg-serv1-desc').value.trim()
+                    },
+                    {
+                        title: document.getElementById('cfg-serv2-title').value.trim(),
+                        desc: document.getElementById('cfg-serv2-desc').value.trim()
+                    }
+                ],
+
+                prices: [
+                    {
+                        title: document.getElementById('cfg-price0-title').value.trim(),
+                        val: document.getElementById('cfg-price0-val').value.trim(),
+                        desc: document.getElementById('cfg-price0-desc').value.trim(),
+                        features: document.getElementById('cfg-price0-features').value.trim().split('\n').filter(Boolean)
+                    },
+                    {
+                        title: document.getElementById('cfg-price1-title').value.trim(),
+                        val: document.getElementById('cfg-price1-val').value.trim(),
+                        desc: document.getElementById('cfg-price1-desc').value.trim(),
+                        features: document.getElementById('cfg-price1-features').value.trim().split('\n').filter(Boolean)
+                    },
+                    {
+                        title: document.getElementById('cfg-price2-title').value.trim(),
+                        val: document.getElementById('cfg-price2-val').value.trim(),
+                        desc: document.getElementById('cfg-price2-desc').value.trim(),
+                        features: document.getElementById('cfg-price2-features').value.trim().split('\n').filter(Boolean)
+                    }
+                ],
+                extraStopNote: document.getElementById('cfg-extraStopNote').value.trim(),
+
+                aboutTitle: document.getElementById('cfg-aboutTitle').value.trim(),
+                aboutDesc: document.getElementById('cfg-aboutDesc').value.trim(),
+
+                pillars: [
+                    {
+                        title: document.getElementById('cfg-pillar0-title').value.trim(),
+                        desc: document.getElementById('cfg-pillar0-desc').value.trim()
+                    },
+                    {
+                        title: document.getElementById('cfg-pillar1-title').value.trim(),
+                        desc: document.getElementById('cfg-pillar1-desc').value.trim()
+                    },
+                    {
+                        title: document.getElementById('cfg-pillar2-title').value.trim(),
+                        desc: document.getElementById('cfg-pillar2-desc').value.trim()
+                    }
+                ],
+                updatedAt: new Date().toISOString()
+            };
+        }
+
+        // حفظ جميع الإعدادات في Firebase و localStorage
+        async function saveAllSettings() {
+            const data = collectDataFromForm();
+            
+            // حفظ محلي فوري
+            try {
+                localStorage.setItem('haul_site_data', JSON.stringify(data));
+            } catch (e) {}
+
+            // حفظ في قاعدة بيانات Firebase Firestore
+            if (db) {
+                showToast("جاري الحفظ في قاعدة بيانات Firebase السحابية...");
+                try {
+                    await db.collection('haul_data').doc('settings').set(data);
+                    updateFirebaseBadge('connected', 'تم الحفظ في السحابة بنجاح');
+                    showToast("تم الحفظ في قاعدة بيانات Firebase السحابية بنجاح!");
+                    return;
+                } catch (err) {
+                    console.error("Firestore save error:", err);
+                    if (err.message && (err.message.includes('has not been used') || err.message.includes('disabled'))) {
+                        updateFirebaseBadge('error', 'يلزم تفعيل Firestore في Firebase');
+                        alert("تنبيه مهم:\nقاعدة بيانات Cloud Firestore غير مفعلة بعد في مشروعك على Firebase.\n\nلتفعيلها في ثوانٍ:\n1. افتح الرابط التالي: https://console.firebase.google.com/project/haul-a6b49/firestore\n2. اضغط على 'Create database'\n3. اختر 'Start in test mode' ثم اضغط Enable.\n\nملاحظة: تم حفظ تعديلاتك محلياً وستظهر في موقعك بنجاح!");
+                        window.open('https://console.firebase.google.com/project/haul-a6b49/firestore', '_blank');
+                    } else if (err.code === 'permission-denied') {
+                        updateFirebaseBadge('error', 'أذونات الكتابة مقفلة في Firebase (Rules)');
+                        alert("تم الحفظ محلياً بنجاح!\n\nتنبيه Firebase: قواعد الأمان (Rules) تمنع الكتابة. يُرجى الدخول إلى تبويب Rules في Firestore وضبطها على:\nallow read, write: if true;");
+                    } else {
+                        updateFirebaseBadge('error', 'خطأ: ' + (err.code || 'فشل الحفظ'));
+                        showToast("تم الحفظ محلياً! تنبيه Firebase: " + (err.message || err.code));
+                    }
+                    return;
+                }
+            }
+
+            showToast("تم حفظ جميع التعديلات محلياً بنجاح!");
+        }
+
+        // استعادة الإعدادات الافتراضية
+        async function resetToDefaults() {
+            if (confirm("هل أنت متأكد من استعادة القيم الأصلية للموقع وحذف التعديلات؟")) {
+                localStorage.removeItem('haul_site_data');
+                if (db) {
+                    try {
+                        await db.collection('haul_data').doc('settings').delete();
+                    } catch (e) {}
+                }
+                loadCurrentData();
+                showToast("تمت استعادة الإعدادات الأصلية بنجاح.");
+            }
+        }
+
+
+
+        // إشعار التنبيه
+        let toastTimer;
+        function showToast(msg) {
+            const toast = document.getElementById('admin-toast');
+            const text = document.getElementById('admin-toast-text');
+            text.textContent = msg;
+
+            toast.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-6');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.add('opacity-0', 'pointer-events-none', '-translate-y-6');
+                toast.classList.remove('opacity-100', 'translate-y-0');
+            }, 3500);
+        }
+
+        // تحميل البيانات عند فتح الصفحة
+        window.addEventListener('DOMContentLoaded', loadCurrentData);
+    </script>
+</body>
+</html>
