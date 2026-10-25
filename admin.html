@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,8 @@
     <!-- استدعاء خط Tajawal -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap"
+        rel="stylesheet">
     <!-- أيقونات Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -71,8 +73,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* تنسيق حقول الإدخال */
@@ -112,10 +121,12 @@
         }
     </style>
 </head>
+
 <body class="min-h-screen flex flex-col justify-between">
 
     <!-- إشعار التنبيه (Toast Alert) -->
-    <div id="admin-toast" class="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-dark-900 text-white px-6 py-3.5 rounded-2xl shadow-2xl border border-sky-400/40 flex items-center gap-3 transition-all duration-300 opacity-0 pointer-events-none -translate-y-6 max-w-md w-[90%]">
+    <div id="admin-toast"
+        class="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-dark-900 text-white px-6 py-3.5 rounded-2xl shadow-2xl border border-sky-400/40 flex items-center gap-3 transition-all duration-300 opacity-0 pointer-events-none -translate-y-6 max-w-md w-[90%]">
         <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
             <i class="fa-solid fa-check"></i>
         </div>
@@ -128,22 +139,25 @@
     <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-200">
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
             <div class="flex items-center justify-between h-20">
-                
+
                 <!-- شعار لوحة التحكم -->
                 <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 rounded-2xl bg-dark-900 text-sky-400 flex items-center justify-center text-xl shadow-md">
+                    <div
+                        class="w-11 h-11 rounded-2xl bg-dark-900 text-sky-400 flex items-center justify-center text-xl shadow-md">
                         <i class="fa-solid fa-sliders"></i>
                     </div>
                     <div>
                         <div class="flex items-center gap-2">
                             <span class="font-black text-xl text-dark-900">Haul</span>
-                            <span class="text-xs bg-sky-100 text-sky-600 font-bold px-2 py-0.5 rounded-full">لوحة الإدارة</span>
+                            <span class="text-xs bg-sky-100 text-sky-600 font-bold px-2 py-0.5 rounded-full">لوحة
+                                الإدارة</span>
                         </div>
                         <p class="text-xs text-slate-500 font-medium">تعديل محتوى وأسعار الموقع بسهولة</p>
                     </div>
 
                     <!-- شارة حالة الاتصال بقاعدة بيانات Firebase -->
-                    <div id="firebase-cloud-badge" class="hidden sm:flex items-center gap-2 bg-amber-50 text-amber-700 border border-amber-200/80 px-3 py-1.5 rounded-xl text-xs font-bold mr-3">
+                    <div id="firebase-cloud-badge"
+                        class="hidden sm:flex items-center gap-2 bg-amber-50 text-amber-700 border border-amber-200/80 px-3 py-1.5 rounded-xl text-xs font-bold mr-3">
                         <span id="firebase-status-dot" class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
                         <span id="firebase-status-text">جاري الاتصال بـ Firebase...</span>
                     </div>
@@ -151,12 +165,14 @@
 
                 <!-- أزرار الإجراءات السريعة في الهيدر -->
                 <div class="flex items-center gap-2 sm:gap-3">
-                    <a href="index.html" target="_blank" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-dark-900 text-xs sm:text-sm font-bold flex items-center gap-2 transition-all">
+                    <a href="index.html" target="_blank"
+                        class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-dark-900 text-xs sm:text-sm font-bold flex items-center gap-2 transition-all">
                         <i class="fa-solid fa-arrow-up-right-from-square text-sky-500"></i>
                         <span class="hidden sm:inline">معاينة الموقع</span>
                         <span class="sm:hidden">الموقع</span>
                     </a>
-                    <button onclick="saveAllSettings()" class="px-5 py-2.5 rounded-xl bg-dark-900 hover:bg-sky-400 hover:text-dark-900 text-white text-xs sm:text-sm font-extrabold flex items-center gap-2 transition-all shadow-md active:scale-95">
+                    <button onclick="saveAllSettings()"
+                        class="px-5 py-2.5 rounded-xl bg-dark-900 hover:bg-sky-400 hover:text-dark-900 text-white text-xs sm:text-sm font-extrabold flex items-center gap-2 transition-all shadow-md active:scale-95">
                         <i class="fa-solid fa-cloud-arrow-up text-sky-400 group-hover:text-dark-900"></i>
                         <span>حفظ التعديلات</span>
                     </button>
@@ -170,18 +186,22 @@
     <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6">
 
         <!-- شريط التعليمات والإرشادات السريعة -->
-        <div class="bg-gradient-to-r from-sky-50 to-white border border-sky-200 p-4 sm:p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div
+            class="bg-gradient-to-r from-sky-50 to-white border border-sky-200 p-4 sm:p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-3.5">
-                <div class="w-10 h-10 rounded-xl bg-sky-400 text-dark-900 flex items-center justify-center text-lg shrink-0">
+                <div
+                    class="w-10 h-10 rounded-xl bg-sky-400 text-dark-900 flex items-center justify-center text-lg shrink-0">
                     <i class="fa-solid fa-wand-magic-sparkles"></i>
                 </div>
                 <div>
                     <h3 class="text-sm font-extrabold text-dark-900">تحكم كامل وفوري بموقعك</h3>
-                    <p class="text-xs text-slate-600 mt-0.5">عدل أي نص أو رقم هاتف أو سعر ثم اضغط "حفظ التعديلات"، وستتحدث صفحة الموقع مباشرة!</p>
+                    <p class="text-xs text-slate-600 mt-0.5">عدل أي نص أو رقم هاتف أو سعر ثم اضغط "حفظ التعديلات"،
+                        وستتحدث صفحة الموقع مباشرة!</p>
                 </div>
             </div>
             <div class="flex items-center gap-2 w-full sm:w-auto">
-                <button onclick="resetToDefaults()" class="w-full sm:w-auto px-3.5 py-2 rounded-xl bg-white border border-slate-200 hover:border-red-300 hover:text-red-600 text-slate-600 text-xs font-bold transition-colors flex items-center justify-center gap-1.5">
+                <button onclick="resetToDefaults()"
+                    class="w-full sm:w-auto px-3.5 py-2 rounded-xl bg-white border border-slate-200 hover:border-red-300 hover:text-red-600 text-slate-600 text-xs font-bold transition-colors flex items-center justify-center gap-1.5">
                     <i class="fa-solid fa-rotate-left text-xs"></i>
                     <span>استعادة الافتراضي</span>
                 </button>
@@ -190,19 +210,23 @@
 
         <!-- أزرار التبويبات (Tabs) -->
         <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-            <button onclick="switchTab('contact')" id="tab-btn-contact" class="tab-btn active px-5 py-3 rounded-2xl font-bold text-sm bg-white text-slate-600 hover:text-dark-900 transition-all shrink-0 flex items-center gap-2 border border-slate-200/80">
+            <button onclick="switchTab('contact')" id="tab-btn-contact"
+                class="tab-btn active px-5 py-3 rounded-2xl font-bold text-sm bg-white text-slate-600 hover:text-dark-900 transition-all shrink-0 flex items-center gap-2 border border-slate-200/80">
                 <i class="fa-solid fa-phone"></i>
                 <span>الاتصال والمواعيد</span>
             </button>
-            <button onclick="switchTab('hero')" id="tab-btn-hero" class="tab-btn px-5 py-3 rounded-2xl font-bold text-sm bg-white text-slate-600 hover:text-dark-900 transition-all shrink-0 flex items-center gap-2 border border-slate-200/80">
+            <button onclick="switchTab('hero')" id="tab-btn-hero"
+                class="tab-btn px-5 py-3 rounded-2xl font-bold text-sm bg-white text-slate-600 hover:text-dark-900 transition-all shrink-0 flex items-center gap-2 border border-slate-200/80">
                 <i class="fa-solid fa-house"></i>
                 <span>الرئيسية والخدمات</span>
             </button>
-            <button onclick="switchTab('prices')" id="tab-btn-prices" class="tab-btn px-5 py-3 rounded-2xl font-bold text-sm bg-white text-slate-600 hover:text-dark-900 transition-all shrink-0 flex items-center gap-2 border border-slate-200/80">
+            <button onclick="switchTab('prices')" id="tab-btn-prices"
+                class="tab-btn px-5 py-3 rounded-2xl font-bold text-sm bg-white text-slate-600 hover:text-dark-900 transition-all shrink-0 flex items-center gap-2 border border-slate-200/80">
                 <i class="fa-solid fa-tag"></i>
                 <span>الأسعار والباقات</span>
             </button>
-            <button onclick="switchTab('about')" id="tab-btn-about" class="tab-btn px-5 py-3 rounded-2xl font-bold text-sm bg-white text-slate-600 hover:text-dark-900 transition-all shrink-0 flex items-center gap-2 border border-slate-200/80">
+            <button onclick="switchTab('about')" id="tab-btn-about"
+                class="tab-btn px-5 py-3 rounded-2xl font-bold text-sm bg-white text-slate-600 hover:text-dark-900 transition-all shrink-0 flex items-center gap-2 border border-slate-200/80">
                 <i class="fa-solid fa-circle-user"></i>
                 <span>نبذة عني</span>
             </button>
@@ -210,7 +234,7 @@
 
         <!-- ==================== التبويب 1: الاتصال والمواعيد ==================== -->
         <section id="tab-contact" class="tab-panel active space-y-6">
-            
+
             <!-- كرت أرقام التواصل -->
             <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6">
                 <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
@@ -219,7 +243,8 @@
                     </div>
                     <div>
                         <h2 class="text-lg font-black text-dark-900">أرقام التواصل والطلبات</h2>
-                        <p class="text-xs text-slate-500">هذه الأرقام تظهر في كامل الموقع (الهيدر، قسم الاتصال، القائمة، والتذييل)</p>
+                        <p class="text-xs text-slate-500">هذه الأرقام تظهر في كامل الموقع (الهيدر، قسم الاتصال، القائمة،
+                            والتذييل)</p>
                     </div>
                 </div>
 
@@ -228,18 +253,23 @@
                     <div class="space-y-2">
                         <label class="block text-xs font-bold text-slate-700">رقم الهاتف الظاهر للعملاء</label>
                         <div class="relative">
-                            <input type="text" id="cfg-phone" class="form-input pl-10" placeholder="+968 9000 0000" dir="ltr">
-                            <i class="fa-solid fa-phone absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                            <input type="text" id="cfg-phone" class="form-input pl-10" placeholder="+968 9000 0000"
+                                dir="ltr">
+                            <i
+                                class="fa-solid fa-phone absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
                         </div>
                         <p class="text-[11px] text-slate-400">النص الذي يظهر في بطاقة الاتصال بالموقع</p>
                     </div>
 
                     <!-- رقم الاتصال والواتساب الفعلي (بدون مسافات) -->
                     <div class="space-y-2">
-                        <label class="block text-xs font-bold text-slate-700">الرقم الفعلي للاتصال والواتساب (مع كود الدولة)</label>
+                        <label class="block text-xs font-bold text-slate-700">الرقم الفعلي للاتصال والواتساب (مع كود
+                            الدولة)</label>
                         <div class="relative">
-                            <input type="text" id="cfg-phoneClean" class="form-input pl-10" placeholder="+96890000000" dir="ltr">
-                            <i class="fa-brands fa-whatsapp absolute left-3.5 top-1/2 -translate-y-1/2 text-emerald-500 text-base"></i>
+                            <input type="text" id="cfg-phoneClean" class="form-input pl-10" placeholder="+96890000000"
+                                dir="ltr">
+                            <i
+                                class="fa-brands fa-whatsapp absolute left-3.5 top-1/2 -translate-y-1/2 text-emerald-500 text-base"></i>
                         </div>
                         <p class="text-[11px] text-slate-400">يستخدم لتوجيه زر الاتصال ورابط محادثة واتساب المباشرة</p>
                     </div>
@@ -275,7 +305,7 @@
 
         <!-- ==================== التبويب 2: الرئيسية والخدمات ==================== -->
         <section id="tab-hero" class="tab-panel space-y-6">
-            
+
             <!-- كرت البانر الترحيبي -->
             <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6">
                 <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
@@ -296,12 +326,41 @@
 
                     <div class="space-y-2">
                         <label class="block text-xs font-bold text-slate-700">العنوان الرئيسي الكبير</label>
-                        <input type="text" id="cfg-heroTitle" class="form-input" placeholder="نوصل طلباتك بكل عناية وسرعة مع Haul">
+                        <input type="text" id="cfg-heroTitle" class="form-input"
+                            placeholder="نوصل طلباتك بكل عناية وسرعة مع Haul">
                     </div>
 
                     <div class="space-y-2">
                         <label class="block text-xs font-bold text-slate-700">الوصف التعريفي للخدمة</label>
-                        <textarea id="cfg-heroDesc" rows="3" class="form-textarea" placeholder="سواء كنت تحتاج لتوصيل طلبات مطاعم، مشتريات منزلية، أو طرود خاصة، نحن هنا لخدمتك بأفضل الأسعار وأسرع وقت."></textarea>
+                        <textarea id="cfg-heroDesc" rows="3" class="form-textarea"
+                            placeholder="سواء كنت تحتاج لتوصيل طلبات مطاعم، مشتريات منزلية، أو طرود خاصة، نحن هنا لخدمتك بأفضل الأسعار وأسرع وقت."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- كرت مقطع الفيديو الإعلاني للموقع (MP4) -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6">
+                <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+                    <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-film"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-black text-dark-900">مقطع الفيديو الإعلاني للواجهة (MP4)</h2>
+                        <p class="text-xs text-slate-500">الفيديو المعروض في واجهة الصفحة الرئيسية للموقع</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700">مسار أو رابط الفيديو (MP4)</label>
+                        <div class="relative">
+                            <input type="text" id="cfg-promoVideoUrl" class="form-input pl-10"
+                                placeholder="promo.mp4 أو رابط فيديو مباشر" value="promo.mp4" dir="ltr">
+                            <i class="fa-solid fa-video absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                        </div>
+                        <p class="text-[11px] text-slate-400">
+                            يمكنك استخدام اسم الملف الافتراضي <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sky-600 font-bold">promo.mp4</code> عند وضعه في مجلد المشروع، أو إدخال رابط مباشر لملف فيديو بصيغة mp4.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -329,7 +388,8 @@
                     </div>
                     <div class="space-y-2">
                         <label class="block text-xs font-bold text-slate-700">الوصف الصغير</label>
-                        <input type="text" id="cfg-truckBadgeSub" class="form-input" placeholder="سريع • من الباب للباب">
+                        <input type="text" id="cfg-truckBadgeSub" class="form-input"
+                            placeholder="سريع • من الباب للباب">
                     </div>
                 </div>
             </div>
@@ -348,7 +408,8 @@
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <!-- خدمة 1 -->
-                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/70 space-y-4 flex flex-col justify-between">
+                    <div
+                        class="bg-slate-50 p-5 rounded-2xl border border-slate-200/70 space-y-4 flex flex-col justify-between">
                         <div class="space-y-3">
                             <div class="flex items-center gap-2 text-sky-600 font-bold text-sm">
                                 <i class="fa-solid fa-utensils"></i>
@@ -356,11 +417,13 @@
                             </div>
                             <div class="space-y-2">
                                 <label class="block text-xs font-bold text-slate-600">عنوان الخدمة</label>
-                                <input type="text" id="cfg-serv0-title" class="form-input bg-white" placeholder="طلبات المطاعم والمقاهي">
+                                <input type="text" id="cfg-serv0-title" class="form-input bg-white"
+                                    placeholder="طلبات المطاعم والمقاهي">
                             </div>
                             <div class="space-y-2">
                                 <label class="block text-xs font-bold text-slate-600">وصف الخدمة</label>
-                                <textarea id="cfg-serv0-desc" rows="3" class="form-textarea bg-white" placeholder="نستلم وجبتك المفضلة ونوصلها إليك ساخنة وبأسرع وقت ممكن."></textarea>
+                                <textarea id="cfg-serv0-desc" rows="3" class="form-textarea bg-white"
+                                    placeholder="نستلم وجبتك المفضلة ونوصلها إليك ساخنة وبأسرع وقت ممكن."></textarea>
                             </div>
                         </div>
 
@@ -378,7 +441,8 @@
                                 <!-- تملأ ديناميكياً -->
                             </div>
 
-                            <button type="button" onclick="addPriceItemToService(0)" class="w-full py-2.5 px-3 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-600 text-xs font-bold border border-dashed border-sky-300 flex items-center justify-center gap-1.5 transition-colors">
+                            <button type="button" onclick="addPriceItemToService(0)"
+                                class="w-full py-2.5 px-3 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-600 text-xs font-bold border border-dashed border-sky-300 flex items-center justify-center gap-1.5 transition-colors">
                                 <i class="fa-solid fa-plus text-xs"></i>
                                 <span>إضافة تسعيرة جديدة</span>
                             </button>
@@ -386,7 +450,8 @@
                     </div>
 
                     <!-- خدمة 2 -->
-                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/70 space-y-4 flex flex-col justify-between">
+                    <div
+                        class="bg-slate-50 p-5 rounded-2xl border border-slate-200/70 space-y-4 flex flex-col justify-between">
                         <div class="space-y-3">
                             <div class="flex items-center gap-2 text-sky-600 font-bold text-sm">
                                 <i class="fa-solid fa-bag-shopping"></i>
@@ -394,11 +459,13 @@
                             </div>
                             <div class="space-y-2">
                                 <label class="block text-xs font-bold text-slate-600">عنوان الخدمة</label>
-                                <input type="text" id="cfg-serv1-title" class="form-input bg-white" placeholder="مشتريات السوبرماركت">
+                                <input type="text" id="cfg-serv1-title" class="form-input bg-white"
+                                    placeholder="مشتريات السوبرماركت">
                             </div>
                             <div class="space-y-2">
                                 <label class="block text-xs font-bold text-slate-600">وصف الخدمة</label>
-                                <textarea id="cfg-serv1-desc" rows="3" class="form-textarea bg-white" placeholder="توصيل المقاضي والمستلزمات اليومية من المحلات التجارية إلى باب منزلك."></textarea>
+                                <textarea id="cfg-serv1-desc" rows="3" class="form-textarea bg-white"
+                                    placeholder="توصيل المقاضي والمستلزمات اليومية من المحلات التجارية إلى باب منزلك."></textarea>
                             </div>
                         </div>
 
@@ -416,7 +483,8 @@
                                 <!-- تملأ ديناميكياً -->
                             </div>
 
-                            <button type="button" onclick="addPriceItemToService(1)" class="w-full py-2.5 px-3 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-600 text-xs font-bold border border-dashed border-sky-300 flex items-center justify-center gap-1.5 transition-colors">
+                            <button type="button" onclick="addPriceItemToService(1)"
+                                class="w-full py-2.5 px-3 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-600 text-xs font-bold border border-dashed border-sky-300 flex items-center justify-center gap-1.5 transition-colors">
                                 <i class="fa-solid fa-plus text-xs"></i>
                                 <span>إضافة تسعيرة جديدة</span>
                             </button>
@@ -424,7 +492,8 @@
                     </div>
 
                     <!-- خدمة 3 -->
-                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/70 space-y-4 flex flex-col justify-between">
+                    <div
+                        class="bg-slate-50 p-5 rounded-2xl border border-slate-200/70 space-y-4 flex flex-col justify-between">
                         <div class="space-y-3">
                             <div class="flex items-center gap-2 text-sky-600 font-bold text-sm">
                                 <i class="fa-solid fa-box"></i>
@@ -432,11 +501,13 @@
                             </div>
                             <div class="space-y-2">
                                 <label class="block text-xs font-bold text-slate-600">عنوان الخدمة</label>
-                                <input type="text" id="cfg-serv2-title" class="form-input bg-white" placeholder="الطرود والأمانات الخاصة">
+                                <input type="text" id="cfg-serv2-title" class="form-input bg-white"
+                                    placeholder="الطرود والأمانات الخاصة">
                             </div>
                             <div class="space-y-2">
                                 <label class="block text-xs font-bold text-slate-600">وصف الخدمة</label>
-                                <textarea id="cfg-serv2-desc" rows="3" class="form-textarea bg-white" placeholder="نقل الأغراض الشخصية والطرود بين الأحياء والمناطق بأمان تام."></textarea>
+                                <textarea id="cfg-serv2-desc" rows="3" class="form-textarea bg-white"
+                                    placeholder="نقل الأغراض الشخصية والطرود بين الأحياء والمناطق بأمان تام."></textarea>
                             </div>
                         </div>
 
@@ -454,7 +525,8 @@
                                 <!-- تملأ ديناميكياً -->
                             </div>
 
-                            <button type="button" onclick="addPriceItemToService(2)" class="w-full py-2.5 px-3 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-600 text-xs font-bold border border-dashed border-sky-300 flex items-center justify-center gap-1.5 transition-colors">
+                            <button type="button" onclick="addPriceItemToService(2)"
+                                class="w-full py-2.5 px-3 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-600 text-xs font-bold border border-dashed border-sky-300 flex items-center justify-center gap-1.5 transition-colors">
                                 <i class="fa-solid fa-plus text-xs"></i>
                                 <span>إضافة تسعيرة جديدة</span>
                             </button>
@@ -467,7 +539,7 @@
 
         <!-- ==================== التبويب 3: الأسعار والباقات ==================== -->
         <section id="tab-prices" class="tab-panel space-y-6">
-            
+
             <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6">
                 <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
                     <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center text-lg">
@@ -480,17 +552,19 @@
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    
+
                     <!-- باقة 1 -->
                     <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/80 space-y-4">
                         <div class="flex items-center justify-between">
                             <span class="font-black text-sm text-dark-900">الباقة 1 (داخل المنطقة)</span>
-                            <span class="text-xs bg-slate-200 text-slate-700 px-2.5 py-0.5 rounded-full font-bold">باقة 1</span>
+                            <span class="text-xs bg-slate-200 text-slate-700 px-2.5 py-0.5 rounded-full font-bold">باقة
+                                1</span>
                         </div>
 
                         <div class="space-y-2">
                             <label class="block text-xs font-bold text-slate-600">اسم الباقة</label>
-                            <input type="text" id="cfg-price0-title" class="form-input bg-white" placeholder="داخل المنطقة">
+                            <input type="text" id="cfg-price0-title" class="form-input bg-white"
+                                placeholder="داخل المنطقة">
                         </div>
 
                         <div class="space-y-2">
@@ -500,12 +574,14 @@
 
                         <div class="space-y-2">
                             <label class="block text-xs font-bold text-slate-600">الوصف المختصر</label>
-                            <input type="text" id="cfg-price0-desc" class="form-input bg-white" placeholder="للمسافات القريبة أقل من 5 كم">
+                            <input type="text" id="cfg-price0-desc" class="form-input bg-white"
+                                placeholder="للمسافات القريبة أقل من 5 كم">
                         </div>
 
                         <div class="space-y-2">
                             <label class="block text-xs font-bold text-slate-600">المميزات (ميزة في كل سطر)</label>
-                            <textarea id="cfg-price0-features" rows="3" class="form-textarea bg-white text-xs"></textarea>
+                            <textarea id="cfg-price0-features" rows="3"
+                                class="form-textarea bg-white text-xs"></textarea>
                         </div>
                     </div>
 
@@ -513,27 +589,32 @@
                     <div class="bg-sky-50/70 p-5 rounded-2xl border-2 border-sky-300 space-y-4">
                         <div class="flex items-center justify-between">
                             <span class="font-black text-sm text-dark-900">الباقة 2 (الأحياء المجاورة)</span>
-                            <span class="text-xs bg-sky-400 text-dark-900 px-2.5 py-0.5 rounded-full font-black">الأكثر طلباً</span>
+                            <span class="text-xs bg-sky-400 text-dark-900 px-2.5 py-0.5 rounded-full font-black">الأكثر
+                                طلباً</span>
                         </div>
 
                         <div class="space-y-2">
                             <label class="block text-xs font-bold text-slate-600">اسم الباقة</label>
-                            <input type="text" id="cfg-price1-title" class="form-input bg-white" placeholder="الأحياء المجاورة">
+                            <input type="text" id="cfg-price1-title" class="form-input bg-white"
+                                placeholder="الأحياء المجاورة">
                         </div>
 
                         <div class="space-y-2">
                             <label class="block text-xs font-bold text-slate-600">السعر</label>
-                            <input type="text" id="cfg-price1-val" class="form-input bg-white" placeholder="1.500 - 2.000">
+                            <input type="text" id="cfg-price1-val" class="form-input bg-white"
+                                placeholder="1.500 - 2.000">
                         </div>
 
                         <div class="space-y-2">
                             <label class="block text-xs font-bold text-slate-600">الوصف المختصر</label>
-                            <input type="text" id="cfg-price1-desc" class="form-input bg-white" placeholder="للمسافات المتوسطة من 5 إلى 15 كم">
+                            <input type="text" id="cfg-price1-desc" class="form-input bg-white"
+                                placeholder="للمسافات المتوسطة من 5 إلى 15 كم">
                         </div>
 
                         <div class="space-y-2">
                             <label class="block text-xs font-bold text-slate-600">المميزات (ميزة في كل سطر)</label>
-                            <textarea id="cfg-price1-features" rows="3" class="form-textarea bg-white text-xs"></textarea>
+                            <textarea id="cfg-price1-features" rows="3"
+                                class="form-textarea bg-white text-xs"></textarea>
                         </div>
                     </div>
 
@@ -541,12 +622,14 @@
                     <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/80 space-y-4">
                         <div class="flex items-center justify-between">
                             <span class="font-black text-sm text-dark-900">الباقة 3 (مشوار خاص)</span>
-                            <span class="text-xs bg-slate-200 text-slate-700 px-2.5 py-0.5 rounded-full font-bold">باقة 3</span>
+                            <span class="text-xs bg-slate-200 text-slate-700 px-2.5 py-0.5 rounded-full font-bold">باقة
+                                3</span>
                         </div>
 
                         <div class="space-y-2">
                             <label class="block text-xs font-bold text-slate-600">اسم الباقة</label>
-                            <input type="text" id="cfg-price2-title" class="form-input bg-white" placeholder="مشوار خاص / بعيد">
+                            <input type="text" id="cfg-price2-title" class="form-input bg-white"
+                                placeholder="مشوار خاص / بعيد">
                         </div>
 
                         <div class="space-y-2">
@@ -556,12 +639,14 @@
 
                         <div class="space-y-2">
                             <label class="block text-xs font-bold text-slate-600">الوصف المختصر</label>
-                            <input type="text" id="cfg-price2-desc" class="form-input bg-white" placeholder="للمناطق البعيدة والمشاوير الخاصة">
+                            <input type="text" id="cfg-price2-desc" class="form-input bg-white"
+                                placeholder="للمناطق البعيدة والمشاوير الخاصة">
                         </div>
 
                         <div class="space-y-2">
                             <label class="block text-xs font-bold text-slate-600">المميزات (ميزة في كل سطر)</label>
-                            <textarea id="cfg-price2-features" rows="3" class="form-textarea bg-white text-xs"></textarea>
+                            <textarea id="cfg-price2-features" rows="3"
+                                class="form-textarea bg-white text-xs"></textarea>
                         </div>
                     </div>
 
@@ -570,7 +655,8 @@
                 <!-- ملاحظة النقاط الإضافية -->
                 <div class="pt-4 border-t border-slate-100">
                     <label class="block text-xs font-bold text-slate-700 mb-2">ملاحظة نقطة الاستلام الإضافية</label>
-                    <input type="text" id="cfg-extraStopNote" class="form-input" placeholder="في حال رغبتك بالمرور على أكثر من محل في نفس الطلب، تضاف 0.500 ر.ع فقط لكل نقطة إضافية.">
+                    <input type="text" id="cfg-extraStopNote" class="form-input"
+                        placeholder="في حال رغبتك بالمرور على أكثر من محل في نفس الطلب، تضاف 0.500 ر.ع فقط لكل نقطة إضافية.">
                 </div>
             </div>
 
@@ -578,7 +664,7 @@
 
         <!-- ==================== التبويب 4: نبذة عني ==================== -->
         <section id="tab-about" class="tab-panel space-y-6">
-            
+
             <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6">
                 <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
                     <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center text-lg">
@@ -593,12 +679,14 @@
                 <div class="space-y-5">
                     <div class="space-y-2">
                         <label class="block text-xs font-bold text-slate-700">عنوان القسم</label>
-                        <input type="text" id="cfg-aboutTitle" class="form-input" placeholder="نبذة عن خدمة Haul للتوصيل">
+                        <input type="text" id="cfg-aboutTitle" class="form-input"
+                            placeholder="نبذة عن خدمة Haul للتوصيل">
                     </div>
 
                     <div class="space-y-2">
                         <label class="block text-xs font-bold text-slate-700">النص التعريفي الكامل</label>
-                        <textarea id="cfg-aboutDesc" rows="4" class="form-textarea" placeholder="أهلاً بك! Haul هي خدمة توصيل سريعة..."></textarea>
+                        <textarea id="cfg-aboutDesc" rows="4" class="form-textarea"
+                            placeholder="أهلاً بك! Haul هي خدمة توصيل سريعة..."></textarea>
                     </div>
                 </div>
 
@@ -609,23 +697,29 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                         <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/60 space-y-2">
                             <label class="block text-xs font-bold text-slate-600">الركيزة 1 (العنوان)</label>
-                            <input type="text" id="cfg-pillar0-title" class="form-input bg-white text-xs" placeholder="الالتزام بالوقت">
+                            <input type="text" id="cfg-pillar0-title" class="form-input bg-white text-xs"
+                                placeholder="الالتزام بالوقت">
                             <label class="block text-xs font-bold text-slate-600">الوصف المختصر</label>
-                            <input type="text" id="cfg-pillar0-desc" class="form-input bg-white text-xs" placeholder="توصيل سريع دون تأخير">
+                            <input type="text" id="cfg-pillar0-desc" class="form-input bg-white text-xs"
+                                placeholder="توصيل سريع دون تأخير">
                         </div>
 
                         <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/60 space-y-2">
                             <label class="block text-xs font-bold text-slate-600">الركيزة 2 (العنوان)</label>
-                            <input type="text" id="cfg-pillar1-title" class="form-input bg-white text-xs" placeholder="أمانة وموثوقية">
+                            <input type="text" id="cfg-pillar1-title" class="form-input bg-white text-xs"
+                                placeholder="أمانة وموثوقية">
                             <label class="block text-xs font-bold text-slate-600">الوصف المختصر</label>
-                            <input type="text" id="cfg-pillar1-desc" class="form-input bg-white text-xs" placeholder="حفظ الطرود بعناية تامة">
+                            <input type="text" id="cfg-pillar1-desc" class="form-input bg-white text-xs"
+                                placeholder="حفظ الطرود بعناية تامة">
                         </div>
 
                         <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/60 space-y-2">
                             <label class="block text-xs font-bold text-slate-600">الركيزة 3 (العنوان)</label>
-                            <input type="text" id="cfg-pillar2-title" class="form-input bg-white text-xs" placeholder="أسعار مدروسة">
+                            <input type="text" id="cfg-pillar2-title" class="form-input bg-white text-xs"
+                                placeholder="أسعار مدروسة">
                             <label class="block text-xs font-bold text-slate-600">الوصف المختصر</label>
-                            <input type="text" id="cfg-pillar2-desc" class="form-input bg-white text-xs" placeholder="تكلفة واضحة قبل الطلب">
+                            <input type="text" id="cfg-pillar2-desc" class="form-input bg-white text-xs"
+                                placeholder="تكلفة واضحة قبل الطلب">
                         </div>
                     </div>
                 </div>
@@ -645,10 +739,12 @@
                 <span class="text-xs font-bold text-slate-600">لوحة التحكم نشطة وجاهزة</span>
             </div>
             <div class="flex items-center gap-3">
-                <a href="index.html" target="_blank" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-dark-900 text-xs sm:text-sm font-bold transition-all">
+                <a href="index.html" target="_blank"
+                    class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-dark-900 text-xs sm:text-sm font-bold transition-all">
                     عرض الموقع
                 </a>
-                <button onclick="saveAllSettings()" class="px-6 py-2.5 rounded-xl bg-sky-400 hover:bg-sky-500 text-dark-900 font-black text-xs sm:text-sm shadow-md transition-all active:scale-95 flex items-center gap-2">
+                <button onclick="saveAllSettings()"
+                    class="px-6 py-2.5 rounded-xl bg-sky-400 hover:bg-sky-500 text-dark-900 font-black text-xs sm:text-sm shadow-md transition-all active:scale-95 flex items-center gap-2">
                     <i class="fa-solid fa-check"></i>
                     <span>حفظ التعديلات الآن</span>
                 </button>
@@ -720,6 +816,7 @@
             heroBadge: "خدمة توصيل سريعة وموثوقة",
             heroTitle: "نوصل طلباتك بكل عناية وسرعة مع Haul",
             heroDesc: "سواء كنت تحتاج لتوصيل طلبات مطاعم، مشتريات منزلية، أو طرود خاصة، نحن هنا لخدمتك بأفضل الأسعار وأسرع وقت.",
+            promoVideoUrl: "promo.mp4",
 
             truckBadgeTitle: "توصيل فوري",
             truckBadgeTag: "100% أمان",
@@ -808,30 +905,30 @@
             const row = document.createElement('div');
             row.className = "serv-price-item bg-white p-3 rounded-xl border border-slate-200/90 shadow-2xs space-y-2 transition-all";
             row.innerHTML = `
-                <div class="flex items-center justify-between gap-2 pb-1.5 border-b border-slate-100">
-                    <span class="text-[11px] font-black text-slate-700 flex items-center gap-1.5">
-                        <i class="fa-solid fa-tag text-sky-500 text-[10px]"></i>
-                        <span>بند تسعيرة</span>
-                    </span>
-                    <button type="button" onclick="this.closest('.serv-price-item').remove()" class="w-6 h-6 rounded-lg bg-rose-50 hover:bg-rose-500 text-rose-500 hover:text-white flex items-center justify-center text-xs transition-colors" title="حذف هذا البند">
-                        <i class="fa-solid fa-trash text-[10px]"></i>
-                    </button>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <div>
-                        <label class="block text-[10px] text-slate-500 font-bold mb-1">اسم المشوار / الطلب</label>
-                        <input type="text" class="item-name form-input text-xs py-1.5 px-2.5" placeholder="مثال: توصيل قريب" value="${escapeHtml(name)}">
+                    <div class="flex items-center justify-between gap-2 pb-1.5 border-b border-slate-100">
+                        <span class="text-[11px] font-black text-slate-700 flex items-center gap-1.5">
+                            <i class="fa-solid fa-tag text-sky-500 text-[10px]"></i>
+                            <span>بند تسعيرة</span>
+                        </span>
+                        <button type="button" onclick="this.closest('.serv-price-item').remove()" class="w-6 h-6 rounded-lg bg-rose-50 hover:bg-rose-500 text-rose-500 hover:text-white flex items-center justify-center text-xs transition-colors" title="حذف هذا البند">
+                            <i class="fa-solid fa-trash text-[10px]"></i>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-[10px] text-slate-500 font-bold mb-1">اسم المشوار / الطلب</label>
+                            <input type="text" class="item-name form-input text-xs py-1.5 px-2.5" placeholder="مثال: توصيل قريب" value="${escapeHtml(name)}">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-slate-500 font-bold mb-1">السعر</label>
+                            <input type="text" class="item-price form-input text-xs py-1.5 px-2.5" placeholder="مثال: 1.000 ر.ع" value="${escapeHtml(price)}">
+                        </div>
                     </div>
                     <div>
-                        <label class="block text-[10px] text-slate-500 font-bold mb-1">السعر</label>
-                        <input type="text" class="item-price form-input text-xs py-1.5 px-2.5" placeholder="مثال: 1.000 ر.ع" value="${escapeHtml(price)}">
+                        <label class="block text-[10px] text-slate-500 font-bold mb-1">تفاصيل أو ملاحظة إضافية</label>
+                        <input type="text" class="item-note form-input text-xs py-1.5 px-2.5" placeholder="مثال: أقل من 5 كم - استلام وتسليم فوري" value="${escapeHtml(note)}">
                     </div>
-                </div>
-                <div>
-                    <label class="block text-[10px] text-slate-500 font-bold mb-1">تفاصيل أو ملاحظة إضافية</label>
-                    <input type="text" class="item-note form-input text-xs py-1.5 px-2.5" placeholder="مثال: أقل من 5 كم - استلام وتسليم فوري" value="${escapeHtml(note)}">
-                </div>
-            `;
+                `;
             container.appendChild(row);
         }
 
@@ -868,6 +965,9 @@
             document.getElementById('cfg-heroBadge').value = data.heroBadge || '';
             document.getElementById('cfg-heroTitle').value = data.heroTitle || '';
             document.getElementById('cfg-heroDesc').value = data.heroDesc || '';
+            if (document.getElementById('cfg-promoVideoUrl')) {
+                document.getElementById('cfg-promoVideoUrl').value = data.promoVideoUrl || 'promo.mp4';
+            }
 
             document.getElementById('cfg-truckBadgeTitle').value = data.truckBadgeTitle || '';
             document.getElementById('cfg-truckBadgeTag').value = data.truckBadgeTag || '';
@@ -994,6 +1094,7 @@
                 heroBadge: document.getElementById('cfg-heroBadge').value.trim(),
                 heroTitle: document.getElementById('cfg-heroTitle').value.trim(),
                 heroDesc: document.getElementById('cfg-heroDesc').value.trim(),
+                promoVideoUrl: document.getElementById('cfg-promoVideoUrl')?.value.trim() || 'promo.mp4',
 
                 truckBadgeTitle: document.getElementById('cfg-truckBadgeTitle').value.trim(),
                 truckBadgeTag: document.getElementById('cfg-truckBadgeTag').value.trim(),
@@ -1065,11 +1166,11 @@
         // حفظ جميع الإعدادات في Firebase و localStorage
         async function saveAllSettings() {
             const data = collectDataFromForm();
-            
+
             // حفظ محلي فوري
             try {
                 localStorage.setItem('haul_site_data', JSON.stringify(data));
-            } catch (e) {}
+            } catch (e) { }
 
             showToast("جاري الحفظ في قاعدة بيانات Firebase السحابية...");
 
@@ -1123,10 +1224,10 @@
             if (confirm("هل أنت متأكد من استعادة القيم الأصلية للموقع وحذف التعديلات؟")) {
                 localStorage.removeItem('haul_site_data');
                 if (rtdb) {
-                    try { await rtdb.ref('haul_data/settings').remove(); } catch (e) {}
+                    try { await rtdb.ref('haul_data/settings').remove(); } catch (e) { }
                 }
                 if (db) {
-                    try { await db.collection('haul_data').doc('settings').delete(); } catch (e) {}
+                    try { await db.collection('haul_data').doc('settings').delete(); } catch (e) { }
                 }
                 loadCurrentData();
                 showToast("تمت استعادة الإعدادات الأصلية بنجاح.");
@@ -1156,4 +1257,5 @@
         window.addEventListener('DOMContentLoaded', loadCurrentData);
     </script>
 </body>
+
 </html>
