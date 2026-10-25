@@ -15,6 +15,7 @@
 
     <!-- استدعاء Firebase SDK (Compat) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
 
@@ -662,10 +663,11 @@
 
     <!-- البرمجة التفاعلية للوحة التحكم مع Firebase -->
     <script>
-        // إعدادات قاعدة بيانات Firebase من المستخدم
+        // إعدادات قاعدة بيانات Firebase من المستخدم (تشمل Realtime Database و Firestore)
         const firebaseConfig = {
             apiKey: "AIzaSyD-AQxfVNQc5zjDZ8vbcySdHiHS8Uih2Is",
             authDomain: "haul-a6b49.firebaseapp.com",
+            databaseURL: "https://haul-a6b49-default-rtdb.firebaseio.com",
             projectId: "haul-a6b49",
             storageBucket: "haul-a6b49.firebasestorage.app",
             messagingSenderId: "1009734061052",
@@ -673,14 +675,16 @@
             measurementId: "G-K1DMKS1PJQ"
         };
 
-        // تهيئة Firebase و Firestore
+        // تهيئة Firebase و Realtime Database و Firestore
+        let rtdb = null;
         let db = null;
         let analytics = null;
         try {
             if (!firebase.apps.length) {
                 firebase.initializeApp(firebaseConfig);
             }
-            db = firebase.firestore();
+            if (firebase.database) rtdb = firebase.database();
+            if (firebase.firestore) db = firebase.firestore();
             if (firebase.analytics) analytics = firebase.analytics();
         } catch (err) {
             console.warn("Firebase Init Error:", err);
@@ -928,8 +932,27 @@
             }
             populateForm(current);
 
-            // 2. فحص سحابة Firebase Firestore
-            if (db) {
+            // 2. فحص سحابة Firebase (Realtime Database و Firestore)
+            let loadedFromCloud = false;
+
+            // فحص Realtime Database أولاً
+            if (rtdb) {
+                try {
+                    const snap = await rtdb.ref('haul_data/settings').once('value');
+                    if (snap.exists() && snap.val()) {
+                        const cloudData = Object.assign({}, defaultSiteData, snap.val());
+                        localStorage.setItem('haul_site_data', JSON.stringify(cloudData));
+                        populateForm(cloudData);
+                        updateFirebaseBadge('connected', 'متصل بقاعدة Firebase (Realtime Database)');
+                        loadedFromCloud = true;
+                    }
+                } catch (e) {
+                    console.warn("RTDB fetch error:", e);
+                }
+            }
+
+            // فحص Cloud Firestore ثانياً إذا لم يتم التحميل
+            if (!loadedFromCloud && db) {
                 updateFirebaseBadge('loading', 'جاري الاتصال بـ Firebase...');
                 try {
                     const docSnap = await db.collection('haul_data').doc('settings').get();
@@ -937,27 +960,25 @@
                         const cloudData = Object.assign({}, defaultSiteData, docSnap.data());
                         localStorage.setItem('haul_site_data', JSON.stringify(cloudData));
                         populateForm(cloudData);
-                        updateFirebaseBadge('connected', 'متصل بسحابة Firebase (محدث)');
+                        updateFirebaseBadge('connected', 'متصل بسحابة Firebase (Firestore)');
+                        loadedFromCloud = true;
                     } else {
                         updateFirebaseBadge('connected', 'متصل بـ Firebase (جاهز لحفظ أول نسخة)');
+                        loadedFromCloud = true;
                     }
                 } catch (err) {
                     console.warn("Firestore fetch error:", err);
-                    if (err.message && (err.message.includes('has not been used') || err.message.includes('disabled'))) {
-                        updateFirebaseBadge('error', 'يلزم تفعيل Firestore في Firebase (اضغط هنا)');
-                        const b = document.getElementById('firebase-cloud-badge');
-                        if (b) {
-                            b.classList.add('cursor-pointer', 'hover:opacity-80');
-                            b.title = 'اضغط لفتح صفحة تفعيل Firestore في Firebase Console';
-                            b.onclick = () => window.open('https://console.firebase.google.com/project/haul-a6b49/firestore', '_blank');
-                        }
+                    if (rtdb) {
+                        updateFirebaseBadge('connected', 'متصل بـ Firebase (Realtime Database)');
+                    } else if (err.message && (err.message.includes('has not been used') || err.message.includes('disabled'))) {
+                        updateFirebaseBadge('error', 'يلزم تفعيل Firestore في Firebase');
                     } else if (err.code === 'permission-denied') {
-                        updateFirebaseBadge('error', 'أذونات القراءة مقفلة في Firebase (تحقق من Rules)');
+                        updateFirebaseBadge('error', 'أذونات القراءة مقفلة في Firebase (Rules)');
                     } else {
-                        updateFirebaseBadge('error', 'وضع محلي (تأكد من قواعد Firebase)');
+                        updateFirebaseBadge('error', 'وضع محلي (تحقق من قواعد Firebase)');
                     }
                 }
-            } else {
+            } else if (!loadedFromCloud && !rtdb && !db) {
                 updateFirebaseBadge('error', 'وضع التخزين المحلي فقط');
             }
         }
@@ -1050,29 +1071,48 @@
                 localStorage.setItem('haul_site_data', JSON.stringify(data));
             } catch (e) {}
 
-            // حفظ في قاعدة بيانات Firebase Firestore
+            showToast("جاري الحفظ في قاعدة بيانات Firebase السحابية...");
+
+            let savedCloud = false;
+            let cloudError = null;
+
+            // 1. حفظ في Realtime Database
+            if (rtdb) {
+                try {
+                    await rtdb.ref('haul_data/settings').set(data);
+                    savedCloud = true;
+                } catch (err) {
+                    console.warn("RTDB save error:", err);
+                    cloudError = err;
+                }
+            }
+
+            // 2. حفظ في Cloud Firestore
             if (db) {
-                showToast("جاري الحفظ في قاعدة بيانات Firebase السحابية...");
                 try {
                     await db.collection('haul_data').doc('settings').set(data);
-                    updateFirebaseBadge('connected', 'تم الحفظ في السحابة بنجاح');
-                    showToast("تم الحفظ في قاعدة بيانات Firebase السحابية بنجاح!");
-                    return;
+                    savedCloud = true;
                 } catch (err) {
-                    console.error("Firestore save error:", err);
-                    if (err.message && (err.message.includes('has not been used') || err.message.includes('disabled'))) {
-                        updateFirebaseBadge('error', 'يلزم تفعيل Firestore في Firebase');
-                        alert("تنبيه مهم:\nقاعدة بيانات Cloud Firestore غير مفعلة بعد في مشروعك على Firebase.\n\nلتفعيلها في ثوانٍ:\n1. افتح الرابط التالي: https://console.firebase.google.com/project/haul-a6b49/firestore\n2. اضغط على 'Create database'\n3. اختر 'Start in test mode' ثم اضغط Enable.\n\nملاحظة: تم حفظ تعديلاتك محلياً وستظهر في موقعك بنجاح!");
-                        window.open('https://console.firebase.google.com/project/haul-a6b49/firestore', '_blank');
-                    } else if (err.code === 'permission-denied') {
-                        updateFirebaseBadge('error', 'أذونات الكتابة مقفلة في Firebase (Rules)');
-                        alert("تم الحفظ محلياً بنجاح!\n\nتنبيه Firebase: قواعد الأمان (Rules) تمنع الكتابة. يُرجى الدخول إلى تبويب Rules في Firestore وضبطها على:\nallow read, write: if true;");
-                    } else {
-                        updateFirebaseBadge('error', 'خطأ: ' + (err.code || 'فشل الحفظ'));
-                        showToast("تم الحفظ محلياً! تنبيه Firebase: " + (err.message || err.code));
-                    }
-                    return;
+                    console.warn("Firestore save error:", err);
+                    if (!cloudError) cloudError = err;
                 }
+            }
+
+            if (savedCloud) {
+                updateFirebaseBadge('connected', 'تم الحفظ في السحابة بنجاح');
+                showToast("تم الحفظ في قاعدة بيانات Firebase السحابية بنجاح!");
+                return;
+            }
+
+            if (cloudError) {
+                if (cloudError.code === 'permission-denied') {
+                    updateFirebaseBadge('error', 'أذونات الكتابة مقفلة في Firebase (Rules)');
+                    alert("تم الحفظ محلياً بنجاح!\n\nتنبيه Firebase: قواعد الأمان تمنع الكتابة. يُرجى الدخول إلى تبويب Rules في Firebase وضبطها للسماح بالقراءة والكتابة.");
+                } else {
+                    updateFirebaseBadge('error', 'خطأ في حفظ السحابة');
+                    showToast("تم الحفظ محلياً! تنبيه Firebase: " + (cloudError.message || cloudError.code));
+                }
+                return;
             }
 
             showToast("تم حفظ جميع التعديلات محلياً بنجاح!");
@@ -1082,10 +1122,11 @@
         async function resetToDefaults() {
             if (confirm("هل أنت متأكد من استعادة القيم الأصلية للموقع وحذف التعديلات؟")) {
                 localStorage.removeItem('haul_site_data');
+                if (rtdb) {
+                    try { await rtdb.ref('haul_data/settings').remove(); } catch (e) {}
+                }
                 if (db) {
-                    try {
-                        await db.collection('haul_data').doc('settings').delete();
-                    } catch (e) {}
+                    try { await db.collection('haul_data').doc('settings').delete(); } catch (e) {}
                 }
                 loadCurrentData();
                 showToast("تمت استعادة الإعدادات الأصلية بنجاح.");
