@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,8 @@
     <!-- استدعاء خط Tajawal العصري والمريح للعين -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap"
+        rel="stylesheet">
     <!-- أيقونات Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -71,6 +73,7 @@
                 opacity: 0;
                 transform: translateY(12px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -81,11 +84,11 @@
         #mobile-drawer {
             transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        
+
         .drawer-closed {
             transform: translateX(100%);
         }
-        
+
         .drawer-open {
             transform: translateX(0);
         }
@@ -108,9 +111,12 @@
 
         /* ==================== أنميشن وبطاقات الخدمات التفاعلية وقائمة الأسعار ==================== */
         @keyframes arrowBounceSoft {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0);
             }
+
             50% {
                 transform: translateY(3.5px);
             }
@@ -172,15 +178,20 @@
 
         /* ==================== أنميشن الشاحنة في الشارع ==================== */
         @keyframes truckBounce {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0px) rotate(0deg);
             }
+
             25% {
                 transform: translateY(-2px) rotate(-0.5deg);
             }
+
             50% {
                 transform: translateY(0px) rotate(0deg);
             }
+
             75% {
                 transform: translateY(-1.5px) rotate(0.5deg);
             }
@@ -190,6 +201,7 @@
             0% {
                 stroke-dashoffset: 0;
             }
+
             100% {
                 stroke-dashoffset: -48;
             }
@@ -200,9 +212,11 @@
                 transform: translateX(15px);
                 opacity: 0;
             }
+
             40% {
                 opacity: 0.7;
             }
+
             100% {
                 transform: translateX(-25px);
                 opacity: 0;
@@ -213,6 +227,7 @@
             from {
                 transform: rotate(0deg);
             }
+
             to {
                 transform: rotate(360deg);
             }
@@ -241,10 +256,12 @@
         }
     </style>
 </head>
+
 <body class="min-h-screen flex flex-col justify-between selection:bg-sky-400 selection:text-white">
 
     <!-- إشعار منبثق أنيق (Toast) -->
-    <div id="toast-alert" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-dark-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-sky-400/30 flex items-center gap-3 transition-all duration-300 opacity-0 pointer-events-none translate-y-6 w-[90%] max-w-sm">
+    <div id="toast-alert"
+        class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-dark-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-sky-400/30 flex items-center gap-3 transition-all duration-300 opacity-0 pointer-events-none translate-y-6 w-[90%] max-w-sm">
         <div class="w-8 h-8 rounded-full bg-sky-400/20 text-sky-400 flex items-center justify-center shrink-0">
             <i class="fa-solid fa-check"></i>
         </div>
@@ -255,29 +272,38 @@
     <header class="sticky top-0 z-30 glass-header border-b border-slate-100">
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
             <div class="flex items-center justify-between h-20">
-                
+
                 <!-- الزاوية الأولى (يمين): أيقونة شريط الانتقالات للهاتف + بطاقة التوصيل الفوري المصغرة للهاتف + قائمة الكمبيوتر -->
                 <div class="flex items-center gap-2.5 sm:gap-3">
                     <!-- أيقونة القائمة للهواتف -->
-                    <button onclick="openDrawer()" aria-label="فتح القائمة" class="md:hidden w-11 h-11 rounded-2xl bg-slate-100 hover:bg-sky-400 text-dark-900 hover:text-white flex items-center justify-center transition-all duration-200 focus:outline-none shrink-0">
+                    <button onclick="openDrawer()" aria-label="فتح القائمة"
+                        class="md:hidden w-11 h-11 rounded-2xl bg-slate-100 hover:bg-sky-400 text-dark-900 hover:text-white flex items-center justify-center transition-all duration-200 focus:outline-none shrink-0">
                         <i class="fa-solid fa-bars-staggered text-xl"></i>
                     </button>
 
                     <!-- شارة أنميشن التوصيل الفوري (تظهر في الهواتف فقط بجانب زر القائمة) -->
-                    <div onclick="scrollToContact()" class="md:hidden flex items-center gap-2 bg-transparent text-dark-900 p-1.5 pl-2.5 rounded-2xl border border-slate-200/80 cursor-pointer active:scale-95 transition-all">
+                    <div onclick="scrollToContact()"
+                        class="md:hidden flex items-center gap-2 bg-transparent text-dark-900 p-1.5 pl-2.5 rounded-2xl border border-slate-200/80 cursor-pointer active:scale-95 transition-all">
                         <!-- أنميشن الشاحنة المصغر -->
-                        <div class="w-10 h-9 rounded-xl bg-sky-400 flex items-center justify-center relative overflow-hidden shrink-0 border border-sky-300/60">
+                        <div
+                            class="w-10 h-9 rounded-xl bg-sky-400 flex items-center justify-center relative overflow-hidden shrink-0 border border-sky-300/60">
                             <svg viewBox="0 0 140 105" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                                <line x1="12" y1="32" x2="30" y2="32" stroke="#09090b" stroke-width="3" stroke-linecap="round" class="animate-wind-1" opacity="0.5"/>
-                                <line x1="6" y1="46" x2="22" y2="46" stroke="#09090b" stroke-width="3" stroke-linecap="round" class="animate-wind-2" opacity="0.5"/>
+                                <line x1="12" y1="32" x2="30" y2="32" stroke="#09090b" stroke-width="3"
+                                    stroke-linecap="round" class="animate-wind-1" opacity="0.5" />
+                                <line x1="6" y1="46" x2="22" y2="46" stroke="#09090b" stroke-width="3"
+                                    stroke-linecap="round" class="animate-wind-2" opacity="0.5" />
                                 <rect x="0" y="76" width="140" height="29" fill="#09090b" />
-                                <line x1="-30" y1="90" x2="170" y2="90" stroke="#38bdf8" stroke-width="4" stroke-dasharray="14 10" stroke-linecap="round" class="animate-road-stripes" />
+                                <line x1="-30" y1="90" x2="170" y2="90" stroke="#38bdf8" stroke-width="4"
+                                    stroke-dasharray="14 10" stroke-linecap="round" class="animate-road-stripes" />
                                 <g class="animate-truck-body">
                                     <rect x="26" y="24" width="54" height="42" rx="6" fill="#09090b" />
                                     <rect x="33" y="42" width="40" height="5" rx="2.5" fill="#38bdf8" />
                                     <circle cx="53" cy="33" r="5" fill="#38bdf8" />
-                                    <path d="M 82,35 L 101,35 C 105,35 108,37 110,41 L 116,52 C 117,54 118,56 118,59 L 118,66 L 82,66 Z" fill="#09090b" />
-                                    <path d="M 87,40 L 100,40 C 102,40 104,41 105,43 L 110,51 L 87,51 Z" fill="#e0f2fe" />
+                                    <path
+                                        d="M 82,35 L 101,35 C 105,35 108,37 110,41 L 116,52 C 117,54 118,56 118,59 L 118,66 L 82,66 Z"
+                                        fill="#09090b" />
+                                    <path d="M 87,40 L 100,40 C 102,40 104,41 105,43 L 110,51 L 87,51 Z"
+                                        fill="#e0f2fe" />
                                     <rect x="115" y="56" width="3.5" height="6" rx="1.5" fill="#fde047" />
                                     <polygon points="118.5,56 135,51 135,65 118.5,62" fill="#fde047" opacity="0.35" />
                                     <rect x="23" y="64" width="97" height="4" rx="2" fill="#18181b" />
@@ -299,25 +325,33 @@
                         <!-- تفاصيل التوصيل الفوري المصغرة -->
                         <div class="text-right leading-tight">
                             <div class="flex items-center gap-1.5">
-                                <span id="site-truck-title" class="text-[11px] font-black text-dark-900">توصيل فوري</span>
-                                <span id="site-truck-tag" class="text-[9px] font-extrabold bg-sky-50 text-sky-600 px-1.5 py-0.5 rounded-md border border-sky-200">100% أمان</span>
+                                <span id="site-truck-title" class="text-[11px] font-black text-dark-900">توصيل
+                                    فوري</span>
+                                <span id="site-truck-tag"
+                                    class="text-[9px] font-extrabold bg-sky-50 text-sky-600 px-1.5 py-0.5 rounded-md border border-sky-200">100%
+                                    أمان</span>
                             </div>
                             <div class="flex items-center gap-1 mt-0.5">
                                 <span class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span>
-                                <span id="site-truck-sub" class="text-[9px] text-slate-500 font-medium">سريع • من الباب للباب</span>
+                                <span id="site-truck-sub" class="text-[9px] text-slate-500 font-medium">سريع • من الباب
+                                    للباب</span>
                             </div>
                         </div>
                     </div>
 
                     <!-- أزرار التنقل للكمبيوتر -->
-                    <nav class="hidden md:flex items-center bg-slate-100/80 p-1.5 rounded-2xl border border-slate-200/60">
-                        <button onclick="navigate('home')" id="desk-home" class="px-6 py-2 rounded-xl font-bold text-sm transition-all bg-dark-900 text-white shadow-sm">
+                    <nav
+                        class="hidden md:flex items-center bg-slate-100/80 p-1.5 rounded-2xl border border-slate-200/60">
+                        <button onclick="navigate('home')" id="desk-home"
+                            class="px-6 py-2 rounded-xl font-bold text-sm transition-all bg-dark-900 text-white shadow-sm">
                             الرئيسية
                         </button>
-                        <button onclick="navigate('prices')" id="desk-prices" class="px-6 py-2 rounded-xl font-bold text-sm transition-all text-slate-600 hover:text-dark-900">
+                        <button onclick="navigate('prices')" id="desk-prices"
+                            class="px-6 py-2 rounded-xl font-bold text-sm transition-all text-slate-600 hover:text-dark-900">
                             الأسعار
                         </button>
-                        <button onclick="navigate('about')" id="desk-about" class="px-6 py-2 rounded-xl font-bold text-sm transition-all text-slate-600 hover:text-dark-900">
+                        <button onclick="navigate('about')" id="desk-about"
+                            class="px-6 py-2 rounded-xl font-bold text-sm transition-all text-slate-600 hover:text-dark-900">
                             نبذة عني
                         </button>
                     </nav>
@@ -325,17 +359,28 @@
 
                 <!-- الزاوية الأخرى (يسار): شعار Haul مطابق تماماً لخط الصورة المرفقة -->
                 <div class="flex items-center">
-                    <a href="#" onclick="navigate('home'); return false;" class="focus:outline-none group flex items-center" title="Haul">
+                    <a href="#" onclick="navigate('home'); return false;"
+                        class="focus:outline-none group flex items-center" title="Haul">
                         <!-- رسم векторي (SVG) لكلمة HAUL يحاكي حروف وزوايا خط صورة ENGLISH بدقة تامة -->
-                        <svg viewBox="0 0 235 68" class="h-9 sm:h-11 w-auto transition-transform duration-200 group-hover:scale-105" xmlns="http://www.w3.org/2000/svg">
+                        <svg viewBox="0 0 235 68"
+                            class="h-9 sm:h-11 w-auto transition-transform duration-200 group-hover:scale-105"
+                            xmlns="http://www.w3.org/2000/svg">
                             <!-- الحرف H -->
-                            <path d="M 10,8 L 32,10 C 30,22 29,26 29,30 L 50,29 C 50,23 49,17 48,10 L 69,8 C 66,26 65,44 66,61 L 45,60 C 46,52 47,46 48,40 L 28,41 C 27,48 27,54 27,61 L 7,60 C 10,42 11,25 10,8 Z" fill="#18181B"/>
+                            <path
+                                d="M 10,8 L 32,10 C 30,22 29,26 29,30 L 50,29 C 50,23 49,17 48,10 L 69,8 C 66,26 65,44 66,61 L 45,60 C 46,52 47,46 48,40 L 28,41 C 27,48 27,54 27,61 L 7,60 C 10,42 11,25 10,8 Z"
+                                fill="#18181B" />
                             <!-- الحرف A -->
-                            <path d="M 96,9 L 121,8 C 127,26 132,44 139,60 L 117,61 L 113,48 L 92,49 L 88,61 L 69,60 C 78,42 87,25 96,9 Z M 104,23 L 96,39 L 110,38 L 104,23 Z" fill="#18181B"/>
+                            <path
+                                d="M 96,9 L 121,8 C 127,26 132,44 139,60 L 117,61 L 113,48 L 92,49 L 88,61 L 69,60 C 78,42 87,25 96,9 Z M 104,23 L 96,39 L 110,38 L 104,23 Z"
+                                fill="#18181B" />
                             <!-- الحرف U -->
-                            <path d="M 142,10 L 163,11 C 161,25 159,36 160,43 C 160,49 172,49 173,42 C 174,34 175,22 176,9 L 196,11 C 193,28 192,40 190,47 C 187,62 146,64 143,46 C 142,36 143,23 142,10 Z" fill="#18181B"/>
+                            <path
+                                d="M 142,10 L 163,11 C 161,25 159,36 160,43 C 160,49 172,49 173,42 C 174,34 175,22 176,9 L 196,11 C 193,28 192,40 190,47 C 187,62 146,64 143,46 C 142,36 143,23 142,10 Z"
+                                fill="#18181B" />
                             <!-- الحرف L -->
-                            <path d="M 202,9 L 224,11 C 221,26 219,38 218,49 L 234,45 L 235,60 L 198,61 C 200,44 202,26 202,9 Z" fill="#18181B"/>
+                            <path
+                                d="M 202,9 L 224,11 C 221,26 219,38 218,49 L 234,45 L 235,60 L 198,61 C 200,44 202,26 202,9 Z"
+                                fill="#18181B" />
                         </svg>
                     </a>
                 </div>
@@ -345,21 +390,28 @@
     </header>
 
     <!-- ==================== قائمة الهاتف الجانبية المنزلقة (Mobile Drawer) ==================== -->
-    <div id="drawer-overlay" onclick="closeDrawer()" class="fixed inset-0 bg-dark-900/50 backdrop-blur-xs z-40 hidden opacity-0 transition-opacity duration-300"></div>
-    
-    <aside id="mobile-drawer" class="fixed top-0 right-0 bottom-0 w-72 bg-white z-50 shadow-2xl drawer-closed flex flex-col justify-between p-6 md:hidden">
+    <div id="drawer-overlay" onclick="closeDrawer()"
+        class="fixed inset-0 bg-dark-900/50 backdrop-blur-xs z-40 hidden opacity-0 transition-opacity duration-300">
+    </div>
+
+    <aside id="mobile-drawer"
+        class="fixed top-0 right-0 bottom-0 w-72 bg-white z-50 shadow-2xl drawer-closed flex flex-col justify-between p-6 md:hidden">
         <div>
             <!-- رأس القائمة الجانبية -->
             <div class="flex items-center justify-between pb-6 border-b border-slate-100">
-                <span class="text-xs font-extrabold uppercase tracking-wider text-sky-500 bg-sky-50 px-3 py-1.5 rounded-full">قائمة الصفحات</span>
-                <button onclick="closeDrawer()" class="w-9 h-9 rounded-xl bg-slate-100 text-slate-600 hover:bg-dark-900 hover:text-white flex items-center justify-center transition-colors">
+                <span
+                    class="text-xs font-extrabold uppercase tracking-wider text-sky-500 bg-sky-50 px-3 py-1.5 rounded-full">قائمة
+                    الصفحات</span>
+                <button onclick="closeDrawer()"
+                    class="w-9 h-9 rounded-xl bg-slate-100 text-slate-600 hover:bg-dark-900 hover:text-white flex items-center justify-center transition-colors">
                     <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
             </div>
 
             <!-- روابط الصفحات في الهاتف -->
             <div class="mt-6 space-y-2.5">
-                <button onclick="navigate('home')" id="mob-home" class="w-full flex items-center justify-between p-4 rounded-2xl font-bold text-base transition-all bg-sky-400 text-white sky-shadow">
+                <button onclick="navigate('home')" id="mob-home"
+                    class="w-full flex items-center justify-between p-4 rounded-2xl font-bold text-base transition-all bg-sky-400 text-white sky-shadow">
                     <div class="flex items-center gap-3.5">
                         <i class="fa-solid fa-house text-lg"></i>
                         <span>الرئيسية</span>
@@ -367,7 +419,8 @@
                     <i class="fa-solid fa-arrow-left text-xs opacity-80"></i>
                 </button>
 
-                <button onclick="navigate('prices')" id="mob-prices" class="w-full flex items-center justify-between p-4 rounded-2xl font-bold text-base transition-all text-dark-900 hover:bg-sky-50">
+                <button onclick="navigate('prices')" id="mob-prices"
+                    class="w-full flex items-center justify-between p-4 rounded-2xl font-bold text-base transition-all text-dark-900 hover:bg-sky-50">
                     <div class="flex items-center gap-3.5">
                         <i class="fa-solid fa-tag text-lg text-sky-400"></i>
                         <span>الأسعار</span>
@@ -375,7 +428,8 @@
                     <i class="fa-solid fa-chevron-left text-xs text-slate-400"></i>
                 </button>
 
-                <button onclick="navigate('about')" id="mob-about" class="w-full flex items-center justify-between p-4 rounded-2xl font-bold text-base transition-all text-dark-900 hover:bg-sky-50">
+                <button onclick="navigate('about')" id="mob-about"
+                    class="w-full flex items-center justify-between p-4 rounded-2xl font-bold text-base transition-all text-dark-900 hover:bg-sky-50">
                     <div class="flex items-center gap-3.5">
                         <i class="fa-solid fa-circle-user text-lg text-sky-400"></i>
                         <span>نبذة عني</span>
@@ -385,21 +439,61 @@
             </div>
         </div>
 
-        <!-- صندوق الاتصال السريع أسفل قائمة الهاتف -->
-        <div class="bg-dark-900 text-white p-5 rounded-3xl space-y-3">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-2xl bg-sky-400/20 text-sky-400 flex items-center justify-center">
-                    <i class="fa-solid fa-headset"></i>
+        <!-- الجزء السفلي: أداة تكبير وتصغير الموقع + صندوق الاتصال -->
+        <div class="space-y-3 pt-3">
+            <!-- أداة تكبير وتصغير حجم الموقع للهاتف -->
+            <div class="bg-slate-50 border border-slate-200/90 rounded-2xl p-3 shadow-2xs">
+                <div class="flex items-center justify-between text-xs font-bold text-slate-600 mb-2 px-0.5">
+                    <div class="flex items-center gap-1.5">
+                        <i class="fa-solid fa-magnifying-glass-plus text-sky-500 text-xs"></i>
+                        <span class="text-dark-900 font-extrabold text-xs">حجم الموقع</span>
+                    </div>
+                    <button type="button" onclick="resetSiteZoom()" 
+                        class="text-[11px] font-bold text-sky-600 hover:text-sky-700 bg-white hover:bg-sky-50 px-2 py-0.5 rounded-lg border border-slate-200/80 transition-colors shadow-2xs cursor-pointer"
+                        title="استعادة 100%">
+                        استعادة 100%
+                    </button>
                 </div>
-                <div>
-                    <p class="text-xs text-slate-400">تواصل سريع</p>
-                    <p class="text-sm font-bold site-phone-display" dir="ltr">+968 9000 0000</p>
+                <div class="flex items-center justify-between bg-white border border-slate-200/80 rounded-xl p-1 shadow-2xs">
+                    <!-- زر تصغير -->
+                    <button type="button" onclick="changeSiteZoom(-0.05)" 
+                        id="btn-zoom-out"
+                        class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-sky-400 hover:text-white text-dark-900 flex items-center justify-center font-black transition-all active:scale-95 cursor-pointer"
+                        title="تصغير الموقع">
+                        <i class="fa-solid fa-minus text-sm"></i>
+                    </button>
+                    <!-- النسبة الحالية -->
+                    <div class="flex flex-col items-center justify-center px-1">
+                        <span id="site-zoom-level" class="text-sm font-black text-dark-900 font-sans tracking-tight" dir="ltr">100%</span>
+                        <span class="text-[9px] text-slate-400 font-medium">تكبير / تصغير</span>
+                    </div>
+                    <!-- زر تكبير -->
+                    <button type="button" onclick="changeSiteZoom(0.05)" 
+                        id="btn-zoom-in"
+                        class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-sky-400 hover:text-white text-dark-900 flex items-center justify-center font-black transition-all active:scale-95 cursor-pointer"
+                        title="تكبير الموقع">
+                        <i class="fa-solid fa-plus text-sm"></i>
+                    </button>
                 </div>
             </div>
-            <a href="tel:+96890000000" class="w-full py-2.5 bg-sky-400 hover:bg-sky-500 text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-colors">
-                <i class="fa-solid fa-phone text-xs"></i>
-                <span>اتصل الآن</span>
-            </a>
+
+            <!-- صندوق الاتصال السريع أسفل قائمة الهاتف -->
+            <div class="bg-dark-900 text-white p-5 rounded-3xl space-y-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-sky-400/20 text-sky-400 flex items-center justify-center">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400">تواصل سريع</p>
+                        <p class="text-sm font-bold site-phone-display" dir="ltr">+968 9000 0000</p>
+                    </div>
+                </div>
+                <a href="tel:+96890000000"
+                    class="w-full py-2.5 bg-sky-400 hover:bg-sky-500 text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-colors">
+                    <i class="fa-solid fa-phone text-xs"></i>
+                    <span>اتصل الآن</span>
+                </a>
+            </div>
         </div>
     </aside>
 
@@ -408,118 +502,35 @@
 
         <!-- 1. الصفحة الرئيسية -->
         <section id="view-home" class="page-view active space-y-8">
-            
-            <!-- القسم الترحيبي العصري -->
-            <div class="bg-dark-900 text-white rounded-[2rem] p-6 sm:p-12 relative overflow-hidden shadow-xl">
-                <!-- دوائر إضاءة خلفية باللون الأزرق السماوي -->
-                <div class="absolute -top-24 -left-24 w-72 h-72 bg-sky-400/25 rounded-full blur-3xl pointer-events-none"></div>
+
+            <!-- ==================== مقطع فيديو إعلاني للموقع (MP4) ==================== -->
+            <div class="relative bg-dark-900 rounded-[2rem] overflow-hidden shadow-2xl border-2 border-sky-400 shadow-sky-400/20">
+                <!-- إضاءة خلفية جمالية سماوية خافتة -->
+                <div class="absolute -top-24 -left-24 w-72 h-72 bg-sky-400/20 rounded-full blur-3xl pointer-events-none"></div>
                 <div class="absolute -bottom-24 -right-24 w-72 h-72 bg-sky-400/15 rounded-full blur-3xl pointer-events-none"></div>
 
-                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                    <div class="lg:col-span-7 space-y-5 text-right">
-                        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/15 px-3.5 py-1.5 rounded-full">
-                            <span class="w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>
-                            <span id="site-hero-badge" class="text-xs font-bold text-sky-300">خدمة توصيل سريعة وموثوقة</span>
-                        </div>
+                <!-- حاوية مشغل الفيديو - بدون شريط سفلي مع حدود بلون أزرق سماوي -->
+                <div class="relative z-10 w-full aspect-video max-h-[520px] bg-black flex items-center justify-center overflow-hidden">
+                    <video id="site-promo-video"
+                        class="w-full h-full object-cover sm:object-contain bg-black cursor-pointer"
+                        autoplay
+                        loop
+                        muted
+                        playsinline
+                        preload="auto"
+                        src="promo.mp4"
+                        onclick="toggleVideoPlayPause(event)">
+                        <source id="site-promo-video-source" src="promo.mp4" type="video/mp4">
+                        متصفحك لا يدعم تشغيل مقاطع الفيديو بصيغة MP4.
+                    </video>
 
-                        <h1 id="site-hero-title" class="text-3xl sm:text-5xl font-black leading-tight">
-                            نوصل طلباتك بكل عناية وسرعة مع <span class="text-sky-400">Haul</span>
-                        </h1>
-
-                        <p id="site-hero-desc" class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-xl font-medium">
-                            سواء كنت تحتاج لتوصيل طلبات مطاعم، مشتريات منزلية، أو طرود خاصة، نحن هنا لخدمتك بأفضل الأسعار وأسرع وقت.
-                        </p>
-
-                        <div class="pt-2 flex flex-wrap items-center gap-3.5">
-                            <button onclick="navigate('prices')" class="flex-1 sm:flex-initial justify-center bg-sky-400 hover:bg-sky-500 text-dark-900 font-extrabold px-7 py-4 rounded-2xl sky-shadow transition-all flex items-center gap-2.5 text-base">
-                                <span>معرفة الأسعار</span>
-                                <i class="fa-solid fa-arrow-left text-sm"></i>
-                            </button>
-                            <button onclick="scrollToContact()" class="flex-1 sm:flex-initial justify-center bg-white/10 hover:bg-white/20 text-white font-bold px-7 py-4 rounded-2xl border border-white/15 transition-all flex items-center gap-2.5 text-base">
-                                <i class="fa-solid fa-phone text-sky-400"></i>
-                                <span>رقم التواصل</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- بطاقة جرافيك جانبية أنيقة تحتوي على أنميشن الشاحنة (تظهر في الكمبيوتر والتابلت فقط لأنها انتقلت للأعلى في الهاتف) -->
-                    <div class="hidden md:flex lg:col-span-5 justify-center">
-                        <div class="w-full max-w-xs bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-lg border border-white/15 rounded-3xl p-6 text-center space-y-4">
-                            
-                            <!-- مربع الأيقونة المتحركة: شاحنة تسير في الشارع -->
-                            <div class="w-28 h-24 mx-auto rounded-2xl bg-sky-400 text-dark-900 flex items-center justify-center shadow-lg shadow-sky-400/30 relative overflow-hidden border-2 border-sky-300/60">
-                                <svg viewBox="0 0 140 105" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                                    <!-- خطوط الهواء والسرعة خلف الشاحنة -->
-                                    <line x1="12" y1="32" x2="30" y2="32" stroke="#09090b" stroke-width="2.5" stroke-linecap="round" class="animate-wind-1" opacity="0.5"/>
-                                    <line x1="6" y1="46" x2="22" y2="46" stroke="#09090b" stroke-width="2.5" stroke-linecap="round" class="animate-wind-2" opacity="0.5"/>
-
-                                    <!-- أرضية الشارع السفلية -->
-                                    <rect x="0" y="76" width="140" height="29" fill="#09090b" />
-                                    
-                                    <!-- خطوط الشارع المتحركة للإيحاء بحركة السير -->
-                                    <line x1="-30" y1="90" x2="170" y2="90" stroke="#38bdf8" stroke-width="3.5" stroke-dasharray="14 10" stroke-linecap="round" class="animate-road-stripes" />
-
-                                    <!-- جسم الشاحنة المتحرك -->
-                                    <g class="animate-truck-body">
-                                        <!-- صندوق الشحن الخلفي -->
-                                        <rect x="26" y="24" width="54" height="42" rx="6" fill="#09090b" />
-                                        <!-- شريط جمالي سماوي على صندوق الشاحنة -->
-                                        <rect x="33" y="42" width="40" height="5" rx="2.5" fill="#38bdf8" />
-                                        <!-- علامة صح صغيرة على الشاحنة -->
-                                        <circle cx="53" cy="33" r="5" fill="#38bdf8" />
-
-                                        <!-- كابينة القيادة الأمامية -->
-                                        <path d="M 82,35 L 101,35 C 105,35 108,37 110,41 L 116,52 C 117,54 118,56 118,59 L 118,66 L 82,66 Z" fill="#09090b" />
-                                        
-                                        <!-- نافذة السائق -->
-                                        <path d="M 87,40 L 100,40 C 102,40 104,41 105,43 L 110,51 L 87,51 Z" fill="#e0f2fe" />
-                                        
-                                        <!-- المصباح الأمامي مع ضوء خفيف -->
-                                        <rect x="115" y="56" width="3.5" height="6" rx="1.5" fill="#fde047" />
-                                        <polygon points="118.5,56 135,51 135,65 118.5,62" fill="#fde047" opacity="0.35" />
-
-                                        <!-- المصد السفلي (الشاصي) -->
-                                        <rect x="23" y="64" width="97" height="4" rx="2" fill="#18181b" />
-                                    </g>
-
-                                    <!-- العجلة الخلفية الدوارة -->
-                                    <g transform="translate(46, 69)">
-                                        <g class="animate-wheel">
-                                            <circle cx="0" cy="0" r="10" fill="#09090b" stroke="#38bdf8" stroke-width="2.5" />
-                                            <circle cx="0" cy="0" r="3.5" fill="#e0f2fe" />
-                                            <line x1="-7" y1="0" x2="7" y2="0" stroke="#38bdf8" stroke-width="1.5" />
-                                            <line x1="0" y1="-7" x2="0" y2="7" stroke="#38bdf8" stroke-width="1.5" />
-                                        </g>
-                                    </g>
-
-                                    <!-- العجلة الأمامية الدوارة -->
-                                    <g transform="translate(99, 69)">
-                                        <g class="animate-wheel">
-                                            <circle cx="0" cy="0" r="10" fill="#09090b" stroke="#38bdf8" stroke-width="2.5" />
-                                            <circle cx="0" cy="0" r="3.5" fill="#e0f2fe" />
-                                            <line x1="-7" y1="0" x2="7" y2="0" stroke="#38bdf8" stroke-width="1.5" />
-                                            <line x1="0" y1="-7" x2="0" y2="7" stroke="#38bdf8" stroke-width="1.5" />
-                                        </g>
-                                    </g>
-                                </svg>
-                            </div>
-
-                            <div>
-                                <h3 class="text-xl font-extrabold text-white">توصيل فوري</h3>
-                                <p class="text-xs text-slate-300 mt-1">استلام وتسليم من الباب إلى الباب</p>
-                            </div>
-                            <div class="grid grid-cols-2 gap-2 pt-2 text-xs">
-                                <div class="bg-dark-900/60 p-3 rounded-2xl border border-white/10">
-                                    <span class="block text-sky-400 font-black text-base">100%</span>
-                                    <span class="text-slate-300">أمان وموثوقية</span>
-                                </div>
-                                <div class="bg-dark-900/60 p-3 rounded-2xl border border-white/10">
-                                    <span class="block text-sky-400 font-black text-base">سريع</span>
-                                    <span class="text-slate-300">التزام بالوقت</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- زر تشغيل / كتم الصوت -->
+                    <button type="button" id="video-sound-btn" onclick="toggleVideoSound(event)"
+                        class="absolute bottom-4 left-4 z-20 flex items-center gap-2 bg-dark-900/85 hover:bg-dark-900 text-white backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 text-xs font-bold transition-all shadow-lg cursor-pointer active:scale-95"
+                        title="تشغيل / كتم الصوت">
+                        <i id="video-sound-icon" class="fa-solid fa-volume-xmark text-slate-300 text-xs"></i>
+                        <span id="video-sound-label" class="text-[11px]">تشغيل الصوت</span>
+                    </button>
                 </div>
             </div>
 
@@ -527,7 +538,8 @@
             <div id="contact-section" class="bg-white rounded-[2rem] p-6 sm:p-8 border border-slate-200/80 card-shadow">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                     <div class="flex items-center gap-4 text-right w-full md:w-auto">
-                        <div class="w-14 h-14 rounded-2xl bg-sky-50 border border-sky-200 text-sky-500 flex items-center justify-center text-2xl shrink-0">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-sky-50 border border-sky-200 text-sky-500 flex items-center justify-center text-2xl shrink-0">
                             <i class="fa-solid fa-phone-volume"></i>
                         </div>
                         <div>
@@ -538,22 +550,27 @@
                     </div>
 
                     <!-- الرقم وأزرار التفاعل -->
-                    <div class="w-full md:w-auto flex flex-col sm:flex-row items-center gap-3 bg-slate-50 p-3 rounded-2xl border border-slate-200/70">
+                    <div
+                        class="w-full md:w-auto flex flex-col sm:flex-row items-center gap-3 bg-slate-50 p-3 rounded-2xl border border-slate-200/70">
                         <div class="px-4 py-2 text-center sm:text-right">
                             <span class="text-xs text-slate-400 block font-medium">رقم الهاتف</span>
-                            <span class="text-xl font-black text-dark-900 tracking-wider site-phone-display" dir="ltr">+968 9000 0000</span>
+                            <span class="text-xl font-black text-dark-900 tracking-wider site-phone-display"
+                                dir="ltr">+968 9000 0000</span>
                         </div>
-                        
+
                         <div class="flex items-center gap-2 w-full sm:w-auto">
-                            <button onclick="copyPhone()" class="flex-1 sm:flex-initial px-4 py-3 rounded-xl bg-white hover:bg-slate-100 text-dark-900 border border-slate-200 font-bold text-sm flex items-center justify-center gap-2 transition-all">
+                            <button onclick="copyPhone()"
+                                class="flex-1 sm:flex-initial px-4 py-3 rounded-xl bg-white hover:bg-slate-100 text-dark-900 border border-slate-200 font-bold text-sm flex items-center justify-center gap-2 transition-all">
                                 <i class="fa-regular fa-copy text-sky-500"></i>
                                 <span>نسخ</span>
                             </button>
-                            <a href="tel:+96890000000" class="flex-1 sm:flex-initial px-5 py-3 rounded-xl bg-dark-900 hover:bg-sky-400 hover:text-dark-900 text-white font-bold text-sm flex items-center justify-center gap-2 transition-all">
+                            <a href="tel:+96890000000"
+                                class="flex-1 sm:flex-initial px-5 py-3 rounded-xl bg-dark-900 hover:bg-sky-400 hover:text-dark-900 text-white font-bold text-sm flex items-center justify-center gap-2 transition-all">
                                 <i class="fa-solid fa-phone"></i>
                                 <span>اتصال</span>
                             </a>
-                            <a href="https://wa.me/96890000000" target="_blank" rel="noopener noreferrer" class="flex-1 sm:flex-initial px-4 py-3 rounded-xl bg-sky-400 hover:bg-sky-500 text-dark-900 font-extrabold text-sm flex items-center justify-center gap-1.5 transition-all">
+                            <a href="https://wa.me/96890000000" target="_blank" rel="noopener noreferrer"
+                                class="flex-1 sm:flex-initial px-4 py-3 rounded-xl bg-sky-400 hover:bg-sky-500 text-dark-900 font-extrabold text-sm flex items-center justify-center gap-1.5 transition-all">
                                 <i class="fa-brands fa-whatsapp text-lg"></i>
                                 <span>واتساب</span>
                             </a>
@@ -564,26 +581,33 @@
 
             <!-- 3 بطاقات مختصرة توضح ماذا نقدم مع قوائم الأسعار التفاعلية -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5 items-start">
-                
+
                 <!-- خدمة 0: طلبات المطاعم والمقاهي -->
-                <div id="service-card-0" onclick="toggleServiceCard(0)" class="service-card bg-white p-6 rounded-3xl border border-slate-100 card-shadow hover:border-sky-300 transition-all cursor-pointer group flex flex-col justify-between">
+                <div id="service-card-0" onclick="toggleServiceCard(0)"
+                    class="service-card bg-white p-6 rounded-3xl border border-slate-100 card-shadow hover:border-sky-300 transition-all cursor-pointer group flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 rounded-2xl bg-sky-400/15 text-sky-500 flex items-center justify-center text-xl group-hover:bg-sky-400 group-hover:text-white transition-colors">
+                            <div
+                                class="w-12 h-12 rounded-2xl bg-sky-400/15 text-sky-500 flex items-center justify-center text-xl group-hover:bg-sky-400 group-hover:text-white transition-colors">
                                 <i class="fa-solid fa-utensils"></i>
                             </div>
 
                             <!-- سهم الزاوية التفاعلي مع أنميشن -->
-                            <div class="serv-toggle-badge flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-slate-100 group-hover:bg-sky-50 text-slate-600 group-hover:text-sky-600 border border-slate-200/80 transition-all duration-300">
+                            <div
+                                class="serv-toggle-badge flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-slate-100 group-hover:bg-sky-50 text-slate-600 group-hover:text-sky-600 border border-slate-200/80 transition-all duration-300">
                                 <span class="serv-toggle-text text-xs font-bold">عرض الأسعار</span>
-                                <div class="w-6 h-6 rounded-xl bg-white shadow-xs flex items-center justify-center text-slate-700 serv-chevron-box transition-all duration-300">
-                                    <i class="fa-solid fa-chevron-down text-xs transition-transform duration-300 serv-chevron animate-arrow-bounce"></i>
+                                <div
+                                    class="w-6 h-6 rounded-xl bg-white shadow-xs flex items-center justify-center text-slate-700 serv-chevron-box transition-all duration-300">
+                                    <i
+                                        class="fa-solid fa-chevron-down text-xs transition-transform duration-300 serv-chevron animate-arrow-bounce"></i>
                                 </div>
                             </div>
                         </div>
 
-                        <h3 id="site-serv-0-title" class="text-lg font-extrabold text-dark-900 mb-2">طلبات المطاعم والمقاهي</h3>
-                        <p id="site-serv-0-desc" class="text-slate-500 text-sm leading-relaxed">نستلم وجبتك المفضلة ونوصلها إليك ساخنة وبأسرع وقت ممكن.</p>
+                        <h3 id="site-serv-0-title" class="text-lg font-extrabold text-dark-900 mb-2">طلبات المطاعم
+                            والمقاهي</h3>
+                        <p id="site-serv-0-desc" class="text-slate-500 text-sm leading-relaxed">نستلم وجبتك المفضلة
+                            ونوصلها إليك ساخنة وبأسرع وقت ممكن.</p>
                     </div>
 
                     <!-- قائمة الأسعار القابلة للتوسيع -->
@@ -595,16 +619,21 @@
                                         <i class="fa-solid fa-tags text-sky-400 text-xs"></i>
                                         <span>قائمة الأسعار المعتمدة</span>
                                     </span>
-                                    <span class="text-[10px] bg-sky-50 text-sky-600 px-2 py-0.5 rounded-md font-bold">تسليم فوري</span>
+                                    <span
+                                        class="text-[10px] bg-sky-50 text-sky-600 px-2 py-0.5 rounded-md font-bold">تسليم
+                                        فوري</span>
                                 </div>
 
                                 <div id="site-serv-0-prices-list" class="space-y-2">
                                     <!-- يتم تعبئتها بواسطة JS -->
                                 </div>
 
-                                <button type="button" onclick="event.stopPropagation(); openOrderModal(document.getElementById('site-serv-0-title').textContent)" class="w-full mt-2 py-2.5 px-4 rounded-xl bg-dark-900 hover:bg-sky-400 text-white hover:text-dark-900 text-xs font-bold transition-all flex items-center justify-center gap-2 group/btn shadow-xs">
+                                <button type="button"
+                                    onclick="event.stopPropagation(); openOrderModal(document.getElementById('site-serv-0-title').textContent)"
+                                    class="w-full mt-2 py-2.5 px-4 rounded-xl bg-dark-900 hover:bg-sky-400 text-white hover:text-dark-900 text-xs font-bold transition-all flex items-center justify-center gap-2 group/btn shadow-xs">
                                     <span>طلب هذه الخدمة الآن</span>
-                                    <i class="fa-solid fa-arrow-left text-[11px] group-hover/btn:-translate-x-1 transition-transform"></i>
+                                    <i
+                                        class="fa-solid fa-arrow-left text-[11px] group-hover/btn:-translate-x-1 transition-transform"></i>
                                 </button>
                             </div>
                         </div>
@@ -612,24 +641,31 @@
                 </div>
 
                 <!-- خدمة 1: مشتريات السوبرماركت -->
-                <div id="service-card-1" onclick="toggleServiceCard(1)" class="service-card bg-white p-6 rounded-3xl border border-slate-100 card-shadow hover:border-sky-300 transition-all cursor-pointer group flex flex-col justify-between">
+                <div id="service-card-1" onclick="toggleServiceCard(1)"
+                    class="service-card bg-white p-6 rounded-3xl border border-slate-100 card-shadow hover:border-sky-300 transition-all cursor-pointer group flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 rounded-2xl bg-sky-400/15 text-sky-500 flex items-center justify-center text-xl group-hover:bg-sky-400 group-hover:text-white transition-colors">
+                            <div
+                                class="w-12 h-12 rounded-2xl bg-sky-400/15 text-sky-500 flex items-center justify-center text-xl group-hover:bg-sky-400 group-hover:text-white transition-colors">
                                 <i class="fa-solid fa-bag-shopping"></i>
                             </div>
 
                             <!-- سهم الزاوية التفاعلي مع أنميشن -->
-                            <div class="serv-toggle-badge flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-slate-100 group-hover:bg-sky-50 text-slate-600 group-hover:text-sky-600 border border-slate-200/80 transition-all duration-300">
+                            <div
+                                class="serv-toggle-badge flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-slate-100 group-hover:bg-sky-50 text-slate-600 group-hover:text-sky-600 border border-slate-200/80 transition-all duration-300">
                                 <span class="serv-toggle-text text-xs font-bold">عرض الأسعار</span>
-                                <div class="w-6 h-6 rounded-xl bg-white shadow-xs flex items-center justify-center text-slate-700 serv-chevron-box transition-all duration-300">
-                                    <i class="fa-solid fa-chevron-down text-xs transition-transform duration-300 serv-chevron animate-arrow-bounce"></i>
+                                <div
+                                    class="w-6 h-6 rounded-xl bg-white shadow-xs flex items-center justify-center text-slate-700 serv-chevron-box transition-all duration-300">
+                                    <i
+                                        class="fa-solid fa-chevron-down text-xs transition-transform duration-300 serv-chevron animate-arrow-bounce"></i>
                                 </div>
                             </div>
                         </div>
 
-                        <h3 id="site-serv-1-title" class="text-lg font-extrabold text-dark-900 mb-2">مشتريات السوبرماركت</h3>
-                        <p id="site-serv-1-desc" class="text-slate-500 text-sm leading-relaxed">توصيل المقاضي والمستلزمات اليومية من المحلات التجارية إلى باب منزلك.</p>
+                        <h3 id="site-serv-1-title" class="text-lg font-extrabold text-dark-900 mb-2">مشتريات السوبرماركت
+                        </h3>
+                        <p id="site-serv-1-desc" class="text-slate-500 text-sm leading-relaxed">توصيل المقاضي
+                            والمستلزمات اليومية من المحلات التجارية إلى باب منزلك.</p>
                     </div>
 
                     <!-- قائمة الأسعار القابلة للتوسيع -->
@@ -641,16 +677,21 @@
                                         <i class="fa-solid fa-tags text-sky-400 text-xs"></i>
                                         <span>قائمة الأسعار المعتمدة</span>
                                     </span>
-                                    <span class="text-[10px] bg-sky-50 text-sky-600 px-2 py-0.5 rounded-md font-bold">تسليم فوري</span>
+                                    <span
+                                        class="text-[10px] bg-sky-50 text-sky-600 px-2 py-0.5 rounded-md font-bold">تسليم
+                                        فوري</span>
                                 </div>
 
                                 <div id="site-serv-1-prices-list" class="space-y-2">
                                     <!-- يتم تعبئتها بواسطة JS -->
                                 </div>
 
-                                <button type="button" onclick="event.stopPropagation(); openOrderModal(document.getElementById('site-serv-1-title').textContent)" class="w-full mt-2 py-2.5 px-4 rounded-xl bg-dark-900 hover:bg-sky-400 text-white hover:text-dark-900 text-xs font-bold transition-all flex items-center justify-center gap-2 group/btn shadow-xs">
+                                <button type="button"
+                                    onclick="event.stopPropagation(); openOrderModal(document.getElementById('site-serv-1-title').textContent)"
+                                    class="w-full mt-2 py-2.5 px-4 rounded-xl bg-dark-900 hover:bg-sky-400 text-white hover:text-dark-900 text-xs font-bold transition-all flex items-center justify-center gap-2 group/btn shadow-xs">
                                     <span>طلب هذه الخدمة الآن</span>
-                                    <i class="fa-solid fa-arrow-left text-[11px] group-hover/btn:-translate-x-1 transition-transform"></i>
+                                    <i
+                                        class="fa-solid fa-arrow-left text-[11px] group-hover/btn:-translate-x-1 transition-transform"></i>
                                 </button>
                             </div>
                         </div>
@@ -658,24 +699,31 @@
                 </div>
 
                 <!-- خدمة 2: الطرود والأمانات الخاصة -->
-                <div id="service-card-2" onclick="toggleServiceCard(2)" class="service-card bg-white p-6 rounded-3xl border border-slate-100 card-shadow hover:border-sky-300 transition-all cursor-pointer group flex flex-col justify-between">
+                <div id="service-card-2" onclick="toggleServiceCard(2)"
+                    class="service-card bg-white p-6 rounded-3xl border border-slate-100 card-shadow hover:border-sky-300 transition-all cursor-pointer group flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 rounded-2xl bg-sky-400/15 text-sky-500 flex items-center justify-center text-xl group-hover:bg-sky-400 group-hover:text-white transition-colors">
+                            <div
+                                class="w-12 h-12 rounded-2xl bg-sky-400/15 text-sky-500 flex items-center justify-center text-xl group-hover:bg-sky-400 group-hover:text-white transition-colors">
                                 <i class="fa-solid fa-box"></i>
                             </div>
 
                             <!-- سهم الزاوية التفاعلي مع أنميشن -->
-                            <div class="serv-toggle-badge flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-slate-100 group-hover:bg-sky-50 text-slate-600 group-hover:text-sky-600 border border-slate-200/80 transition-all duration-300">
+                            <div
+                                class="serv-toggle-badge flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-slate-100 group-hover:bg-sky-50 text-slate-600 group-hover:text-sky-600 border border-slate-200/80 transition-all duration-300">
                                 <span class="serv-toggle-text text-xs font-bold">عرض الأسعار</span>
-                                <div class="w-6 h-6 rounded-xl bg-white shadow-xs flex items-center justify-center text-slate-700 serv-chevron-box transition-all duration-300">
-                                    <i class="fa-solid fa-chevron-down text-xs transition-transform duration-300 serv-chevron animate-arrow-bounce"></i>
+                                <div
+                                    class="w-6 h-6 rounded-xl bg-white shadow-xs flex items-center justify-center text-slate-700 serv-chevron-box transition-all duration-300">
+                                    <i
+                                        class="fa-solid fa-chevron-down text-xs transition-transform duration-300 serv-chevron animate-arrow-bounce"></i>
                                 </div>
                             </div>
                         </div>
 
-                        <h3 id="site-serv-2-title" class="text-lg font-extrabold text-dark-900 mb-2">الطرود والأمانات الخاصة</h3>
-                        <p id="site-serv-2-desc" class="text-slate-500 text-sm leading-relaxed">نقل الأغراض الشخصية والطرود بين الأحياء والمناطق بأمان تام.</p>
+                        <h3 id="site-serv-2-title" class="text-lg font-extrabold text-dark-900 mb-2">الطرود والأمانات
+                            الخاصة</h3>
+                        <p id="site-serv-2-desc" class="text-slate-500 text-sm leading-relaxed">نقل الأغراض الشخصية
+                            والطرود بين الأحياء والمناطق بأمان تام.</p>
                     </div>
 
                     <!-- قائمة الأسعار القابلة للتوسيع -->
@@ -687,16 +735,21 @@
                                         <i class="fa-solid fa-tags text-sky-400 text-xs"></i>
                                         <span>قائمة الأسعار المعتمدة</span>
                                     </span>
-                                    <span class="text-[10px] bg-sky-50 text-sky-600 px-2 py-0.5 rounded-md font-bold">تسليم فوري</span>
+                                    <span
+                                        class="text-[10px] bg-sky-50 text-sky-600 px-2 py-0.5 rounded-md font-bold">تسليم
+                                        فوري</span>
                                 </div>
 
                                 <div id="site-serv-2-prices-list" class="space-y-2">
                                     <!-- يتم تعبئتها بواسطة JS -->
                                 </div>
 
-                                <button type="button" onclick="event.stopPropagation(); openOrderModal(document.getElementById('site-serv-2-title').textContent)" class="w-full mt-2 py-2.5 px-4 rounded-xl bg-dark-900 hover:bg-sky-400 text-white hover:text-dark-900 text-xs font-bold transition-all flex items-center justify-center gap-2 group/btn shadow-xs">
+                                <button type="button"
+                                    onclick="event.stopPropagation(); openOrderModal(document.getElementById('site-serv-2-title').textContent)"
+                                    class="w-full mt-2 py-2.5 px-4 rounded-xl bg-dark-900 hover:bg-sky-400 text-white hover:text-dark-900 text-xs font-bold transition-all flex items-center justify-center gap-2 group/btn shadow-xs">
                                     <span>طلب هذه الخدمة الآن</span>
-                                    <i class="fa-solid fa-arrow-left text-[11px] group-hover/btn:-translate-x-1 transition-transform"></i>
+                                    <i
+                                        class="fa-solid fa-arrow-left text-[11px] group-hover/btn:-translate-x-1 transition-transform"></i>
                                 </button>
                             </div>
                         </div>
@@ -709,22 +762,27 @@
 
         <!-- ==================== 2. صفحة الأسعار ==================== -->
         <section id="view-prices" class="page-view space-y-8">
-            
+
             <!-- عنوان الصفحة -->
             <div class="text-center max-w-xl mx-auto space-y-2">
-                <span class="text-xs font-extrabold text-sky-500 bg-sky-100 px-3.5 py-1 rounded-full">شفافية ووضوح</span>
+                <span class="text-xs font-extrabold text-sky-500 bg-sky-100 px-3.5 py-1 rounded-full">شفافية
+                    ووضوح</span>
                 <h2 class="text-2xl sm:text-4xl font-black text-dark-900">قائمة أسعار التوصيل</h2>
-                <p class="text-slate-500 text-sm sm:text-base">أسعارنا ثابتة وميسرة للجميع، تختلف فقط باختلاف المسافة ونوع المشوار.</p>
+                <p class="text-slate-500 text-sm sm:text-base">أسعارنا ثابتة وميسرة للجميع، تختلف فقط باختلاف المسافة
+                    ونوع المشوار.</p>
             </div>
 
             <!-- بطاقات الأسعار العصرية -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                
+
                 <!-- البطاقة 1 -->
-                <div class="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 card-shadow flex flex-col justify-between">
+                <div
+                    class="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 card-shadow flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-6">
-                            <span id="site-price-0-title" class="text-sm font-bold text-slate-600 bg-slate-100 px-3.5 py-1.5 rounded-xl">داخل المنطقة</span>
+                            <span id="site-price-0-title"
+                                class="text-sm font-bold text-slate-600 bg-slate-100 px-3.5 py-1.5 rounded-xl">داخل
+                                المنطقة</span>
                             <div class="w-10 h-10 rounded-full bg-sky-50 text-sky-500 flex items-center justify-center">
                                 <i class="fa-solid fa-location-dot"></i>
                             </div>
@@ -734,29 +792,41 @@
                                 <span id="site-price-0-val" class="text-4xl font-black text-dark-900">1.000</span>
                                 <span class="text-sm font-bold text-slate-400">ر.ع / للطلب</span>
                             </div>
-                            <p id="site-price-0-desc" class="text-xs text-slate-400 mt-1">للمسافات القريبة أقل من 5 كم</p>
+                            <p id="site-price-0-desc" class="text-xs text-slate-400 mt-1">للمسافات القريبة أقل من 5 كم
+                            </p>
                         </div>
-                        <ul id="site-price-0-features" class="space-y-3 text-sm text-slate-600 font-medium mb-8 border-t border-slate-100 pt-5">
-                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-sky-400"></i> توصيل المطاعم والمحلات القريبة</li>
-                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-sky-400"></i> مدة التوصيل 15 - 25 دقيقة</li>
-                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-sky-400"></i> تسليم فوري لباب المنزل</li>
+                        <ul id="site-price-0-features"
+                            class="space-y-3 text-sm text-slate-600 font-medium mb-8 border-t border-slate-100 pt-5">
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-sky-400"></i>
+                                توصيل المطاعم والمحلات القريبة</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-sky-400"></i>
+                                مدة التوصيل 15 - 25 دقيقة</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-sky-400"></i>
+                                تسليم فوري لباب المنزل</li>
                         </ul>
                     </div>
-                    <button onclick="openOrderModal(document.getElementById('site-price-0-title').textContent + ' (' + document.getElementById('site-price-0-val').textContent + ' ر.ع)')" class="w-full py-3.5 rounded-2xl bg-slate-900 hover:bg-sky-400 text-white hover:text-dark-900 font-bold text-sm transition-all flex items-center justify-center gap-2 group">
+                    <button
+                        onclick="openOrderModal(document.getElementById('site-price-0-title').textContent + ' (' + document.getElementById('site-price-0-val').textContent + ' ر.ع)')"
+                        class="w-full py-3.5 rounded-2xl bg-slate-900 hover:bg-sky-400 text-white hover:text-dark-900 font-bold text-sm transition-all flex items-center justify-center gap-2 group">
                         <span>اطلب الآن</span>
                         <i class="fa-solid fa-arrow-left text-xs group-hover:-translate-x-1 transition-transform"></i>
                     </button>
                 </div>
 
                 <!-- البطاقة 2 (مميزة باللون الأسود والأزرق السماوي) -->
-                <div class="bg-dark-900 text-white rounded-3xl p-6 sm:p-7 shadow-xl relative flex flex-col justify-between border-2 border-sky-400">
-                    <div class="absolute -top-3.5 left-6 bg-sky-400 text-dark-900 text-xs font-black px-3.5 py-1 rounded-full">
+                <div
+                    class="bg-dark-900 text-white rounded-3xl p-6 sm:p-7 shadow-xl relative flex flex-col justify-between border-2 border-sky-400">
+                    <div
+                        class="absolute -top-3.5 left-6 bg-sky-400 text-dark-900 text-xs font-black px-3.5 py-1 rounded-full">
                         الأكثر طلباً
                     </div>
                     <div>
                         <div class="flex items-center justify-between mb-6">
-                            <span id="site-price-1-title" class="text-sm font-bold text-sky-300 bg-white/10 px-3.5 py-1.5 rounded-xl">الأحياء المجاورة</span>
-                            <div class="w-10 h-10 rounded-full bg-sky-400 text-dark-900 flex items-center justify-center">
+                            <span id="site-price-1-title"
+                                class="text-sm font-bold text-sky-300 bg-white/10 px-3.5 py-1.5 rounded-xl">الأحياء
+                                المجاورة</span>
+                            <div
+                                class="w-10 h-10 rounded-full bg-sky-400 text-dark-900 flex items-center justify-center">
                                 <i class="fa-solid fa-route"></i>
                             </div>
                         </div>
@@ -765,25 +835,35 @@
                                 <span id="site-price-1-val" class="text-4xl font-black text-white">1.500 - 2.000</span>
                                 <span class="text-sm font-bold text-slate-400">ر.ع</span>
                             </div>
-                            <p id="site-price-1-desc" class="text-xs text-slate-400 mt-1">للمسافات المتوسطة من 5 إلى 15 كم</p>
+                            <p id="site-price-1-desc" class="text-xs text-slate-400 mt-1">للمسافات المتوسطة من 5 إلى 15
+                                كم</p>
                         </div>
-                        <ul id="site-price-1-features" class="space-y-3 text-sm text-slate-300 font-medium mb-8 border-t border-white/10 pt-5">
-                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-sky-400"></i> توصيل بين القرى والأحياء المجاورة</li>
-                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-sky-400"></i> يشمل الطلبات والطرود الشخصية</li>
-                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-sky-400"></i> متابعة مستمرة حتى التسليم</li>
+                        <ul id="site-price-1-features"
+                            class="space-y-3 text-sm text-slate-300 font-medium mb-8 border-t border-white/10 pt-5">
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-sky-400"></i>
+                                توصيل بين القرى والأحياء المجاورة</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-sky-400"></i>
+                                يشمل الطلبات والطرود الشخصية</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-sky-400"></i>
+                                متابعة مستمرة حتى التسليم</li>
                         </ul>
                     </div>
-                    <button onclick="openOrderModal(document.getElementById('site-price-1-title').textContent + ' (' + document.getElementById('site-price-1-val').textContent + ' ر.ع)')" class="w-full py-3.5 rounded-2xl bg-sky-400 hover:bg-sky-300 text-dark-900 font-extrabold text-sm transition-all sky-shadow flex items-center justify-center gap-2 group">
+                    <button
+                        onclick="openOrderModal(document.getElementById('site-price-1-title').textContent + ' (' + document.getElementById('site-price-1-val').textContent + ' ر.ع)')"
+                        class="w-full py-3.5 rounded-2xl bg-sky-400 hover:bg-sky-300 text-dark-900 font-extrabold text-sm transition-all sky-shadow flex items-center justify-center gap-2 group">
                         <span>اطلب الآن</span>
                         <i class="fa-solid fa-arrow-left text-xs group-hover:-translate-x-1 transition-transform"></i>
                     </button>
                 </div>
 
                 <!-- البطاقة 3 -->
-                <div class="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 card-shadow flex flex-col justify-between">
+                <div
+                    class="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 card-shadow flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-6">
-                            <span id="site-price-2-title" class="text-sm font-bold text-slate-600 bg-slate-100 px-3.5 py-1.5 rounded-xl">مشوار خاص / بعيد</span>
+                            <span id="site-price-2-title"
+                                class="text-sm font-bold text-slate-600 bg-slate-100 px-3.5 py-1.5 rounded-xl">مشوار خاص
+                                / بعيد</span>
                             <div class="w-10 h-10 rounded-full bg-sky-50 text-sky-500 flex items-center justify-center">
                                 <i class="fa-solid fa-truck-fast"></i>
                             </div>
@@ -793,16 +873,23 @@
                                 <span id="site-price-2-val" class="text-4xl font-black text-dark-900">3.000+</span>
                                 <span class="text-sm font-bold text-slate-400">ر.ع</span>
                             </div>
-                            <p id="site-price-2-desc" class="text-xs text-slate-400 mt-1">للمناطق البعيدة والمشاوير الخاصة</p>
+                            <p id="site-price-2-desc" class="text-xs text-slate-400 mt-1">للمناطق البعيدة والمشاوير
+                                الخاصة</p>
                         </div>
-                        <ul id="site-price-2-features" class="space-y-3 text-sm text-slate-600 font-medium mb-8 border-t border-slate-100 pt-5">
-                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-sky-400"></i> توصيل للمناطق البعيدة</li>
-                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-sky-400"></i> استلام وتخليص أكثر من طلب</li>
-                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-sky-400"></i> الاتفاق المسبق على السعر النهائي</li>
+                        <ul id="site-price-2-features"
+                            class="space-y-3 text-sm text-slate-600 font-medium mb-8 border-t border-slate-100 pt-5">
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-sky-400"></i>
+                                توصيل للمناطق البعيدة</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-sky-400"></i>
+                                استلام وتخليص أكثر من طلب</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-sky-400"></i>
+                                الاتفاق المسبق على السعر النهائي</li>
                         </ul>
                     </div>
-                    <button onclick="inquireSpecialPrice()" class="w-full py-3.5 rounded-2xl bg-slate-900 hover:bg-emerald-600 text-white font-bold text-sm transition-all flex items-center justify-center gap-2.5 shadow-sm group">
-                        <i class="fa-brands fa-whatsapp text-lg text-emerald-400 group-hover:scale-110 transition-transform"></i>
+                    <button onclick="inquireSpecialPrice()"
+                        class="w-full py-3.5 rounded-2xl bg-slate-900 hover:bg-emerald-600 text-white font-bold text-sm transition-all flex items-center justify-center gap-2.5 shadow-sm group">
+                        <i
+                            class="fa-brands fa-whatsapp text-lg text-emerald-400 group-hover:scale-110 transition-transform"></i>
                         <span>استفسر عن السعر</span>
                     </button>
                 </div>
@@ -810,12 +897,15 @@
             </div>
 
             <!-- حاسبة تقديرية بسيطة للأسعار -->
-            <div class="bg-sky-50/70 rounded-3xl p-6 sm:p-8 border border-sky-200/70 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div
+                class="bg-sky-50/70 rounded-3xl p-6 sm:p-8 border border-sky-200/70 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="space-y-1 text-center md:text-right">
                     <h3 class="text-lg font-extrabold text-dark-900">هل لديك أكثر من نقطة استلام؟</h3>
-                    <p id="site-extra-stop-note" class="text-sm text-slate-600">في حال رغبتك بالمرور على أكثر من محل في نفس الطلب، تضاف <strong class="text-sky-600">0.500 ر.ع</strong> فقط لكل نقطة إضافية.</p>
+                    <p id="site-extra-stop-note" class="text-sm text-slate-600">في حال رغبتك بالمرور على أكثر من محل في
+                        نفس الطلب، تضاف <strong class="text-sky-600">0.500 ر.ع</strong> فقط لكل نقطة إضافية.</p>
                 </div>
-                <button onclick="copyPhone()" class="shrink-0 bg-dark-900 text-white hover:bg-sky-500 px-6 py-3.5 rounded-2xl font-bold text-sm transition-colors flex items-center gap-2">
+                <button onclick="copyPhone()"
+                    class="shrink-0 bg-dark-900 text-white hover:bg-sky-500 px-6 py-3.5 rounded-2xl font-bold text-sm transition-colors flex items-center gap-2">
                     <i class="fa-regular fa-copy text-sky-400"></i>
                     <span>انسخ الرقم للتواصل</span>
                 </button>
@@ -826,18 +916,23 @@
         <!-- ==================== 3. صفحة نبذة عني ==================== -->
         <section id="view-about" class="page-view">
             <div class="max-w-3xl mx-auto space-y-6">
-                
+
                 <!-- بطاقة التعريف -->
                 <div class="bg-white rounded-[2rem] p-6 sm:p-10 border border-slate-200/80 card-shadow">
                     <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-right">
-                        <div class="w-20 h-20 rounded-3xl bg-dark-900 text-sky-400 flex items-center justify-center text-3xl shrink-0 shadow-lg">
+                        <div
+                            class="w-20 h-20 rounded-3xl bg-dark-900 text-sky-400 flex items-center justify-center text-3xl shrink-0 shadow-lg">
                             <i class="fa-solid fa-shield-halved"></i>
                         </div>
                         <div class="space-y-3">
-                            <span class="text-xs font-extrabold text-sky-500 bg-sky-50 px-3 py-1 rounded-full">من نحن</span>
-                            <h2 id="site-about-title" class="text-2xl sm:text-3xl font-black text-dark-900">نبذة عن خدمة <span class="text-sky-500">Haul</span> للتوصيل</h2>
+                            <span class="text-xs font-extrabold text-sky-500 bg-sky-50 px-3 py-1 rounded-full">من
+                                نحن</span>
+                            <h2 id="site-about-title" class="text-2xl sm:text-3xl font-black text-dark-900">نبذة عن خدمة
+                                <span class="text-sky-500">Haul</span> للتوصيل</h2>
                             <p id="site-about-desc" class="text-slate-600 text-sm sm:text-base leading-relaxed">
-                                أهلاً بك! <strong>Haul</strong> هي خدمة توصيل سريعة صُممت لتسهيل حياتك اليومية وتوفير وقتك وجهدك. نحرص دائماً على التعامل الراقي، الدقة في المواعيد، والمحافظة على خصوصية وسلامة جميع الطلبات والطرود حتى وصولها إلى يدك، مع تقديم أسعار واضحة ومناسبة للجميع.
+                                أهلاً بك! <strong>Haul</strong> هي خدمة توصيل سريعة صُممت لتسهيل حياتك اليومية وتوفير
+                                وقتك وجهدك. نحرص دائماً على التعامل الراقي، الدقة في المواعيد، والمحافظة على خصوصية
+                                وسلامة جميع الطلبات والطرود حتى وصولها إلى يدك، مع تقديم أسعار واضحة ومناسبة للجميع.
                             </p>
                         </div>
                     </div>
@@ -846,12 +941,14 @@
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 pt-8 border-t border-slate-100">
                         <div class="bg-slate-50 p-4 rounded-2xl text-center">
                             <i class="fa-solid fa-clock text-sky-400 text-xl mb-2"></i>
-                            <h4 id="site-pillar-0-title" class="font-extrabold text-dark-900 text-sm">الالتزام بالوقت</h4>
+                            <h4 id="site-pillar-0-title" class="font-extrabold text-dark-900 text-sm">الالتزام بالوقت
+                            </h4>
                             <p id="site-pillar-0-desc" class="text-xs text-slate-500 mt-1">توصيل سريع دون تأخير</p>
                         </div>
                         <div class="bg-slate-50 p-4 rounded-2xl text-center">
                             <i class="fa-solid fa-hand-holding-heart text-sky-400 text-xl mb-2"></i>
-                            <h4 id="site-pillar-1-title" class="font-extrabold text-dark-900 text-sm">أمانة وموثوقية</h4>
+                            <h4 id="site-pillar-1-title" class="font-extrabold text-dark-900 text-sm">أمانة وموثوقية
+                            </h4>
                             <p id="site-pillar-1-desc" class="text-xs text-slate-500 mt-1">حفظ الطرود بعناية تامة</p>
                         </div>
                         <div class="bg-slate-50 p-4 rounded-2xl text-center">
@@ -864,10 +961,11 @@
 
                 <!-- أوقات العمل ومعلومات الاتصال -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    
+
                     <div class="bg-dark-900 text-white rounded-3xl p-6 sm:p-7 space-y-4">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-xl bg-sky-400/20 text-sky-400 flex items-center justify-center">
+                            <div
+                                class="w-10 h-10 rounded-xl bg-sky-400/20 text-sky-400 flex items-center justify-center">
                                 <i class="fa-regular fa-calendar-check"></i>
                             </div>
                             <h3 class="text-lg font-extrabold">ساعات العمل</h3>
@@ -884,7 +982,8 @@
                         </div>
                     </div>
 
-                    <div class="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 card-shadow flex flex-col justify-between space-y-4">
+                    <div
+                        class="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 card-shadow flex flex-col justify-between space-y-4">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center">
                                 <i class="fa-solid fa-phone-flip"></i>
@@ -895,9 +994,12 @@
                             </div>
                         </div>
 
-                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/60 flex items-center justify-between">
-                            <span class="font-black text-lg text-dark-900 site-phone-display" dir="ltr">+968 9000 0000</span>
-                            <button onclick="copyPhone()" class="text-xs font-bold bg-dark-900 text-white hover:bg-sky-400 hover:text-dark-900 px-3.5 py-2 rounded-xl transition-colors">
+                        <div
+                            class="bg-slate-50 p-4 rounded-2xl border border-slate-200/60 flex items-center justify-between">
+                            <span class="font-black text-lg text-dark-900 site-phone-display" dir="ltr">+968 9000
+                                0000</span>
+                            <button onclick="copyPhone()"
+                                class="text-xs font-bold bg-dark-900 text-white hover:bg-sky-400 hover:text-dark-900 px-3.5 py-2 rounded-xl transition-colors">
                                 نسخ الرقم
                             </button>
                         </div>
@@ -912,7 +1014,8 @@
 
     <!-- ==================== تذييل بسيط وأنيق (Footer) ==================== -->
     <footer class="bg-white border-t border-slate-200/80 mt-12">
-        <div class="max-w-6xl mx-auto px-4 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-slate-500 font-medium">
+        <div
+            class="max-w-6xl mx-auto px-4 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-slate-500 font-medium">
             <div class="flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span>
                 <span class="font-bold text-dark-900">Haul</span>
@@ -927,45 +1030,55 @@
     </footer>
 
     <!-- ==================== صفحة تعبئة بيانات الطلب المنبثقة (Order Form Sheet) ==================== -->
-    <div id="order-modal-overlay" onclick="closeOrderModal()" class="fixed inset-0 bg-dark-900/60 backdrop-blur-xs z-50 hidden opacity-0 transition-opacity duration-300 flex items-end sm:items-center justify-center p-0 sm:p-4">
-        
-        <div id="order-modal-sheet" onclick="event.stopPropagation()" class="w-full sm:max-w-lg bg-white rounded-t-[2.25rem] sm:rounded-3xl shadow-2xl translate-y-full sm:translate-y-12 opacity-0 transition-all duration-300 flex flex-col max-h-[92vh] sm:max-h-[88vh] overflow-hidden">
-            
+    <div id="order-modal-overlay" onclick="closeOrderModal()"
+        class="fixed inset-0 bg-dark-900/60 backdrop-blur-xs z-50 hidden opacity-0 transition-opacity duration-300 flex items-end sm:items-center justify-center p-0 sm:p-4">
+
+        <div id="order-modal-sheet" onclick="event.stopPropagation()"
+            class="w-full sm:max-w-lg bg-white rounded-t-[2.25rem] sm:rounded-3xl shadow-2xl translate-y-full sm:translate-y-12 opacity-0 transition-all duration-300 flex flex-col max-h-[92vh] sm:max-h-[88vh] overflow-hidden">
+
             <!-- رأس النافذة / شريط السحب والإنزال -->
             <div class="p-5 sm:p-6 pb-4 border-b border-slate-100 bg-slate-50/60">
                 <!-- شريط السحب للهواتف -->
-                <div onclick="closeOrderModal()" class="w-12 h-1.5 bg-slate-200 hover:bg-slate-300 rounded-full mx-auto mb-3 cursor-pointer transition-colors sm:hidden"></div>
-                
+                <div onclick="closeOrderModal()"
+                    class="w-12 h-1.5 bg-slate-200 hover:bg-slate-300 rounded-full mx-auto mb-3 cursor-pointer transition-colors sm:hidden">
+                </div>
+
                 <div class="flex items-center justify-between gap-3">
                     <div class="flex items-center gap-3">
-                        <div class="w-11 h-11 rounded-2xl bg-sky-400 text-dark-900 flex items-center justify-center text-xl shadow-md shadow-sky-400/20 shrink-0">
+                        <div
+                            class="w-11 h-11 rounded-2xl bg-sky-400 text-dark-900 flex items-center justify-center text-xl shadow-md shadow-sky-400/20 shrink-0">
                             <i class="fa-solid fa-truck-ramp-box"></i>
                         </div>
                         <div>
                             <h3 class="font-black text-lg text-dark-900 leading-tight">تعبئة بيانات التوصيل</h3>
-                            <span id="order-modal-plan-badge" class="text-xs font-bold text-sky-600 bg-sky-100/70 px-2.5 py-0.5 rounded-full inline-block mt-1 border border-sky-200">
+                            <span id="order-modal-plan-badge"
+                                class="text-xs font-bold text-sky-600 bg-sky-100/70 px-2.5 py-0.5 rounded-full inline-block mt-1 border border-sky-200">
                                 داخل المنطقة
                             </span>
                         </div>
                     </div>
 
                     <!-- زر إنزال الصفحة والرجوع مع أنميشن -->
-                    <button onclick="closeOrderModal()" aria-label="إنزال الصفحة والرجوع" class="w-10 h-10 rounded-2xl bg-white hover:bg-slate-100 text-slate-500 hover:text-dark-900 border border-slate-200/80 flex items-center justify-center transition-all group shrink-0 active:scale-90" title="إنزال الصفحة والرجوع">
-                        <i class="fa-solid fa-arrow-down group-hover:translate-y-0.5 transition-transform text-sm text-slate-700"></i>
+                    <button onclick="closeOrderModal()" aria-label="إنزال الصفحة والرجوع"
+                        class="w-10 h-10 rounded-2xl bg-white hover:bg-slate-100 text-slate-500 hover:text-dark-900 border border-slate-200/80 flex items-center justify-center transition-all group shrink-0 active:scale-90"
+                        title="إنزال الصفحة والرجوع">
+                        <i
+                            class="fa-solid fa-arrow-down group-hover:translate-y-0.5 transition-transform text-sm text-slate-700"></i>
                     </button>
                 </div>
             </div>
 
             <!-- محتوى نموذج البيانات -->
             <div class="p-5 sm:p-6 overflow-y-auto space-y-4 flex-grow">
-                
+
                 <!-- مكان الاستلام (الطلب من) -->
                 <div class="space-y-1.5">
                     <label class="block text-xs font-extrabold text-slate-700 flex items-center gap-1.5">
                         <i class="fa-solid fa-location-dot text-rose-500"></i>
                         <span>مكان الاستلام (الطلب من) <span class="text-rose-500">*</span></span>
                     </label>
-                    <input type="text" id="order-input-from" placeholder="مثال: مطعم كذا / سوبرماركت كذا / الحي والشارع" class="w-full p-3.5 rounded-2xl border border-slate-200 focus:border-sky-400 focus:ring-4 focus:ring-sky-100 outline-none text-sm font-medium transition-all bg-slate-50/50 focus:bg-white">
+                    <input type="text" id="order-input-from" placeholder="مثال: مطعم كذا / سوبرماركت كذا / الحي والشارع"
+                        class="w-full p-3.5 rounded-2xl border border-slate-200 focus:border-sky-400 focus:ring-4 focus:ring-sky-100 outline-none text-sm font-medium transition-all bg-slate-50/50 focus:bg-white">
                 </div>
 
                 <!-- مكان التسليم (الطلب إلى) -->
@@ -974,7 +1087,9 @@
                         <i class="fa-solid fa-flag-checkered text-emerald-500"></i>
                         <span>مكان التسليم (الطلب إلى) <span class="text-rose-500">*</span></span>
                     </label>
-                    <input type="text" id="order-input-to" placeholder="مثال: اسم المنطقة أو الحي / رقم المنزل أو العمارة" class="w-full p-3.5 rounded-2xl border border-slate-200 focus:border-sky-400 focus:ring-4 focus:ring-sky-100 outline-none text-sm font-medium transition-all bg-slate-50/50 focus:bg-white">
+                    <input type="text" id="order-input-to"
+                        placeholder="مثال: اسم المنطقة أو الحي / رقم المنزل أو العمارة"
+                        class="w-full p-3.5 rounded-2xl border border-slate-200 focus:border-sky-400 focus:ring-4 focus:ring-sky-100 outline-none text-sm font-medium transition-all bg-slate-50/50 focus:bg-white">
                 </div>
 
                 <!-- نوع وحجم الطلب (صغير / متوسط / كبير) -->
@@ -984,17 +1099,20 @@
                         <span>نوع وحجم الطلب</span>
                     </label>
                     <div class="grid grid-cols-3 gap-2">
-                        <button type="button" onclick="selectOrderSize('صغير')" id="size-btn-small" class="p-3 rounded-2xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 font-bold text-xs flex flex-col items-center justify-center gap-1.5 transition-all text-center">
+                        <button type="button" onclick="selectOrderSize('صغير')" id="size-btn-small"
+                            class="p-3 rounded-2xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 font-bold text-xs flex flex-col items-center justify-center gap-1.5 transition-all text-center">
                             <span class="text-lg">📦</span>
                             <span>صغير</span>
                             <span class="text-[10px] text-slate-400 font-normal">ظرف / طرد خفيف</span>
                         </button>
-                        <button type="button" onclick="selectOrderSize('متوسط')" id="size-btn-medium" class="p-3 rounded-2xl border-2 border-sky-400 bg-sky-50 text-dark-900 font-black text-xs flex flex-col items-center justify-center gap-1.5 transition-all text-center shadow-xs">
+                        <button type="button" onclick="selectOrderSize('متوسط')" id="size-btn-medium"
+                            class="p-3 rounded-2xl border-2 border-sky-400 bg-sky-50 text-dark-900 font-black text-xs flex flex-col items-center justify-center gap-1.5 transition-all text-center shadow-xs">
                             <span class="text-lg">🍔</span>
                             <span>متوسط</span>
                             <span class="text-[10px] text-sky-600 font-normal">وجبة / مقاضي</span>
                         </button>
-                        <button type="button" onclick="selectOrderSize('كبير')" id="size-btn-large" class="p-3 rounded-2xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 font-bold text-xs flex flex-col items-center justify-center gap-1.5 transition-all text-center">
+                        <button type="button" onclick="selectOrderSize('كبير')" id="size-btn-large"
+                            class="p-3 rounded-2xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 font-bold text-xs flex flex-col items-center justify-center gap-1.5 transition-all text-center">
                             <span class="text-lg">🛋️</span>
                             <span>كبير</span>
                             <span class="text-[10px] text-slate-400 font-normal">حمولة / عدة أغراض</span>
@@ -1008,14 +1126,17 @@
                         <i class="fa-regular fa-note-sticky text-slate-400"></i>
                         <span>ملاحظات أو تفاصيل إضافية (اختياري)</span>
                     </label>
-                    <textarea id="order-input-details" rows="2" placeholder="أي تفاصيل ترغب بإخبار السائق بها أو رقم الطلب/الفاتورة..." class="w-full p-3.5 rounded-2xl border border-slate-200 focus:border-sky-400 focus:ring-4 focus:ring-sky-100 outline-none text-sm font-medium transition-all bg-slate-50/50 focus:bg-white resize-none"></textarea>
+                    <textarea id="order-input-details" rows="2"
+                        placeholder="أي تفاصيل ترغب بإخبار السائق بها أو رقم الطلب/الفاتورة..."
+                        class="w-full p-3.5 rounded-2xl border border-slate-200 focus:border-sky-400 focus:ring-4 focus:ring-sky-100 outline-none text-sm font-medium transition-all bg-slate-50/50 focus:bg-white resize-none"></textarea>
                 </div>
 
             </div>
 
             <!-- أسفل النافذة: زر الانتقال للواتساب -->
             <div class="p-5 sm:p-6 pt-3 border-t border-slate-100 bg-slate-50/80 shrink-0">
-                <button onclick="submitOrderToWhatsApp()" class="w-full py-4 rounded-2xl bg-[#25D366] hover:bg-[#20ba59] text-white font-black text-base shadow-xl shadow-emerald-500/25 flex items-center justify-center gap-3 transition-all active:scale-98 group">
+                <button onclick="submitOrderToWhatsApp()"
+                    class="w-full py-4 rounded-2xl bg-[#25D366] hover:bg-[#20ba59] text-white font-black text-base shadow-xl shadow-emerald-500/25 flex items-center justify-center gap-3 transition-all active:scale-98 group">
                     <i class="fa-brands fa-whatsapp text-2xl group-hover:scale-110 transition-transform"></i>
                     <span>انتقل إلى الواتساب وإرسال الطلب</span>
                 </button>
@@ -1048,11 +1169,48 @@
             setTimeout(() => overlay.classList.add('hidden'), 300);
         }
 
+        // ==================== أداة تكبير وتصغير الموقع للهاتف ====================
+        let currentSiteZoom = 1;
+
+        function applySiteZoom(val) {
+            // تثبيت النطاق بين 75% و 130%
+            currentSiteZoom = Math.min(Math.max(Math.round(val * 100) / 100, 0.75), 1.30);
+            document.body.style.zoom = currentSiteZoom;
+
+            const display = document.getElementById('site-zoom-level');
+            if (display) {
+                display.textContent = Math.round(currentSiteZoom * 100) + '%';
+            }
+
+            try {
+                localStorage.setItem('haul_site_zoom', currentSiteZoom);
+            } catch (e) {}
+        }
+
+        function changeSiteZoom(delta) {
+            applySiteZoom(currentSiteZoom + delta);
+        }
+
+        function resetSiteZoom() {
+            applySiteZoom(1);
+        }
+
+        // استعادة حجم التكبير المحفوظ تلقائياً
+        try {
+            const savedZoom = localStorage.getItem('haul_site_zoom');
+            if (savedZoom) {
+                const parsed = parseFloat(savedZoom);
+                if (!isNaN(parsed) && parsed >= 0.75 && parsed <= 1.30) {
+                    applySiteZoom(parsed);
+                }
+            }
+        } catch (e) {}
+
         // الانتقال بين الصفحات
         function navigate(page) {
             // إخفاء جميع الصفحات
             document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
-            
+
             // إظهار الصفحة المختارة
             const target = document.getElementById('view-' + page);
             if (target) target.classList.add('active');
@@ -1106,6 +1264,111 @@
                 const el = document.getElementById('contact-section');
                 if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 150);
+        }
+
+        // ==================== مشغل الفيديو الإعلاني للموقع (MP4) ====================
+        const promoVideo = document.getElementById('site-promo-video');
+
+        // تبديل الصوت (تشغيل / كتم)
+        function toggleVideoSound(event) {
+            if (event) event.stopPropagation();
+            if (!promoVideo) return;
+
+            promoVideo.muted = !promoVideo.muted;
+            updateSoundButtonUI();
+
+            if (promoVideo.paused) {
+                promoVideo.play().catch(() => {});
+            }
+        }
+
+        // تحديث مظهر زر الصوت
+        function updateSoundButtonUI() {
+            const btnIcon = document.getElementById('video-sound-icon');
+            const btnLabel = document.getElementById('video-sound-label');
+            if (!promoVideo || !btnIcon || !btnLabel) return;
+
+            if (promoVideo.muted) {
+                btnIcon.className = "fa-solid fa-volume-xmark text-slate-300 text-xs";
+                btnLabel.textContent = "تشغيل الصوت";
+            } else {
+                btnIcon.className = "fa-solid fa-volume-high text-sky-400 text-xs animate-pulse";
+                btnLabel.textContent = "كتم الصوت";
+            }
+        }
+
+        // النقر المباشر على الفيديو
+        function toggleVideoPlayPause(event) {
+            if (!promoVideo) return;
+            // إذا كان الصوت مكتوماً عند أول نقرة، يتم تفعيل الصوت تلقائياً
+            if (promoVideo.muted) {
+                promoVideo.muted = false;
+                updateSoundButtonUI();
+                if (promoVideo.paused) promoVideo.play().catch(() => {});
+                return;
+            }
+
+            if (promoVideo.paused) {
+                promoVideo.play().catch(() => {});
+            } else {
+                promoVideo.pause();
+            }
+        }
+
+        // إيقاف المقطع بمجرد التمرير للأسفل (خاصة بالهواتف)
+        if ('IntersectionObserver' in window) {
+            const promoObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (!promoVideo) return;
+                    // إذا خرج الفيديو عن الشاشة عند التمرير للأسفل
+                    if (!entry.isIntersecting || entry.intersectionRatio < 0.25) {
+                        if (!promoVideo.paused) {
+                            promoVideo.pause();
+                        }
+                    } else {
+                        // عند العودة لأعلى الشاشة حيث يوجد الفيديو
+                        if (promoVideo.paused) {
+                            promoVideo.play().catch(() => {});
+                        }
+                    }
+                });
+            }, {
+                threshold: [0, 0.25, 0.5]
+            });
+
+            if (promoVideo) {
+                promoObserver.observe(promoVideo);
+            }
+        }
+
+        // مستشعر تمرير مباشر للهواتف للتأكد من التوقف الفوري عند النزول
+        window.addEventListener('scroll', () => {
+            if (!promoVideo) return;
+            const isMobile = window.innerWidth < 768;
+            if (isMobile) {
+                const rect = promoVideo.getBoundingClientRect();
+                // إذا تجاوز المستخدم الفيديو وتمرر للأسفل
+                if (rect.bottom < 80) {
+                    if (!promoVideo.paused) {
+                        promoVideo.pause();
+                    }
+                } else if (rect.top >= 0 && rect.bottom <= window.innerHeight + 80) {
+                    if (promoVideo.paused) {
+                        promoVideo.play().catch(() => {});
+                    }
+                }
+            }
+        }, { passive: true });
+
+        // تحديث رابط أو مسار الفيديو (من لوحة التحكم أو قاعدة البيانات)
+        function updatePromoVideo(url) {
+            if (!promoVideo || !url) return;
+            const source = document.getElementById('site-promo-video-source');
+            if (source) {
+                source.src = url;
+            }
+            promoVideo.src = url;
+            promoVideo.load();
         }
 
         // ==================== نافذة تعبئة بيانات الطلب والواتساب ====================
@@ -1198,12 +1461,12 @@
             const phone = rawNumber.replace(/[^0-9]/g, '');
 
             let msg = `مرحباً Haul للتوصيل 🚚\n` +
-                      `أود طلب خدمة توصيل بالبيانات التالية:\n` +
-                      `━━━━━━━━━━━━━━\n` +
-                      `📦 الباقة: ${currentOrderPlan}\n` +
-                      `📍 الاستلام (من): ${fromVal}\n` +
-                      `🏁 التسليم (إلى): ${toVal}\n` +
-                      `📏 حجم الطلب: ${selectedOrderSize}\n`;
+                `أود طلب خدمة توصيل بالبيانات التالية:\n` +
+                `━━━━━━━━━━━━━━\n` +
+                `📦 الباقة: ${currentOrderPlan}\n` +
+                `📍 الاستلام (من): ${fromVal}\n` +
+                `🏁 التسليم (إلى): ${toVal}\n` +
+                `📏 حجم الطلب: ${selectedOrderSize}\n`;
 
             if (detailsVal) {
                 msg += `📝 تفاصيل إضافية: ${detailsVal}\n`;
@@ -1301,8 +1564,8 @@
             const container = document.getElementById(`site-serv-${index}-prices-list`);
             if (!container) return;
 
-            const items = (priceList && Array.isArray(priceList) && priceList.length > 0) 
-                ? priceList 
+            const items = (priceList && Array.isArray(priceList) && priceList.length > 0)
+                ? priceList
                 : (defaultServicePrices[index] || []);
 
             const sTitle = serviceTitle || document.getElementById(`site-serv-${index}-title`)?.textContent || 'الخدمة';
@@ -1350,6 +1613,11 @@
             }
             const hd = document.getElementById('site-hero-desc');
             if (hd && data.heroDesc) hd.textContent = data.heroDesc;
+
+            // فيديو الإعلان الترويجي
+            if (data.promoVideoUrl) {
+                updatePromoVideo(data.promoVideoUrl);
+            }
 
             // شارة الشاحنة للهاتف
             const tbTitle = document.getElementById('site-truck-title');
@@ -1503,4 +1771,5 @@
         }
     </script>
 </body>
+
 </html>
