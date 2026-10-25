@@ -345,52 +345,118 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <!-- خدمة 1 -->
-                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/70 space-y-3">
-                        <div class="flex items-center gap-2 text-sky-600 font-bold text-sm">
-                            <i class="fa-solid fa-utensils"></i>
-                            <span>الخدمة الأولى</span>
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/70 space-y-4 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-2 text-sky-600 font-bold text-sm">
+                                <i class="fa-solid fa-utensils"></i>
+                                <span>الخدمة الأولى</span>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="block text-xs font-bold text-slate-600">عنوان الخدمة</label>
+                                <input type="text" id="cfg-serv0-title" class="form-input bg-white" placeholder="طلبات المطاعم والمقاهي">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="block text-xs font-bold text-slate-600">وصف الخدمة</label>
+                                <textarea id="cfg-serv0-desc" rows="3" class="form-textarea bg-white" placeholder="نستلم وجبتك المفضلة ونوصلها إليك ساخنة وبأسرع وقت ممكن."></textarea>
+                            </div>
                         </div>
-                        <div class="space-y-2">
-                            <label class="block text-xs font-bold text-slate-600">عنوان الخدمة</label>
-                            <input type="text" id="cfg-serv0-title" class="form-input bg-white" placeholder="طلبات المطاعم والمقاهي">
-                        </div>
-                        <div class="space-y-2">
-                            <label class="block text-xs font-bold text-slate-600">وصف الخدمة</label>
-                            <textarea id="cfg-serv0-desc" rows="3" class="form-textarea bg-white" placeholder="نستلم وجبتك المفضلة ونوصلها إليك ساخنة وبأسرع وقت ممكن."></textarea>
+
+                        <!-- قسم أسعار الخدمة 1 -->
+                        <div class="pt-3 border-t border-slate-200 space-y-2.5">
+                            <div class="flex items-center justify-between">
+                                <label class="block text-xs font-black text-dark-900 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-list-check text-sky-500"></i>
+                                    <span>قائمة أسعار الخدمة</span>
+                                </label>
+                                <span class="text-[10px] text-slate-400 font-bold">تظهر عند النقر على السهم</span>
+                            </div>
+
+                            <div id="cfg-serv0-prices-container" class="space-y-2.5">
+                                <!-- تملأ ديناميكياً -->
+                            </div>
+
+                            <button type="button" onclick="addPriceItemToService(0)" class="w-full py-2.5 px-3 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-600 text-xs font-bold border border-dashed border-sky-300 flex items-center justify-center gap-1.5 transition-colors">
+                                <i class="fa-solid fa-plus text-xs"></i>
+                                <span>إضافة تسعيرة جديدة</span>
+                            </button>
                         </div>
                     </div>
 
                     <!-- خدمة 2 -->
-                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/70 space-y-3">
-                        <div class="flex items-center gap-2 text-sky-600 font-bold text-sm">
-                            <i class="fa-solid fa-bag-shopping"></i>
-                            <span>الخدمة الثانية</span>
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/70 space-y-4 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-2 text-sky-600 font-bold text-sm">
+                                <i class="fa-solid fa-bag-shopping"></i>
+                                <span>الخدمة الثانية</span>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="block text-xs font-bold text-slate-600">عنوان الخدمة</label>
+                                <input type="text" id="cfg-serv1-title" class="form-input bg-white" placeholder="مشتريات السوبرماركت">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="block text-xs font-bold text-slate-600">وصف الخدمة</label>
+                                <textarea id="cfg-serv1-desc" rows="3" class="form-textarea bg-white" placeholder="توصيل المقاضي والمستلزمات اليومية من المحلات التجارية إلى باب منزلك."></textarea>
+                            </div>
                         </div>
-                        <div class="space-y-2">
-                            <label class="block text-xs font-bold text-slate-600">عنوان الخدمة</label>
-                            <input type="text" id="cfg-serv1-title" class="form-input bg-white" placeholder="مشتريات السوبرماركت">
-                        </div>
-                        <div class="space-y-2">
-                            <label class="block text-xs font-bold text-slate-600">وصف الخدمة</label>
-                            <textarea id="cfg-serv1-desc" rows="3" class="form-textarea bg-white" placeholder="توصيل المقاضي والمستلزمات اليومية من المحلات التجارية إلى باب منزلك."></textarea>
+
+                        <!-- قسم أسعار الخدمة 2 -->
+                        <div class="pt-3 border-t border-slate-200 space-y-2.5">
+                            <div class="flex items-center justify-between">
+                                <label class="block text-xs font-black text-dark-900 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-list-check text-sky-500"></i>
+                                    <span>قائمة أسعار الخدمة</span>
+                                </label>
+                                <span class="text-[10px] text-slate-400 font-bold">تظهر عند النقر على السهم</span>
+                            </div>
+
+                            <div id="cfg-serv1-prices-container" class="space-y-2.5">
+                                <!-- تملأ ديناميكياً -->
+                            </div>
+
+                            <button type="button" onclick="addPriceItemToService(1)" class="w-full py-2.5 px-3 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-600 text-xs font-bold border border-dashed border-sky-300 flex items-center justify-center gap-1.5 transition-colors">
+                                <i class="fa-solid fa-plus text-xs"></i>
+                                <span>إضافة تسعيرة جديدة</span>
+                            </button>
                         </div>
                     </div>
 
                     <!-- خدمة 3 -->
-                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/70 space-y-3">
-                        <div class="flex items-center gap-2 text-sky-600 font-bold text-sm">
-                            <i class="fa-solid fa-box"></i>
-                            <span>الخدمة الثالثة</span>
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/70 space-y-4 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-2 text-sky-600 font-bold text-sm">
+                                <i class="fa-solid fa-box"></i>
+                                <span>الخدمة الثالثة</span>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="block text-xs font-bold text-slate-600">عنوان الخدمة</label>
+                                <input type="text" id="cfg-serv2-title" class="form-input bg-white" placeholder="الطرود والأمانات الخاصة">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="block text-xs font-bold text-slate-600">وصف الخدمة</label>
+                                <textarea id="cfg-serv2-desc" rows="3" class="form-textarea bg-white" placeholder="نقل الأغراض الشخصية والطرود بين الأحياء والمناطق بأمان تام."></textarea>
+                            </div>
                         </div>
-                        <div class="space-y-2">
-                            <label class="block text-xs font-bold text-slate-600">عنوان الخدمة</label>
-                            <input type="text" id="cfg-serv2-title" class="form-input bg-white" placeholder="الطرود والأمانات الخاصة">
-                        </div>
-                        <div class="space-y-2">
-                            <label class="block text-xs font-bold text-slate-600">وصف الخدمة</label>
-                            <textarea id="cfg-serv2-desc" rows="3" class="form-textarea bg-white" placeholder="نقل الأغراض الشخصية والطرود بين الأحياء والمناطق بأمان تام."></textarea>
+
+                        <!-- قسم أسعار الخدمة 3 -->
+                        <div class="pt-3 border-t border-slate-200 space-y-2.5">
+                            <div class="flex items-center justify-between">
+                                <label class="block text-xs font-black text-dark-900 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-list-check text-sky-500"></i>
+                                    <span>قائمة أسعار الخدمة</span>
+                                </label>
+                                <span class="text-[10px] text-slate-400 font-bold">تظهر عند النقر على السهم</span>
+                            </div>
+
+                            <div id="cfg-serv2-prices-container" class="space-y-2.5">
+                                <!-- تملأ ديناميكياً -->
+                            </div>
+
+                            <button type="button" onclick="addPriceItemToService(2)" class="w-full py-2.5 px-3 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-600 text-xs font-bold border border-dashed border-sky-300 flex items-center justify-center gap-1.5 transition-colors">
+                                <i class="fa-solid fa-plus text-xs"></i>
+                                <span>إضافة تسعيرة جديدة</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -578,7 +644,7 @@
                 <span class="text-xs font-bold text-slate-600">لوحة التحكم نشطة وجاهزة</span>
             </div>
             <div class="flex items-center gap-3">
-                <a href="haul-6.html" target="_blank" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-dark-900 text-xs sm:text-sm font-bold transition-all">
+                <a href="index.html" target="_blank" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-dark-900 text-xs sm:text-sm font-bold transition-all">
                     عرض الموقع
                 </a>
                 <button onclick="saveAllSettings()" class="px-6 py-2.5 rounded-xl bg-sky-400 hover:bg-sky-500 text-dark-900 font-black text-xs sm:text-sm shadow-md transition-all active:scale-95 flex items-center gap-2">
@@ -658,15 +724,30 @@
             services: [
                 {
                     title: "طلبات المطاعم والمقاهي",
-                    desc: "نستلم وجبتك المفضلة ونوصلها إليك ساخنة وبأسرع وقت ممكن."
+                    desc: "نستلم وجبتك المفضلة ونوصلها إليك ساخنة وبأسرع وقت ممكن.",
+                    priceList: [
+                        { name: "توصيل مطاعم قريبة (أقل من 5 كم)", price: "1.000 ر.ع", note: "وجبات سريعة، كافيهات، ومشروبات ساخنة" },
+                        { name: "توصيل للأحياء المجاورة (5 - 15 كم)", price: "1.500 ر.ع", note: "حفظ حراري للوجبات مع سرعة بالتسليم" },
+                        { name: "طلب من عدة مطاعم أو مشوار بعيد", price: "2.500 ر.ع", note: "تنسيق مسبق واستلام من أكثر من مكان" }
+                    ]
                 },
                 {
                     title: "مشتريات السوبرماركت",
-                    desc: "توصيل المقاضي والمستلزمات اليومية من المحلات التجارية إلى باب منزلك."
+                    desc: "توصيل المقاضي والمستلزمات اليومية من المحلات التجارية إلى باب منزلك.",
+                    priceList: [
+                        { name: "مقاضي خفيفة وسريعة (أقل من 5 كم)", price: "1.000 ر.ع", note: "أغراض البقالة، الصيدليات، والمستلزمات اليومية" },
+                        { name: "مشتريات السوبرماركت والمولات (5 - 15 كم)", price: "1.500 - 2.000 ر.ع", note: "عربة تسوق كاملة مع فحص ومطابقة الفاتورة" },
+                        { name: "مشتريات متعددة أو متاجر جملة", price: "2.500+ ر.ع", note: "حسب عدد نقاط الاستلام وحجم المشتريات" }
+                    ]
                 },
                 {
                     title: "الطرود والأمانات الخاصة",
-                    desc: "نقل الأغراض الشخصية والطرود بين الأحياء والمناطق بأمان تام."
+                    desc: "نقل الأغراض الشخصية والطرود بين الأحياء والمناطق بأمان تام.",
+                    priceList: [
+                        { name: "أمانات ومستندات داخل المنطقة", price: "1.000 ر.ع", note: "مستندات، مفاتيح، وأغراض شخصية عاجلة" },
+                        { name: "طرود وهدايا بين الأحياء والمناطق", price: "1.500 - 2.000 ر.ع", note: "توصيل آمن مع سرية تامة للأمانات" },
+                        { name: "طرود كبيرة ومشاوير خاصة بعيدة", price: "3.000+ ر.ع", note: "تسليم فوري مباشر من الباب للباب" }
+                    ]
                 }
             ],
 
@@ -713,6 +794,66 @@
             if (btn) btn.classList.add('active');
         }
 
+        // ==================== دوال إدارة بنود أسعار الخدمات في لوحة التحكم ====================
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        function addPriceItemRow(container, name = '', price = '', note = '') {
+            const row = document.createElement('div');
+            row.className = "serv-price-item bg-white p-3 rounded-xl border border-slate-200/90 shadow-2xs space-y-2 transition-all";
+            row.innerHTML = `
+                <div class="flex items-center justify-between gap-2 pb-1.5 border-b border-slate-100">
+                    <span class="text-[11px] font-black text-slate-700 flex items-center gap-1.5">
+                        <i class="fa-solid fa-tag text-sky-500 text-[10px]"></i>
+                        <span>بند تسعيرة</span>
+                    </span>
+                    <button type="button" onclick="this.closest('.serv-price-item').remove()" class="w-6 h-6 rounded-lg bg-rose-50 hover:bg-rose-500 text-rose-500 hover:text-white flex items-center justify-center text-xs transition-colors" title="حذف هذا البند">
+                        <i class="fa-solid fa-trash text-[10px]"></i>
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-[10px] text-slate-500 font-bold mb-1">اسم المشوار / الطلب</label>
+                        <input type="text" class="item-name form-input text-xs py-1.5 px-2.5" placeholder="مثال: توصيل قريب" value="${escapeHtml(name)}">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-slate-500 font-bold mb-1">السعر</label>
+                        <input type="text" class="item-price form-input text-xs py-1.5 px-2.5" placeholder="مثال: 1.000 ر.ع" value="${escapeHtml(price)}">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[10px] text-slate-500 font-bold mb-1">تفاصيل أو ملاحظة إضافية</label>
+                    <input type="text" class="item-note form-input text-xs py-1.5 px-2.5" placeholder="مثال: أقل من 5 كم - استلام وتسليم فوري" value="${escapeHtml(note)}">
+                </div>
+            `;
+            container.appendChild(row);
+        }
+
+        function renderAdminPriceItems(serviceIndex, items) {
+            const container = document.getElementById(`cfg-serv${serviceIndex}-prices-container`);
+            if (!container) return;
+            container.innerHTML = '';
+
+            const list = (items && Array.isArray(items) && items.length > 0)
+                ? items
+                : (defaultSiteData.services[serviceIndex]?.priceList || []);
+
+            list.forEach(item => {
+                addPriceItemRow(container, item.name || '', item.price || '', item.note || '');
+            });
+        }
+
+        function addPriceItemToService(serviceIndex) {
+            const container = document.getElementById(`cfg-serv${serviceIndex}-prices-container`);
+            if (container) {
+                addPriceItemRow(container, '', '', '');
+                const inputs = container.querySelectorAll('.item-name');
+                if (inputs.length) inputs[inputs.length - 1].focus();
+            }
+        }
+
         // ملء حقول النموذج بالبيانات
         function populateForm(data) {
             document.getElementById('cfg-phone').value = data.phone || '';
@@ -735,6 +876,11 @@
                     const descEl = document.getElementById('cfg-serv' + i + '-desc');
                     if (titleEl) titleEl.value = s.title || '';
                     if (descEl) descEl.value = s.desc || '';
+                    renderAdminPriceItems(i, s.priceList || defaultSiteData.services[i]?.priceList);
+                }
+            } else {
+                for (let i = 0; i < 3; i++) {
+                    renderAdminPriceItems(i, defaultSiteData.services[i]?.priceList);
                 }
             }
 
@@ -832,20 +978,25 @@
                 truckBadgeTag: document.getElementById('cfg-truckBadgeTag').value.trim(),
                 truckBadgeSub: document.getElementById('cfg-truckBadgeSub').value.trim(),
 
-                services: [
-                    {
-                        title: document.getElementById('cfg-serv0-title').value.trim(),
-                        desc: document.getElementById('cfg-serv0-desc').value.trim()
-                    },
-                    {
-                        title: document.getElementById('cfg-serv1-title').value.trim(),
-                        desc: document.getElementById('cfg-serv1-desc').value.trim()
-                    },
-                    {
-                        title: document.getElementById('cfg-serv2-title').value.trim(),
-                        desc: document.getElementById('cfg-serv2-desc').value.trim()
+                services: [0, 1, 2].map(i => {
+                    const container = document.getElementById(`cfg-serv${i}-prices-container`);
+                    const priceItems = [];
+                    if (container) {
+                        container.querySelectorAll('.serv-price-item').forEach(el => {
+                            const name = el.querySelector('.item-name')?.value.trim() || '';
+                            const price = el.querySelector('.item-price')?.value.trim() || '';
+                            const note = el.querySelector('.item-note')?.value.trim() || '';
+                            if (name || price) {
+                                priceItems.push({ name, price, note });
+                            }
+                        });
                     }
-                ],
+                    return {
+                        title: document.getElementById(`cfg-serv${i}-title`)?.value.trim() || '',
+                        desc: document.getElementById(`cfg-serv${i}-desc`)?.value.trim() || '',
+                        priceList: priceItems
+                    };
+                }),
 
                 prices: [
                     {
