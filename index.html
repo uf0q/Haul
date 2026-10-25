@@ -253,20 +253,20 @@
 
     <!-- ==================== الشريط العلوي (Navbar) ==================== -->
     <header class="sticky top-0 z-30 glass-header border-b border-slate-100">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6">
-            <div class="flex items-center justify-between h-20">
+        <div class="max-w-6xl mx-auto px-3.5 sm:px-6">
+            <div class="flex items-center justify-between h-16 sm:h-20">
                 
                 <!-- الزاوية الأولى (يمين): أيقونة شريط الانتقالات للهاتف + بطاقة التوصيل الفوري المصغرة للهاتف + قائمة الكمبيوتر -->
-                <div class="flex items-center gap-2.5 sm:gap-3">
+                <div class="flex items-center gap-2 sm:gap-3">
                     <!-- أيقونة القائمة للهواتف -->
-                    <button onclick="openDrawer()" aria-label="فتح القائمة" class="md:hidden w-11 h-11 rounded-2xl bg-slate-100 hover:bg-sky-400 text-dark-900 hover:text-white flex items-center justify-center transition-all duration-200 focus:outline-none shrink-0">
-                        <i class="fa-solid fa-bars-staggered text-xl"></i>
+                    <button onclick="openDrawer()" aria-label="فتح القائمة" class="md:hidden w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-slate-100 hover:bg-sky-400 text-dark-900 hover:text-white flex items-center justify-center transition-all duration-200 focus:outline-none shrink-0">
+                        <i class="fa-solid fa-bars-staggered text-base sm:text-xl"></i>
                     </button>
 
                     <!-- شارة أنميشن التوصيل الفوري (تظهر في الهواتف فقط بجانب زر القائمة) -->
-                    <div onclick="scrollToContact()" class="md:hidden flex items-center gap-2 bg-transparent text-dark-900 p-1.5 pl-2.5 rounded-2xl border border-slate-200/80 cursor-pointer active:scale-95 transition-all">
+                    <div onclick="scrollToContact()" class="md:hidden flex items-center gap-1.5 sm:gap-2 bg-transparent text-dark-900 p-1 sm:p-1.5 pl-2 sm:pl-2.5 rounded-xl sm:rounded-2xl border border-slate-200/80 cursor-pointer active:scale-95 transition-all">
                         <!-- أنميشن الشاحنة المصغر -->
-                        <div class="w-10 h-9 rounded-xl bg-sky-400 flex items-center justify-center relative overflow-hidden shrink-0 border border-sky-300/60">
+                        <div class="w-8 h-7 sm:w-10 sm:h-9 rounded-lg sm:rounded-xl bg-sky-400 flex items-center justify-center relative overflow-hidden shrink-0 border border-sky-300/60">
                             <svg viewBox="0 0 140 105" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                                 <line x1="12" y1="32" x2="30" y2="32" stroke="#09090b" stroke-width="3" stroke-linecap="round" class="animate-wind-1" opacity="0.5"/>
                                 <line x1="6" y1="46" x2="22" y2="46" stroke="#09090b" stroke-width="3" stroke-linecap="round" class="animate-wind-2" opacity="0.5"/>
@@ -298,13 +298,13 @@
                         </div>
                         <!-- تفاصيل التوصيل الفوري المصغرة -->
                         <div class="text-right leading-tight">
-                            <div class="flex items-center gap-1.5">
-                                <span id="site-truck-title" class="text-[11px] font-black text-dark-900">توصيل فوري</span>
-                                <span id="site-truck-tag" class="text-[9px] font-extrabold bg-sky-50 text-sky-600 px-1.5 py-0.5 rounded-md border border-sky-200">100% أمان</span>
+                            <div class="flex items-center gap-1">
+                                <span id="site-truck-title" class="text-[10px] sm:text-[11px] font-black text-dark-900">توصيل فوري</span>
+                                <span id="site-truck-tag" class="text-[8px] sm:text-[9px] font-extrabold bg-sky-50 text-sky-600 px-1 py-0.5 rounded border border-sky-200">100% أمان</span>
                             </div>
                             <div class="flex items-center gap-1 mt-0.5">
                                 <span class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span>
-                                <span id="site-truck-sub" class="text-[9px] text-slate-500 font-medium">سريع • من الباب للباب</span>
+                                <span id="site-truck-sub" class="text-[8px] sm:text-[9px] text-slate-500 font-medium">سريع • من الباب للباب</span>
                             </div>
                         </div>
                     </div>
@@ -327,7 +327,7 @@
                 <div class="flex items-center">
                     <a href="#" onclick="navigate('home'); return false;" class="focus:outline-none group flex items-center" title="Haul">
                         <!-- رسم векторي (SVG) لكلمة HAUL يحاكي حروف وزوايا خط صورة ENGLISH بدقة تامة -->
-                        <svg viewBox="0 0 235 68" class="h-9 sm:h-11 w-auto transition-transform duration-200 group-hover:scale-105" xmlns="http://www.w3.org/2000/svg">
+                        <svg viewBox="0 0 235 68" class="h-7 sm:h-11 w-auto transition-transform duration-200 group-hover:scale-105" xmlns="http://www.w3.org/2000/svg">
                             <!-- الحرف H -->
                             <path d="M 10,8 L 32,10 C 30,22 29,26 29,30 L 50,29 C 50,23 49,17 48,10 L 69,8 C 66,26 65,44 66,61 L 45,60 C 46,52 47,46 48,40 L 28,41 C 27,48 27,54 27,61 L 7,60 C 10,42 11,25 10,8 Z" fill="#18181B"/>
                             <!-- الحرف A -->
@@ -404,39 +404,39 @@
     </aside>
 
     <!-- ==================== المحتوى الرئيسي ==================== -->
-    <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-10">
+    <main class="flex-grow max-w-6xl w-full mx-auto px-3.5 sm:px-6 py-4 sm:py-10">
 
         <!-- 1. الصفحة الرئيسية -->
-        <section id="view-home" class="page-view active space-y-8">
+        <section id="view-home" class="page-view active space-y-4 sm:space-y-8">
             
             <!-- القسم الترحيبي العصري -->
-            <div class="bg-dark-900 text-white rounded-[2rem] p-6 sm:p-12 relative overflow-hidden shadow-xl">
+            <div class="bg-dark-900 text-white rounded-2xl sm:rounded-[2rem] p-4 sm:p-12 relative overflow-hidden shadow-xl">
                 <!-- دوائر إضاءة خلفية باللون الأزرق السماوي -->
                 <div class="absolute -top-24 -left-24 w-72 h-72 bg-sky-400/25 rounded-full blur-3xl pointer-events-none"></div>
                 <div class="absolute -bottom-24 -right-24 w-72 h-72 bg-sky-400/15 rounded-full blur-3xl pointer-events-none"></div>
 
-                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                    <div class="lg:col-span-7 space-y-5 text-right">
-                        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/15 px-3.5 py-1.5 rounded-full">
-                            <span class="w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>
-                            <span id="site-hero-badge" class="text-xs font-bold text-sky-300">خدمة توصيل سريعة وموثوقة</span>
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 items-center">
+                    <div class="lg:col-span-7 space-y-3 sm:space-y-5 text-right">
+                        <div class="inline-flex items-center gap-1.5 sm:gap-2 bg-white/10 backdrop-blur-md border border-white/15 px-2.5 py-1 sm:px-3.5 sm:py-1.5 rounded-full">
+                            <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-sky-400 animate-ping"></span>
+                            <span id="site-hero-badge" class="text-[10px] sm:text-xs font-bold text-sky-300">خدمة توصيل سريعة وموثوقة</span>
                         </div>
 
-                        <h1 id="site-hero-title" class="text-3xl sm:text-5xl font-black leading-tight">
+                        <h1 id="site-hero-title" class="text-xl sm:text-3xl lg:text-5xl font-black leading-tight sm:leading-tight">
                             نوصل طلباتك بكل عناية وسرعة مع <span class="text-sky-400">Haul</span>
                         </h1>
 
-                        <p id="site-hero-desc" class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-xl font-medium">
+                        <p id="site-hero-desc" class="text-slate-300 text-xs sm:text-base lg:text-lg leading-relaxed max-w-xl font-normal sm:font-medium">
                             سواء كنت تحتاج لتوصيل طلبات مطاعم، مشتريات منزلية، أو طرود خاصة، نحن هنا لخدمتك بأفضل الأسعار وأسرع وقت.
                         </p>
 
-                        <div class="pt-2 flex flex-wrap items-center gap-3.5">
-                            <button onclick="navigate('prices')" class="flex-1 sm:flex-initial justify-center bg-sky-400 hover:bg-sky-500 text-dark-900 font-extrabold px-7 py-4 rounded-2xl sky-shadow transition-all flex items-center gap-2.5 text-base">
+                        <div class="pt-1 sm:pt-2 flex flex-row items-center gap-2 sm:gap-3.5">
+                            <button onclick="navigate('prices')" class="flex-1 sm:flex-initial justify-center bg-sky-400 hover:bg-sky-500 text-dark-900 font-extrabold px-3.5 py-2.5 sm:px-7 sm:py-4 rounded-xl sm:rounded-2xl sky-shadow transition-all flex items-center gap-1.5 sm:gap-2.5 text-xs sm:text-base">
                                 <span>معرفة الأسعار</span>
-                                <i class="fa-solid fa-arrow-left text-sm"></i>
+                                <i class="fa-solid fa-arrow-left text-xs sm:text-sm"></i>
                             </button>
-                            <button onclick="scrollToContact()" class="flex-1 sm:flex-initial justify-center bg-white/10 hover:bg-white/20 text-white font-bold px-7 py-4 rounded-2xl border border-white/15 transition-all flex items-center gap-2.5 text-base">
-                                <i class="fa-solid fa-phone text-sky-400"></i>
+                            <button onclick="scrollToContact()" class="flex-1 sm:flex-initial justify-center bg-white/10 hover:bg-white/20 text-white font-bold px-3.5 py-2.5 sm:px-7 sm:py-4 rounded-xl sm:rounded-2xl border border-white/15 transition-all flex items-center gap-1.5 sm:gap-2.5 text-xs sm:text-base">
+                                <i class="fa-solid fa-phone text-sky-400 text-xs sm:text-sm"></i>
                                 <span>رقم التواصل</span>
                             </button>
                         </div>
@@ -524,37 +524,37 @@
             </div>
 
             <!-- قسم رقم التواصل المباشر (واضح وسهل الاستخدام للهاتف) -->
-            <div id="contact-section" class="bg-white rounded-[2rem] p-6 sm:p-8 border border-slate-200/80 card-shadow">
-                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div class="flex items-center gap-4 text-right w-full md:w-auto">
-                        <div class="w-14 h-14 rounded-2xl bg-sky-50 border border-sky-200 text-sky-500 flex items-center justify-center text-2xl shrink-0">
+            <div id="contact-section" class="bg-white rounded-2xl sm:rounded-[2rem] p-3.5 sm:p-8 border border-slate-200/80 card-shadow">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-6">
+                    <div class="flex items-center gap-3 sm:gap-4 text-right w-full md:w-auto">
+                        <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-sky-50 border border-sky-200 text-sky-500 flex items-center justify-center text-lg sm:text-2xl shrink-0">
                             <i class="fa-solid fa-phone-volume"></i>
                         </div>
                         <div>
-                            <span class="text-xs font-extrabold text-sky-500 uppercase">تواصل معنا مباشرة</span>
-                            <h2 class="text-xl sm:text-2xl font-black text-dark-900">رقم التوصيل والطلبات</h2>
-                            <p class="text-slate-500 text-sm">متاحون للرد عبر الاتصال المباشر أو تطبيق واتساب</p>
+                            <span class="text-[10px] sm:text-xs font-extrabold text-sky-500 uppercase">تواصل معنا مباشرة</span>
+                            <h2 class="text-base sm:text-2xl font-black text-dark-900">رقم التوصيل والطلبات</h2>
+                            <p class="text-slate-500 text-xs sm:text-sm">متاحون للرد عبر الاتصال المباشر أو تطبيق واتساب</p>
                         </div>
                     </div>
 
                     <!-- الرقم وأزرار التفاعل -->
-                    <div class="w-full md:w-auto flex flex-col sm:flex-row items-center gap-3 bg-slate-50 p-3 rounded-2xl border border-slate-200/70">
-                        <div class="px-4 py-2 text-center sm:text-right">
-                            <span class="text-xs text-slate-400 block font-medium">رقم الهاتف</span>
-                            <span class="text-xl font-black text-dark-900 tracking-wider site-phone-display" dir="ltr">+968 9000 0000</span>
+                    <div class="w-full md:w-auto flex flex-col sm:flex-row items-center gap-2 sm:gap-3 bg-slate-50 p-2 sm:p-3 rounded-xl sm:rounded-2xl border border-slate-200/70">
+                        <div class="px-2 py-0.5 sm:px-4 sm:py-2 text-center sm:text-right">
+                            <span class="text-[10px] sm:text-xs text-slate-400 block font-medium">رقم الهاتف</span>
+                            <span class="text-base sm:text-xl font-black text-dark-900 tracking-wider site-phone-display" dir="ltr">+968 9000 0000</span>
                         </div>
                         
-                        <div class="flex items-center gap-2 w-full sm:w-auto">
-                            <button onclick="copyPhone()" class="flex-1 sm:flex-initial px-4 py-3 rounded-xl bg-white hover:bg-slate-100 text-dark-900 border border-slate-200 font-bold text-sm flex items-center justify-center gap-2 transition-all">
-                                <i class="fa-regular fa-copy text-sky-500"></i>
+                        <div class="flex items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
+                            <button onclick="copyPhone()" class="flex-1 sm:flex-initial px-3 py-2 sm:px-4 sm:py-3 rounded-lg sm:rounded-xl bg-white hover:bg-slate-100 text-dark-900 border border-slate-200 font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all">
+                                <i class="fa-regular fa-copy text-sky-500 text-xs sm:text-sm"></i>
                                 <span>نسخ</span>
                             </button>
-                            <a href="tel:+96890000000" class="flex-1 sm:flex-initial px-5 py-3 rounded-xl bg-dark-900 hover:bg-sky-400 hover:text-dark-900 text-white font-bold text-sm flex items-center justify-center gap-2 transition-all">
-                                <i class="fa-solid fa-phone"></i>
+                            <a href="tel:+96890000000" class="flex-1 sm:flex-initial px-3.5 py-2 sm:px-5 sm:py-3 rounded-lg sm:rounded-xl bg-dark-900 hover:bg-sky-400 hover:text-dark-900 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all">
+                                <i class="fa-solid fa-phone text-xs sm:text-sm"></i>
                                 <span>اتصال</span>
                             </a>
-                            <a href="https://wa.me/96890000000" target="_blank" rel="noopener noreferrer" class="flex-1 sm:flex-initial px-4 py-3 rounded-xl bg-sky-400 hover:bg-sky-500 text-dark-900 font-extrabold text-sm flex items-center justify-center gap-1.5 transition-all">
-                                <i class="fa-brands fa-whatsapp text-lg"></i>
+                            <a href="https://wa.me/96890000000" target="_blank" rel="noopener noreferrer" class="flex-1 sm:flex-initial px-3 py-2 sm:px-4 sm:py-3 rounded-lg sm:rounded-xl bg-sky-400 hover:bg-sky-500 text-dark-900 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all">
+                                <i class="fa-brands fa-whatsapp text-sm sm:text-lg"></i>
                                 <span>واتساب</span>
                             </a>
                         </div>
@@ -563,46 +563,46 @@
             </div>
 
             <!-- 3 بطاقات مختصرة توضح ماذا نقدم مع قوائم الأسعار التفاعلية -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 items-start">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-5 items-start">
                 
                 <!-- خدمة 0: طلبات المطاعم والمقاهي -->
-                <div id="service-card-0" onclick="toggleServiceCard(0)" class="service-card bg-white p-6 rounded-3xl border border-slate-100 card-shadow hover:border-sky-300 transition-all cursor-pointer group flex flex-col justify-between">
+                <div id="service-card-0" onclick="toggleServiceCard(0)" class="service-card bg-white p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-100 card-shadow hover:border-sky-300 transition-all cursor-pointer group flex flex-col justify-between">
                     <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 rounded-2xl bg-sky-400/15 text-sky-500 flex items-center justify-center text-xl group-hover:bg-sky-400 group-hover:text-white transition-colors">
+                        <div class="flex items-center justify-between mb-2 sm:mb-4">
+                            <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-sky-400/15 text-sky-500 flex items-center justify-center text-base sm:text-xl group-hover:bg-sky-400 group-hover:text-white transition-colors">
                                 <i class="fa-solid fa-utensils"></i>
                             </div>
 
                             <!-- سهم الزاوية التفاعلي مع أنميشن -->
-                            <div class="serv-toggle-badge flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-slate-100 group-hover:bg-sky-50 text-slate-600 group-hover:text-sky-600 border border-slate-200/80 transition-all duration-300">
-                                <span class="serv-toggle-text text-xs font-bold">عرض الأسعار</span>
-                                <div class="w-6 h-6 rounded-xl bg-white shadow-xs flex items-center justify-center text-slate-700 serv-chevron-box transition-all duration-300">
-                                    <i class="fa-solid fa-chevron-down text-xs transition-transform duration-300 serv-chevron animate-arrow-bounce"></i>
+                            <div class="serv-toggle-badge flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl sm:rounded-2xl bg-slate-100 group-hover:bg-sky-50 text-slate-600 group-hover:text-sky-600 border border-slate-200/80 transition-all duration-300">
+                                <span class="serv-toggle-text text-[10px] sm:text-xs font-bold">عرض الأسعار</span>
+                                <div class="w-5 h-5 sm:w-6 sm:h-6 rounded-lg sm:rounded-xl bg-white shadow-2xs flex items-center justify-center text-slate-700 serv-chevron-box transition-all duration-300">
+                                    <i class="fa-solid fa-chevron-down text-[10px] sm:text-xs transition-transform duration-300 serv-chevron animate-arrow-bounce"></i>
                                 </div>
                             </div>
                         </div>
 
-                        <h3 id="site-serv-0-title" class="text-lg font-extrabold text-dark-900 mb-2">طلبات المطاعم والمقاهي</h3>
-                        <p id="site-serv-0-desc" class="text-slate-500 text-sm leading-relaxed">نستلم وجبتك المفضلة ونوصلها إليك ساخنة وبأسرع وقت ممكن.</p>
+                        <h3 id="site-serv-0-title" class="text-sm sm:text-lg font-extrabold text-dark-900 mb-1 sm:mb-2">طلبات المطاعم والمقاهي</h3>
+                        <p id="site-serv-0-desc" class="text-slate-500 text-xs sm:text-sm leading-normal sm:leading-relaxed">نستلم وجبتك المفضلة ونوصلها إليك ساخنة وبأسرع وقت ممكن.</p>
                     </div>
 
                     <!-- قائمة الأسعار القابلة للتوسيع -->
                     <div id="site-serv-0-accordion" class="service-accordion">
                         <div class="service-accordion-inner">
-                            <div class="mt-4 pt-4 border-t border-slate-100 space-y-3">
-                                <div class="flex items-center justify-between text-xs font-bold text-slate-400 pb-1">
+                            <div class="mt-2.5 sm:mt-4 pt-2.5 sm:pt-4 border-t border-slate-100 space-y-2 sm:space-y-3">
+                                <div class="flex items-center justify-between text-[11px] sm:text-xs font-bold text-slate-400 pb-0.5 sm:pb-1">
                                     <span class="flex items-center gap-1.5 text-dark-900 font-extrabold">
                                         <i class="fa-solid fa-tags text-sky-400 text-xs"></i>
                                         <span>قائمة الأسعار المعتمدة</span>
                                     </span>
-                                    <span class="text-[10px] bg-sky-50 text-sky-600 px-2 py-0.5 rounded-md font-bold">تسليم فوري</span>
+                                    <span class="text-[9px] sm:text-[10px] bg-sky-50 text-sky-600 px-2 py-0.5 rounded-md font-bold">تسليم فوري</span>
                                 </div>
 
-                                <div id="site-serv-0-prices-list" class="space-y-2">
+                                <div id="site-serv-0-prices-list" class="space-y-1.5 sm:space-y-2">
                                     <!-- يتم تعبئتها بواسطة JS -->
                                 </div>
 
-                                <button type="button" onclick="event.stopPropagation(); openOrderModal(document.getElementById('site-serv-0-title').textContent)" class="w-full mt-2 py-2.5 px-4 rounded-xl bg-dark-900 hover:bg-sky-400 text-white hover:text-dark-900 text-xs font-bold transition-all flex items-center justify-center gap-2 group/btn shadow-xs">
+                                <button type="button" onclick="event.stopPropagation(); openOrderModal(document.getElementById('site-serv-0-title').textContent)" class="w-full mt-2 py-2 sm:py-2.5 px-3 sm:px-4 rounded-lg sm:rounded-xl bg-dark-900 hover:bg-sky-400 text-white hover:text-dark-900 text-xs font-bold transition-all flex items-center justify-center gap-1.5 sm:gap-2 group/btn shadow-2xs">
                                     <span>طلب هذه الخدمة الآن</span>
                                     <i class="fa-solid fa-arrow-left text-[11px] group-hover/btn:-translate-x-1 transition-transform"></i>
                                 </button>
@@ -612,39 +612,39 @@
                 </div>
 
                 <!-- خدمة 1: مشتريات السوبرماركت -->
-                <div id="service-card-1" onclick="toggleServiceCard(1)" class="service-card bg-white p-6 rounded-3xl border border-slate-100 card-shadow hover:border-sky-300 transition-all cursor-pointer group flex flex-col justify-between">
+                <div id="service-card-1" onclick="toggleServiceCard(1)" class="service-card bg-white p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-100 card-shadow hover:border-sky-300 transition-all cursor-pointer group flex flex-col justify-between">
                     <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 rounded-2xl bg-sky-400/15 text-sky-500 flex items-center justify-center text-xl group-hover:bg-sky-400 group-hover:text-white transition-colors">
+                        <div class="flex items-center justify-between mb-2 sm:mb-4">
+                            <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-sky-400/15 text-sky-500 flex items-center justify-center text-base sm:text-xl group-hover:bg-sky-400 group-hover:text-white transition-colors">
                                 <i class="fa-solid fa-bag-shopping"></i>
                             </div>
 
                             <!-- سهم الزاوية التفاعلي مع أنميشن -->
-                            <div class="serv-toggle-badge flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-slate-100 group-hover:bg-sky-50 text-slate-600 group-hover:text-sky-600 border border-slate-200/80 transition-all duration-300">
-                                <span class="serv-toggle-text text-xs font-bold">عرض الأسعار</span>
-                                <div class="w-6 h-6 rounded-xl bg-white shadow-xs flex items-center justify-center text-slate-700 serv-chevron-box transition-all duration-300">
-                                    <i class="fa-solid fa-chevron-down text-xs transition-transform duration-300 serv-chevron animate-arrow-bounce"></i>
+                            <div class="serv-toggle-badge flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl sm:rounded-2xl bg-slate-100 group-hover:bg-sky-50 text-slate-600 group-hover:text-sky-600 border border-slate-200/80 transition-all duration-300">
+                                <span class="serv-toggle-text text-[10px] sm:text-xs font-bold">عرض الأسعار</span>
+                                <div class="w-5 h-5 sm:w-6 sm:h-6 rounded-lg sm:rounded-xl bg-white shadow-2xs flex items-center justify-center text-slate-700 serv-chevron-box transition-all duration-300">
+                                    <i class="fa-solid fa-chevron-down text-[10px] sm:text-xs transition-transform duration-300 serv-chevron animate-arrow-bounce"></i>
                                 </div>
                             </div>
                         </div>
 
-                        <h3 id="site-serv-1-title" class="text-lg font-extrabold text-dark-900 mb-2">مشتريات السوبرماركت</h3>
-                        <p id="site-serv-1-desc" class="text-slate-500 text-sm leading-relaxed">توصيل المقاضي والمستلزمات اليومية من المحلات التجارية إلى باب منزلك.</p>
+                        <h3 id="site-serv-1-title" class="text-sm sm:text-lg font-extrabold text-dark-900 mb-1 sm:mb-2">مشتريات السوبرماركت</h3>
+                        <p id="site-serv-1-desc" class="text-slate-500 text-xs sm:text-sm leading-normal sm:leading-relaxed">توصيل المقاضي والمستلزمات اليومية من المحلات التجارية إلى باب منزلك.</p>
                     </div>
 
                     <!-- قائمة الأسعار القابلة للتوسيع -->
                     <div id="site-serv-1-accordion" class="service-accordion">
                         <div class="service-accordion-inner">
-                            <div class="mt-4 pt-4 border-t border-slate-100 space-y-3">
-                                <div class="flex items-center justify-between text-xs font-bold text-slate-400 pb-1">
+                            <div class="mt-2.5 sm:mt-4 pt-2.5 sm:pt-4 border-t border-slate-100 space-y-2 sm:space-y-3">
+                                <div class="flex items-center justify-between text-[11px] sm:text-xs font-bold text-slate-400 pb-0.5 sm:pb-1">
                                     <span class="flex items-center gap-1.5 text-dark-900 font-extrabold">
                                         <i class="fa-solid fa-tags text-sky-400 text-xs"></i>
                                         <span>قائمة الأسعار المعتمدة</span>
                                     </span>
-                                    <span class="text-[10px] bg-sky-50 text-sky-600 px-2 py-0.5 rounded-md font-bold">تسليم فوري</span>
+                                    <span class="text-[9px] sm:text-[10px] bg-sky-50 text-sky-600 px-2 py-0.5 rounded-md font-bold">تسليم فوري</span>
                                 </div>
 
-                                <div id="site-serv-1-prices-list" class="space-y-2">
+                                <div id="site-serv-1-prices-list" class="space-y-1.5 sm:space-y-2">
                                     <!-- يتم تعبئتها بواسطة JS -->
                                 </div>
 
@@ -658,43 +658,43 @@
                 </div>
 
                 <!-- خدمة 2: الطرود والأمانات الخاصة -->
-                <div id="service-card-2" onclick="toggleServiceCard(2)" class="service-card bg-white p-6 rounded-3xl border border-slate-100 card-shadow hover:border-sky-300 transition-all cursor-pointer group flex flex-col justify-between">
+                <div id="service-card-2" onclick="toggleServiceCard(2)" class="service-card bg-white p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-100 card-shadow hover:border-sky-300 transition-all cursor-pointer group flex flex-col justify-between">
                     <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 rounded-2xl bg-sky-400/15 text-sky-500 flex items-center justify-center text-xl group-hover:bg-sky-400 group-hover:text-white transition-colors">
+                        <div class="flex items-center justify-between mb-2 sm:mb-4">
+                            <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-sky-400/15 text-sky-500 flex items-center justify-center text-base sm:text-xl group-hover:bg-sky-400 group-hover:text-white transition-colors">
                                 <i class="fa-solid fa-box"></i>
                             </div>
 
                             <!-- سهم الزاوية التفاعلي مع أنميشن -->
-                            <div class="serv-toggle-badge flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-slate-100 group-hover:bg-sky-50 text-slate-600 group-hover:text-sky-600 border border-slate-200/80 transition-all duration-300">
-                                <span class="serv-toggle-text text-xs font-bold">عرض الأسعار</span>
-                                <div class="w-6 h-6 rounded-xl bg-white shadow-xs flex items-center justify-center text-slate-700 serv-chevron-box transition-all duration-300">
-                                    <i class="fa-solid fa-chevron-down text-xs transition-transform duration-300 serv-chevron animate-arrow-bounce"></i>
+                            <div class="serv-toggle-badge flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl sm:rounded-2xl bg-slate-100 group-hover:bg-sky-50 text-slate-600 group-hover:text-sky-600 border border-slate-200/80 transition-all duration-300">
+                                <span class="serv-toggle-text text-[10px] sm:text-xs font-bold">عرض الأسعار</span>
+                                <div class="w-5 h-5 sm:w-6 sm:h-6 rounded-lg sm:rounded-xl bg-white shadow-2xs flex items-center justify-center text-slate-700 serv-chevron-box transition-all duration-300">
+                                    <i class="fa-solid fa-chevron-down text-[10px] sm:text-xs transition-transform duration-300 serv-chevron animate-arrow-bounce"></i>
                                 </div>
                             </div>
                         </div>
 
-                        <h3 id="site-serv-2-title" class="text-lg font-extrabold text-dark-900 mb-2">الطرود والأمانات الخاصة</h3>
-                        <p id="site-serv-2-desc" class="text-slate-500 text-sm leading-relaxed">نقل الأغراض الشخصية والطرود بين الأحياء والمناطق بأمان تام.</p>
+                        <h3 id="site-serv-2-title" class="text-sm sm:text-lg font-extrabold text-dark-900 mb-1 sm:mb-2">الطرود والأمانات الخاصة</h3>
+                        <p id="site-serv-2-desc" class="text-slate-500 text-xs sm:text-sm leading-normal sm:leading-relaxed">نقل الأغراض الشخصية والطرود بين الأحياء والمناطق بأمان تام.</p>
                     </div>
 
                     <!-- قائمة الأسعار القابلة للتوسيع -->
                     <div id="site-serv-2-accordion" class="service-accordion">
                         <div class="service-accordion-inner">
-                            <div class="mt-4 pt-4 border-t border-slate-100 space-y-3">
-                                <div class="flex items-center justify-between text-xs font-bold text-slate-400 pb-1">
+                            <div class="mt-2.5 sm:mt-4 pt-2.5 sm:pt-4 border-t border-slate-100 space-y-2 sm:space-y-3">
+                                <div class="flex items-center justify-between text-[11px] sm:text-xs font-bold text-slate-400 pb-0.5 sm:pb-1">
                                     <span class="flex items-center gap-1.5 text-dark-900 font-extrabold">
                                         <i class="fa-solid fa-tags text-sky-400 text-xs"></i>
                                         <span>قائمة الأسعار المعتمدة</span>
                                     </span>
-                                    <span class="text-[10px] bg-sky-50 text-sky-600 px-2 py-0.5 rounded-md font-bold">تسليم فوري</span>
+                                    <span class="text-[9px] sm:text-[10px] bg-sky-50 text-sky-600 px-2 py-0.5 rounded-md font-bold">تسليم فوري</span>
                                 </div>
 
-                                <div id="site-serv-2-prices-list" class="space-y-2">
+                                <div id="site-serv-2-prices-list" class="space-y-1.5 sm:space-y-2">
                                     <!-- يتم تعبئتها بواسطة JS -->
                                 </div>
 
-                                <button type="button" onclick="event.stopPropagation(); openOrderModal(document.getElementById('site-serv-2-title').textContent)" class="w-full mt-2 py-2.5 px-4 rounded-xl bg-dark-900 hover:bg-sky-400 text-white hover:text-dark-900 text-xs font-bold transition-all flex items-center justify-center gap-2 group/btn shadow-xs">
+                                <button type="button" onclick="event.stopPropagation(); openOrderModal(document.getElementById('site-serv-2-title').textContent)" class="w-full mt-2 py-2 sm:py-2.5 px-3 sm:px-4 rounded-lg sm:rounded-xl bg-dark-900 hover:bg-sky-400 text-white hover:text-dark-900 text-xs font-bold transition-all flex items-center justify-center gap-1.5 sm:gap-2 group/btn shadow-2xs">
                                     <span>طلب هذه الخدمة الآن</span>
                                     <i class="fa-solid fa-arrow-left text-[11px] group-hover/btn:-translate-x-1 transition-transform"></i>
                                 </button>
@@ -911,8 +911,8 @@
     </main>
 
     <!-- ==================== تذييل بسيط وأنيق (Footer) ==================== -->
-    <footer class="bg-white border-t border-slate-200/80 mt-12">
-        <div class="max-w-6xl mx-auto px-4 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-slate-500 font-medium">
+    <footer class="bg-white border-t border-slate-200/80 mt-6 sm:mt-12">
+        <div class="max-w-6xl mx-auto px-4 py-4 sm:py-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-xs sm:text-sm text-slate-500 font-medium">
             <div class="flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span>
                 <span class="font-bold text-dark-900">Haul</span>
@@ -1308,13 +1308,13 @@
             const sTitle = serviceTitle || document.getElementById(`site-serv-${index}-title`)?.textContent || 'الخدمة';
 
             container.innerHTML = items.map(item => `
-                <div onclick="event.stopPropagation(); openOrderModal('${sTitle} - ${item.name} (${item.price})')" class="p-2.5 rounded-2xl bg-slate-50 hover:bg-sky-50/70 border border-slate-100 hover:border-sky-200 transition-all flex items-center justify-between gap-3 cursor-pointer group/item">
+                <div onclick="event.stopPropagation(); openOrderModal('${sTitle} - ${item.name} (${item.price})')" class="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-slate-50 hover:bg-sky-50/70 border border-slate-100 hover:border-sky-200 transition-all flex items-center justify-between gap-2.5 cursor-pointer group/item">
                     <div class="text-right">
-                        <p class="text-xs font-black text-dark-900 group-hover/item:text-sky-600 transition-colors">${item.name}</p>
-                        ${item.note ? `<p class="text-[10px] text-slate-500 mt-0.5">${item.note}</p>` : ''}
+                        <p class="text-[11px] sm:text-xs font-black text-dark-900 group-hover/item:text-sky-600 transition-colors">${item.name}</p>
+                        ${item.note ? `<p class="text-[9px] sm:text-[10px] text-slate-500 mt-0.5">${item.note}</p>` : ''}
                     </div>
-                    <div class="shrink-0 bg-white px-2.5 py-1.5 rounded-xl border border-slate-200/80 shadow-2xs text-center min-w-[70px] group-hover/item:border-sky-300 transition-all">
-                        <span class="text-xs font-black text-dark-900 block">${item.price}</span>
+                    <div class="shrink-0 bg-white px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-lg sm:rounded-xl border border-slate-200/80 shadow-2xs text-center min-w-[58px] sm:min-w-[70px] group-hover/item:border-sky-300 transition-all">
+                        <span class="text-[11px] sm:text-xs font-black text-dark-900 block">${item.price}</span>
                     </div>
                 </div>
             `).join('');
