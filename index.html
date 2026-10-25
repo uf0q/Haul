@@ -806,6 +806,85 @@
 
             </div>
 
+            <!-- ==================== قسم نبذة عن الموقع (أسفل الرئيسية) ==================== -->
+            <div class="bg-white rounded-[2rem] p-6 sm:p-10 border border-slate-200/80 card-shadow space-y-8">
+                
+                <!-- الرأس والوصف التعريفي -->
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-6 text-center md:text-right">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-dark-900 text-sky-400 flex items-center justify-center text-3xl sm:text-4xl shadow-xl shadow-sky-400/10 shrink-0 border-2 border-sky-400/30">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <div class="space-y-3 flex-1">
+                        <div class="inline-flex items-center gap-2 bg-sky-50 text-sky-600 px-3.5 py-1 rounded-full text-xs font-black border border-sky-200/80">
+                            <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
+                            <span>تعرّف علينا</span>
+                        </div>
+                        <h2 id="home-about-title" class="text-2xl sm:text-3xl font-black text-dark-900 leading-tight">
+                            نبذة عن خدمة <span class="text-sky-500">Haul</span> للتوصيل
+                        </h2>
+                        <p id="home-about-desc" class="text-slate-600 text-sm sm:text-base leading-relaxed max-w-3xl">
+                            أهلاً بك! <strong>Haul</strong> هي خدمة توصيل سريعة صُممت لتسهيل حياتك اليومية وتوفير وقتك وجهدك. نحرص دائماً على التعامل الراقي، الدقة في المواعيد، والمحافظة على خصوصية وسلامة جميع الطلبات والطرود حتى وصولها إلى يدك، مع تقديم أسعار واضحة ومناسبة للجميع.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ركائز ومميزات الخدمة -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-slate-100">
+                    <div class="bg-slate-50 hover:bg-sky-50/50 p-5 rounded-2xl text-center border border-slate-200/60 hover:border-sky-300 transition-all group">
+                        <div class="w-12 h-12 rounded-2xl bg-sky-100/70 text-sky-600 flex items-center justify-center text-xl mx-auto mb-3 group-hover:bg-sky-400 group-hover:text-dark-900 transition-all shadow-xs">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <h4 id="home-pillar-0-title" class="font-black text-dark-900 text-sm sm:text-base">الالتزام بالوقت</h4>
+                        <p id="home-pillar-0-desc" class="text-xs text-slate-500 mt-1.5 leading-relaxed">توصيل سريع ودقة في المواعيد دون تأخير</p>
+                    </div>
+
+                    <div class="bg-slate-50 hover:bg-sky-50/50 p-5 rounded-2xl text-center border border-slate-200/60 hover:border-sky-300 transition-all group">
+                        <div class="w-12 h-12 rounded-2xl bg-sky-100/70 text-sky-600 flex items-center justify-center text-xl mx-auto mb-3 group-hover:bg-sky-400 group-hover:text-dark-900 transition-all shadow-xs">
+                            <i class="fa-solid fa-shield-heart"></i>
+                        </div>
+                        <h4 id="home-pillar-1-title" class="font-black text-dark-900 text-sm sm:text-base">أمانة وموثوقية</h4>
+                        <p id="home-pillar-1-desc" class="text-xs text-slate-500 mt-1.5 leading-relaxed">حفظ الطرود بعناية وسرية تامة حتى التسليم</p>
+                    </div>
+
+                    <div class="bg-slate-50 hover:bg-sky-50/50 p-5 rounded-2xl text-center border border-slate-200/60 hover:border-sky-300 transition-all group">
+                        <div class="w-12 h-12 rounded-2xl bg-sky-100/70 text-sky-600 flex items-center justify-center text-xl mx-auto mb-3 group-hover:bg-sky-400 group-hover:text-dark-900 transition-all shadow-xs">
+                            <i class="fa-solid fa-tag"></i>
+                        </div>
+                        <h4 id="home-pillar-2-title" class="font-black text-dark-900 text-sm sm:text-base">أسعار واضحة</h4>
+                        <p id="home-pillar-2-desc" class="text-xs text-slate-500 mt-1.5 leading-relaxed">تكلفة محددة ومدروسة سلفاً تناسب الجميع</p>
+                    </div>
+                </div>
+
+                <!-- شريط أوقات العمل والتواصل السريع -->
+                <div class="bg-dark-900 text-white rounded-3xl p-5 sm:p-7 flex flex-col md:flex-row items-center justify-between gap-5 shadow-xl shadow-dark-900/10">
+                    <div class="flex items-center gap-4 text-center sm:text-right w-full sm:w-auto justify-center sm:justify-start">
+                        <div class="w-12 h-12 rounded-2xl bg-sky-400/20 text-sky-400 flex items-center justify-center text-2xl shrink-0">
+                            <i class="fa-regular fa-clock"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-400 block font-bold">جاهزون لخدمتكم طوال الأسبوع</span>
+                            <div class="flex flex-wrap items-center gap-2 mt-1 justify-center sm:justify-start text-xs sm:text-sm font-bold">
+                                <span>السبت - الخميس: <strong id="home-hours-weekdays" class="text-sky-400 font-extrabold">8:00 ص - 11:30 م</strong></span>
+                                <span class="text-slate-600 hidden sm:inline">•</span>
+                                <span>الجمعة: <strong id="home-hours-friday" class="text-sky-400 font-extrabold">2:00 م - 12:00 ص</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-3 w-full sm:w-auto">
+                        <a href="tel:+96890000000" class="flex-1 sm:flex-initial px-5 py-3 rounded-xl bg-white hover:bg-slate-100 text-dark-900 font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all shadow-xs">
+                            <i class="fa-solid fa-phone text-sky-500"></i>
+                            <span>اتصال فوري</span>
+                        </a>
+                        <a href="https://wa.me/96890000000" target="_blank" rel="noopener noreferrer" class="flex-1 sm:flex-initial px-5 py-3 rounded-xl bg-sky-400 hover:bg-sky-500 text-dark-900 font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all shadow-md shadow-sky-400/25">
+                            <i class="fa-brands fa-whatsapp text-base"></i>
+                            <span>واتساب</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
         </section>
 
         <!-- ==================== 2. صفحة الأسعار ==================== -->
@@ -1651,6 +1730,10 @@
             if (hw && data.hoursWeekdays) hw.textContent = data.hoursWeekdays;
             const hf = document.getElementById('site-hours-friday');
             if (hf && data.hoursFriday) hf.textContent = data.hoursFriday;
+            const hhw = document.getElementById('home-hours-weekdays');
+            if (hhw && data.hoursWeekdays) hhw.textContent = data.hoursWeekdays;
+            const hhf = document.getElementById('home-hours-friday');
+            if (hhf && data.hoursFriday) hhf.textContent = data.hoursFriday;
 
             // الهيرو
             const hb = document.getElementById('site-hero-badge');
@@ -1718,20 +1801,30 @@
 
             // نبذة عني
             const at = document.getElementById('site-about-title');
-            if (at && data.aboutTitle) {
-                at.innerHTML = data.aboutTitle.replace(/Haul/gi, '<span class="text-sky-500">Haul</span>');
+            const hat = document.getElementById('home-about-title');
+            if (data.aboutTitle) {
+                const formattedTitle = data.aboutTitle.replace(/Haul/gi, '<span class="text-sky-500">Haul</span>');
+                if (at) at.innerHTML = formattedTitle;
+                if (hat) hat.innerHTML = formattedTitle;
             }
             const ad = document.getElementById('site-about-desc');
-            if (ad && data.aboutDesc) {
-                ad.innerHTML = data.aboutDesc.replace(/Haul/gi, '<strong>Haul</strong>');
+            const had = document.getElementById('home-about-desc');
+            if (data.aboutDesc) {
+                const formattedDesc = data.aboutDesc.replace(/Haul/gi, '<strong>Haul</strong>');
+                if (ad) ad.innerHTML = formattedDesc;
+                if (had) had.innerHTML = formattedDesc;
             }
 
             if (data.pillars) {
                 data.pillars.forEach((pl, i) => {
                     const t = document.getElementById(`site-pillar-${i}-title`);
                     const d = document.getElementById(`site-pillar-${i}-desc`);
+                    const ht = document.getElementById(`home-pillar-${i}-title`);
+                    const hd = document.getElementById(`home-pillar-${i}-desc`);
                     if (t && pl.title) t.textContent = pl.title;
                     if (d && pl.desc) d.textContent = pl.desc;
+                    if (ht && pl.title) ht.textContent = pl.title;
+                    if (hd && pl.desc) hd.textContent = pl.desc;
                 });
             }
         }
