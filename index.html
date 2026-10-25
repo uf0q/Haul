@@ -254,6 +254,32 @@
             transform-origin: center;
             animation: wheelSpin 0.45s infinite linear;
         }
+
+        @keyframes truckCruiseAcross {
+            0% {
+                left: calc(100% + 20px);
+            }
+            100% {
+                left: -130px;
+            }
+        }
+
+        .animate-truck-cruise {
+            animation: truckCruiseAcross 7s linear infinite;
+        }
+
+        @keyframes roadDashedScroll {
+            0% {
+                stroke-dashoffset: 0;
+            }
+            100% {
+                stroke-dashoffset: -52;
+            }
+        }
+
+        .animate-road-dashed {
+            animation: roadDashedScroll 0.6s linear infinite;
+        }
     </style>
 </head>
 
@@ -273,75 +299,10 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
             <div class="flex items-center justify-between h-20">
 
-                <!-- الزاوية الأولى (يمين): أيقونة شريط الانتقالات للهاتف + بطاقة التوصيل الفوري المصغرة للهاتف + قائمة الكمبيوتر -->
-                <div class="flex items-center gap-2.5 sm:gap-3">
-                    <!-- أيقونة القائمة للهواتف -->
-                    <button onclick="openDrawer()" aria-label="فتح القائمة"
-                        class="md:hidden w-11 h-11 rounded-2xl bg-slate-100 hover:bg-sky-400 text-dark-900 hover:text-white flex items-center justify-center transition-all duration-200 focus:outline-none shrink-0">
-                        <i class="fa-solid fa-bars-staggered text-xl"></i>
-                    </button>
-
-                    <!-- شارة أنميشن التوصيل الفوري (تظهر في الهواتف فقط بجانب زر القائمة) -->
-                    <div onclick="scrollToContact()"
-                        class="md:hidden flex items-center gap-2 bg-transparent text-dark-900 p-1.5 pl-2.5 rounded-2xl border border-slate-200/80 cursor-pointer active:scale-95 transition-all">
-                        <!-- أنميشن الشاحنة المصغر -->
-                        <div
-                            class="w-10 h-9 rounded-xl bg-sky-400 flex items-center justify-center relative overflow-hidden shrink-0 border border-sky-300/60">
-                            <svg viewBox="0 0 140 105" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                                <line x1="12" y1="32" x2="30" y2="32" stroke="#09090b" stroke-width="3"
-                                    stroke-linecap="round" class="animate-wind-1" opacity="0.5" />
-                                <line x1="6" y1="46" x2="22" y2="46" stroke="#09090b" stroke-width="3"
-                                    stroke-linecap="round" class="animate-wind-2" opacity="0.5" />
-                                <rect x="0" y="76" width="140" height="29" fill="#09090b" />
-                                <line x1="-30" y1="90" x2="170" y2="90" stroke="#38bdf8" stroke-width="4"
-                                    stroke-dasharray="14 10" stroke-linecap="round" class="animate-road-stripes" />
-                                <g class="animate-truck-body">
-                                    <rect x="26" y="24" width="54" height="42" rx="6" fill="#09090b" />
-                                    <rect x="33" y="42" width="40" height="5" rx="2.5" fill="#38bdf8" />
-                                    <circle cx="53" cy="33" r="5" fill="#38bdf8" />
-                                    <path
-                                        d="M 82,35 L 101,35 C 105,35 108,37 110,41 L 116,52 C 117,54 118,56 118,59 L 118,66 L 82,66 Z"
-                                        fill="#09090b" />
-                                    <path d="M 87,40 L 100,40 C 102,40 104,41 105,43 L 110,51 L 87,51 Z"
-                                        fill="#e0f2fe" />
-                                    <rect x="115" y="56" width="3.5" height="6" rx="1.5" fill="#fde047" />
-                                    <polygon points="118.5,56 135,51 135,65 118.5,62" fill="#fde047" opacity="0.35" />
-                                    <rect x="23" y="64" width="97" height="4" rx="2" fill="#18181b" />
-                                </g>
-                                <g transform="translate(46, 69)">
-                                    <g class="animate-wheel">
-                                        <circle cx="0" cy="0" r="10" fill="#09090b" stroke="#38bdf8" stroke-width="3" />
-                                        <circle cx="0" cy="0" r="3.5" fill="#e0f2fe" />
-                                    </g>
-                                </g>
-                                <g transform="translate(99, 69)">
-                                    <g class="animate-wheel">
-                                        <circle cx="0" cy="0" r="10" fill="#09090b" stroke="#38bdf8" stroke-width="3" />
-                                        <circle cx="0" cy="0" r="3.5" fill="#e0f2fe" />
-                                    </g>
-                                </g>
-                            </svg>
-                        </div>
-                        <!-- تفاصيل التوصيل الفوري المصغرة -->
-                        <div class="text-right leading-tight">
-                            <div class="flex items-center gap-1.5">
-                                <span id="site-truck-title" class="text-[11px] font-black text-dark-900">توصيل
-                                    فوري</span>
-                                <span id="site-truck-tag"
-                                    class="text-[9px] font-extrabold bg-sky-50 text-sky-600 px-1.5 py-0.5 rounded-md border border-sky-200">100%
-                                    أمان</span>
-                            </div>
-                            <div class="flex items-center gap-1 mt-0.5">
-                                <span class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span>
-                                <span id="site-truck-sub" class="text-[9px] text-slate-500 font-medium">سريع • من الباب
-                                    للباب</span>
-                            </div>
-                        </div>
-                    </div>
-
+                <!-- الزاوية الأولى (يمين): أزرار التنقل للكمبيوتر فقط (تم حذف زر القائمة للهاتف) -->
+                <div class="flex items-center shrink-0">
                     <!-- أزرار التنقل للكمبيوتر -->
-                    <nav
-                        class="hidden md:flex items-center bg-slate-100/80 p-1.5 rounded-2xl border border-slate-200/60">
+                    <nav class="hidden md:flex items-center bg-slate-100/80 p-1.5 rounded-2xl border border-slate-200/60">
                         <button onclick="navigate('home')" id="desk-home"
                             class="px-6 py-2 rounded-xl font-bold text-sm transition-all bg-dark-900 text-white shadow-sm">
                             الرئيسية
@@ -355,6 +316,93 @@
                             نبذة عني
                         </button>
                     </nav>
+                </div>
+
+                <!-- الشارع الممتد وشاحنة التوصيل بتصميم عصري جديد تسير فيه باتجاه لوجو Haul -->
+                <div onclick="scrollToContact()" class="flex-1 min-w-0 mx-2 sm:mx-4 h-11 sm:h-12 bg-slate-950 rounded-2xl border border-sky-400/35 shadow-inner shadow-black/70 relative overflow-hidden flex items-center cursor-pointer group select-none" title="توصيل سريع - اضغط للتواصل">
+                    <!-- أسفلت الشارع وتدرج الإضاءة الليلية الهادئة -->
+                    <div class="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 pointer-events-none"></div>
+
+                    <!-- حواف الشارع العلوية والسفلية -->
+                    <div class="absolute top-1 inset-x-0 h-px bg-slate-700/60 pointer-events-none"></div>
+                    <div class="absolute bottom-1 inset-x-0 h-px bg-slate-700/60 pointer-events-none"></div>
+
+                    <!-- خطوط الشارع المتقطعة المتحركة باستمرار على طول الشارع -->
+                    <svg class="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <line x1="-80" y1="46%" x2="calc(100% + 80px)" y2="46%"
+                            stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="14 12" stroke-opacity="0.5"
+                            class="animate-road-dashed" />
+                    </svg>
+
+                    <!-- حاوية الشاحنة المتحركة التي تقطع الشارع من اليمين إلى اليسار (باتجاه لوجو HAUL) -->
+                    <div class="absolute bottom-1 sm:bottom-1.5 flex items-end animate-truck-cruise pointer-events-none">
+                        <svg viewBox="0 0 160 56" class="h-8 sm:h-9 w-auto overflow-visible" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <!-- حزمة ضوء المصباح الكاشف على الشارع -->
+                                <linearGradient id="truckHeadlightGlow" x1="1" y1="0.5" x2="0" y2="0.5">
+                                    <stop offset="0%" stop-color="#fef08a" stop-opacity="0.85" />
+                                    <stop offset="40%" stop-color="#38bdf8" stop-opacity="0.3" />
+                                    <stop offset="100%" stop-color="#38bdf8" stop-opacity="0" />
+                                </linearGradient>
+                            </defs>
+
+                            <!-- خطوط الهواء والسرعة خلف الشاحنة (على اليمين) -->
+                            <line x1="154" y1="20" x2="170" y2="20" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" class="animate-wind-1" opacity="0.7" />
+                            <line x1="156" y1="32" x2="168" y2="32" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" class="animate-wind-2" opacity="0.6" />
+
+                            <!-- حزمة ضوء المصباح الأمامي الكاشفة على الطريق جهة اليسار -->
+                            <polygon points="17,33 -32,20 -32,44 17,39" fill="url(#truckHeadlightGlow)" />
+
+                            <!-- مجسم الشاحنة مع أنميشن الاهتزاز الناعم أثناء السير -->
+                            <g class="animate-truck-body">
+                                <!-- مصد الشاصي السفلي -->
+                                <rect x="18" y="42" width="134" height="4" rx="2" fill="#18181b" />
+
+                                <!-- صندوق البضائع والشحن الخلفي (من x=54 إلى 152) -->
+                                <rect x="54" y="9" width="98" height="34" rx="6" fill="#09090b" stroke="#27272a" stroke-width="1.2" />
+                                <!-- شريط جمالي أزرق سماوي على الصندوق -->
+                                <rect x="60" y="24" width="86" height="4" rx="2" fill="#38bdf8" />
+                                <!-- نص HAUL على الصندوق -->
+                                <text x="103" y="20" fill="#ffffff" font-family="'Tajawal', sans-serif" font-weight="900" font-size="10.5" text-anchor="middle" letter-spacing="1.5">HAUL</text>
+                                <!-- شارة علامة الصح للتوصيل الموثوق -->
+                                <circle cx="70" cy="17" r="4.5" fill="#38bdf8" />
+                                <path d="M68 17 L69.5 18.5 L72.5 15.5" stroke="#09090b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+
+                                <!-- ضوء الفرامل الخلفي أحمر LED -->
+                                <rect x="151" y="34" width="3" height="6" rx="1.5" fill="#ef4444" />
+
+                                <!-- كابينة القيادة الأمامية العصرية (جهة اليسار نحو لوجو الموقع) -->
+                                <path d="M 54,16 L 33,16 C 27,16 21,21 18,27 L 14,35 C 13,37 12,40 12,43 L 54,43 Z" fill="#38bdf8" />
+                                <!-- زجاج النافذة الأمامي بلون جليدي سماوي ناعم -->
+                                <path d="M 50,20 L 34,20 C 30,20 26,23 24,28 L 20,36 L 50,36 Z" fill="#e0f2fe" opacity="0.95" />
+                                <!-- صورة السائق الظلية -->
+                                <circle cx="40" cy="27" r="3" fill="#0284c7" />
+
+                                <!-- المصباح الأمامي LED أصفر قوي -->
+                                <rect x="11.5" y="34.5" width="3.5" height="6.5" rx="1.5" fill="#fde047" />
+                            </g>
+
+                            <!-- العجلة الأمامية (يسار) تدور باستمرار -->
+                            <g transform="translate(35, 45)">
+                                <g class="animate-wheel">
+                                    <circle cx="0" cy="0" r="9" fill="#09090b" stroke="#38bdf8" stroke-width="2.5" />
+                                    <circle cx="0" cy="0" r="3" fill="#e0f2fe" />
+                                    <line x1="-6" y1="0" x2="6" y2="0" stroke="#38bdf8" stroke-width="1.2" />
+                                    <line x1="0" y1="-6" x2="0" y2="6" stroke="#38bdf8" stroke-width="1.2" />
+                                </g>
+                            </g>
+
+                            <!-- العجلة الخلفية (يمين) تدور باستمرار -->
+                            <g transform="translate(122, 45)">
+                                <g class="animate-wheel">
+                                    <circle cx="0" cy="0" r="9" fill="#09090b" stroke="#38bdf8" stroke-width="2.5" />
+                                    <circle cx="0" cy="0" r="3" fill="#e0f2fe" />
+                                    <line x1="-6" y1="0" x2="6" y2="0" stroke="#38bdf8" stroke-width="1.2" />
+                                    <line x1="0" y1="-6" x2="0" y2="6" stroke="#38bdf8" stroke-width="1.2" />
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
                 </div>
 
                 <!-- الزاوية الأخرى (يسار): شعار Haul مطابق تماماً لخط الصورة المرفقة -->
